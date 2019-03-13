@@ -14,6 +14,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
@@ -35,9 +36,12 @@ public class Main6Activity extends AppCompatActivity {
     private CallbackManager callbackManager;
 
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main6);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         loginButton = findViewById(R.id.login_button);
         txtName = findViewById(R.id.profile_name);
