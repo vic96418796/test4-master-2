@@ -11,7 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Main4Activity extends AppCompatActivity {
     private String[] Taiwan = new String[] {"台北","新北","桃園","新竹","苗栗","台中","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭"};
-    private String[] zone = new String[]{"台北地區","新北地區"};
+    private String[] zone = new String[]{"台北地區","新北地區","宜蘭地區"};
     private String[][] Taiwan_zone = new String[][]{{"台北地區","新北地區"},{"台北","新北","桃園","新竹","苗栗","台中","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭"}};
     private Spinner spinner1;
     private Spinner spinner2;
