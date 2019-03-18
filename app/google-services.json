@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "508305795776",
+    "firebase_url": "https://fooddesert-7165b.firebaseio.com",
+    "project_id": "fooddesert-7165b",
+    "storage_bucket": "fooddesert-7165b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508305795776:android:39edc59b7833da50",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508305795776-85l1b70dlem7fnpq7b3a0jq4shc2pf2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.test",
+            "certificate_hash": "90cce602d418c26e6136b84b9f00baaf03211e3c"
+          }
+        },
+        {
+          "client_id": "508305795776-42fsv0pj4gh55v3qhkn2nnnluos4s12h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkVB43N0P4cQSENwkQwDOOzF2uZ6H0HDw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508305795776-42fsv0pj4gh55v3qhkn2nnnluos4s12h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
