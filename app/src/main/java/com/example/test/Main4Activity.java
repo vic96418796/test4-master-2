@@ -4,10 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.content.Context;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.content.Intent;
 
 public class Main4Activity extends AppCompatActivity {
     private String[] Taiwan = new String[]{"基隆","台北","新北","桃園","新竹","苗栗","台中","南投","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭",
@@ -104,6 +106,23 @@ public class Main4Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+        ImageButton collection = findViewById(R.id.collection);
+        ImageButton account = findViewById(R.id.account);
+
+        collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Main4Activity.this,Main3Activity.class);
+                startActivity(intent);
+            }
+        });
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Main4Activity.this,Main7Activity.class);
+                startActivity(intent);
+            }
+        });
         context = this;
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Taiwan);
