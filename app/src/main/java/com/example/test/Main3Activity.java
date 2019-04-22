@@ -13,6 +13,7 @@ public class Main3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
         ImageButton account = findViewById(R.id.account);
         Button search = findViewById(R.id.search);
         account.setOnClickListener(new View.OnClickListener() {
@@ -29,5 +30,8 @@ public class Main3Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 }

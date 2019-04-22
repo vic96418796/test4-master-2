@@ -6,5 +6,8 @@
     <string name="fb_login_protocol_scheme">fb390010048214491</string>
     <string name="title_activity_main7">Main7Activity</string>
 
+    <string name="drawer_open">Drawer opened</string>
+    <string name="drawer_close">Drawer closed</string>
+
 
 </resources>
