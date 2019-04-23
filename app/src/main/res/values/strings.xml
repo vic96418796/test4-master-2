@@ -9,5 +9,8 @@
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
 
+    <drawable name="color1">#339966</drawable>
+    <drawable name="color2">#E3A9B8</drawable>
+
 
 </resources>

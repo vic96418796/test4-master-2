@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.content.Context;
@@ -90,6 +91,22 @@ public class Main4Activity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter2;
 
+    int a=0;
+    int b=0;
+    int c=0;
+    int d=0;
+    int e=0;
+    int f=0;
+    int g=0;
+    int h=0;
+    int i=0;
+    int j=0;
+    int k=0;
+    int l=0;
+    int m=0;
+    int n=0;
+    int o=0;
+
     private OnItemSelectedListener selectListner = new OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -110,6 +127,279 @@ public class Main4Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main4);
         ImageButton collection = findViewById(R.id.collection);
         ImageButton account = findViewById(R.id.account);
+
+        final Button tools = findViewById(R.id.tools);
+        if ( a == 0 ) {
+            tools.setSelected(false); }
+        else {
+            tools.setSelected(true); }
+        tools.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( a == 0 ) {
+                    tools.setSelected(true);
+                    a++;
+                }
+                else {
+                    tools.setSelected(false);
+                    a--;
+                }
+            }
+        });
+        final Button parking = findViewById(R.id.parking);
+        if ( b == 0 ) {
+            parking.setSelected(false); }
+        else {
+            parking.setSelected(true); }
+        parking.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( b == 0 ) {
+                    parking.setSelected(true);
+                    b++;
+                }
+                else {
+                    parking.setSelected(false);
+                    b--;
+                }
+            }
+        });
+        final Button sea = findViewById(R.id.sea);
+        if ( c == 0 ) {
+            sea.setSelected(false); }
+        else {
+            sea.setSelected(true); }
+        sea.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( c == 0 ) {
+                    sea.setSelected(true);
+                    c++;
+
+                }
+                else {
+                    sea.setSelected(false);
+                    c--;
+                }
+            }
+        });
+        final Button ticket = findViewById(R.id.ticket);
+        if ( d == 0 ) {
+            ticket.setSelected(false); }
+        else {
+            ticket.setSelected(true); }
+        ticket.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( d == 0 ) {
+                    ticket.setSelected(true);
+                    d++;
+                }
+                else {
+                    ticket.setSelected(false);
+                    d--;
+                }
+            }
+        });
+        final Button booking = findViewById(R.id.booking);
+        if ( e == 0 ) {
+            booking.setSelected(false); }
+        else {
+            booking.setSelected(true); }
+        booking.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( e == 0 ) {
+                    booking.setSelected(true);
+                    e++;
+                }
+                else {
+                    booking.setSelected(false);
+                    e--;
+                }
+            }
+        });
+        final Button animal = findViewById(R.id.animal);
+        if ( f == 0 ) {
+            animal.setSelected(false); }
+        else {
+            animal.setSelected(true); }
+        animal.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( f == 0 ) {
+                    animal.setSelected(true);
+                    f++;
+                }
+                else {
+                    animal.setSelected(false);
+                    f--;
+                }
+            }
+        });
+        final Button no_time_limit = findViewById(R.id.no_time_limit);
+        if ( g == 0 ) {
+            no_time_limit.setSelected(false); }
+        else {
+            no_time_limit.setSelected(true); }
+        no_time_limit.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( g == 0 ) {
+                    no_time_limit.setSelected(true);
+                    g++;
+                }
+                else {
+                    no_time_limit.setSelected(false);
+                    g--;
+                }
+            }
+        });
+        final Button wifi = findViewById(R.id.wifi);
+        if ( h == 0 ) {
+            wifi.setSelected(false); }
+        else {
+            wifi.setSelected(true); }
+        wifi.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( h == 0 ) {
+                    wifi.setSelected(true);
+                    h++;
+                }
+                else {
+                    wifi.setSelected(false);
+                    h--;
+                }
+            }
+        });
+        final Button socket = findViewById(R.id.socket);
+        if ( i == 0 ) {
+            socket.setSelected(false); }
+        else {
+            socket.setSelected(true); }
+        socket.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( i == 0 ) {
+                    socket.setSelected(true);
+                    i++;
+                }
+                else {
+                    socket.setSelected(false);
+                    i--;
+                }
+            }
+        });
+        final Button brunch = findViewById(R.id.brunch);
+        if ( j == 0 ) {
+            brunch.setSelected(false); }
+        else {
+            brunch.setSelected(true); }
+        brunch.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( j == 0 ) {
+                    brunch.setSelected(true);
+                    j++;
+                }
+                else {
+                    brunch.setSelected(false);
+                    j--;
+                }
+            }
+        });
+        final Button eat_for_good = findViewById(R.id.eat_for_good);
+        if ( k == 0 ) {
+            eat_for_good.setSelected(false); }
+        else {
+            eat_for_good.setSelected(true); }
+        eat_for_good.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( k == 0 ) {
+                    eat_for_good.setSelected(true);
+                    k++;
+                }
+                else {
+                    eat_for_good.setSelected(false);
+                    k--;
+                }
+            }
+        });
+        final Button aftertea = findViewById(R.id.aftertea);
+        if ( l == 0 ) {
+            aftertea.setSelected(false); }
+        else {
+            aftertea.setSelected(true); }
+        aftertea.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( l == 0 ) {
+                    aftertea.setSelected(true);
+                    l++;
+                }
+                else {
+                    aftertea.setSelected(false);
+                    l--;
+                }
+            }
+        });
+        final Button scene = findViewById(R.id.scene);
+        if ( m == 0 ) {
+            scene.setSelected(false); }
+        else {
+            scene.setSelected(true); }
+        scene.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( m == 0 ) {
+                    scene.setSelected(true);
+                    m++;
+                }
+                else {
+                    scene.setSelected(false);
+                    m--;
+                }
+            }
+        });
+        final Button pay_limit = findViewById(R.id.pay_limit);
+        if ( n == 0 ) {
+            pay_limit.setSelected(false); }
+        else {
+            pay_limit.setSelected(true); }
+        pay_limit.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( n == 0 ) {
+                    pay_limit.setSelected(true);
+                    n++;
+                }
+                else {
+                    pay_limit.setSelected(false);
+                    n--;
+                }
+            }
+        });
+        final Button dessert = findViewById(R.id.dessert);
+        if ( o == 0 ) {
+            dessert.setSelected(false); }
+        else {
+            dessert.setSelected(true); }
+        dessert.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( o == 0 ) {
+                    dessert.setSelected(true);
+                    o++;
+                }
+                else {
+                    dessert.setSelected(false);
+                    o--;
+                }
+            }
+        });
+
 
         collection.setOnClickListener(new View.OnClickListener() {
             @Override
