@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Toast;
 
 
 
@@ -33,13 +34,7 @@ public class email_login extends AppCompatActivity {
 
         Button login = findViewById(R.id.login);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(email_login.this,Main3Activity.class);
-                startActivity(intent);
-            }
-        });
+
 
         auth = FirebaseAuth.getInstance();
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -87,6 +82,13 @@ public class email_login extends AppCompatActivity {
                             Log.d("onComplete", "登入失敗");
                             register(email, password);
                         }
+                        else if(task.isSuccessful()){
+                            Intent intent = new Intent(email_login.this,Main3Activity.class);
+                            startActivity(intent);
+                            
+                        }
+
+
                     }
                 });
     }
