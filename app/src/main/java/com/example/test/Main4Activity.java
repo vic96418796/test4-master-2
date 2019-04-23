@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Intent;
 
+
 public class Main4Activity extends AppCompatActivity {
     private String[] Taiwan = new String[]{"基隆","台北","新北","桃園","新竹","苗栗","台中","南投","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭",
             "澎湖","金門","馬祖"};
@@ -93,8 +94,9 @@ public class Main4Activity extends AppCompatActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             int pos = spinner1.getSelectedItemPosition();
-            adapter2 = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,Taiwan_zone[pos]);
+            adapter2 = new ArrayAdapter<String>(context,R.layout.myspinner,Taiwan_zone[pos]);
             spinner2.setAdapter(adapter2);
+
         }
 
         @Override
@@ -125,13 +127,13 @@ public class Main4Activity extends AppCompatActivity {
         });
         context = this;
 
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Taiwan);
+        adapter = new ArrayAdapter<String>(this,R.layout.myspinner, Taiwan);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner1.setAdapter(adapter);
         spinner1.setOnItemSelectedListener(selectListner);
 
-        adapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, zone_台北);
+        adapter2 = new ArrayAdapter<String>(this,R.layout.myspinner, zone_台北);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         spinner2.setAdapter(adapter2);

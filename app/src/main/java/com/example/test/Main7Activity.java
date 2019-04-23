@@ -57,6 +57,8 @@ public class Main7Activity extends AppCompatActivity {
                 return false;
             }
         });
+
+
         ImageButton collection = findViewById(R.id.collection);
         Button logout = findViewById(R.id.logout);
 
