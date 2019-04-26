@@ -15,6 +15,15 @@ public class Main3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
 
         ImageButton account = findViewById(R.id.account);
+        ImageButton food4 = findViewById(R.id.food4);
+
+        food4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main3Activity.this,Main8Activity.class);
+                startActivity(intent);
+            }
+        });
         Button search = findViewById(R.id.search);
         account.setOnClickListener(new View.OnClickListener() {
             @Override

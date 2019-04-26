@@ -400,6 +400,29 @@ public class Main4Activity extends AppCompatActivity {
             }
         });
 
+        Button clean_all = findViewById(R.id.clean_all);
+
+        clean_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tools.setSelected(false);
+                parking.setSelected(false);
+                sea.setSelected(false);
+                ticket.setSelected(false);
+                booking.setSelected(false);
+                animal.setSelected(false);
+                no_time_limit.setSelected(false);
+                wifi.setSelected(false);
+                socket.setSelected(false);
+                brunch.setSelected(false);
+                eat_for_good.setSelected(false);
+                aftertea.setSelected(false);
+                scene.setSelected(false);
+                pay_limit.setSelected(false);
+                dessert.setSelected(false);
+            }
+        });
+
 
         collection.setOnClickListener(new View.OnClickListener() {
             @Override
