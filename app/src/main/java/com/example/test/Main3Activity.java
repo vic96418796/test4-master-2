@@ -16,6 +16,7 @@ public class Main3Activity extends AppCompatActivity {
 
         ImageButton account = findViewById(R.id.account);
         ImageButton food4 = findViewById(R.id.food4);
+        ImageButton map = findViewById(R.id.map);
 
         food4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +40,14 @@ public class Main3Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Main3Activity.this,MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
