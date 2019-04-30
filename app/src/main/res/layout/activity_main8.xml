@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#F7DADE"
+    android:background="#FFFEE6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main8Activity">
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:text="Taipei, Taiwan, 來唄咖啡"
         android:textAllCaps="true"
-        android:textColor="#339966"
-        android:textSize="35dp"
+        android:textColor="#182D2E"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -46,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="______________________"
+        android:text="────────────────"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -58,9 +58,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="台北市大同區民權西路139號"
-        android:textColor="#339966"
-        android:textSize="30dp"
+        android:text="地址:台北市大同區民權西路139號"
+        android:textColor="#182D2E"
+        android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -71,37 +71,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="☎(02)2595-1455"
-        android:textColor="#339966"
-        android:textSize="30dp"
+        android:text="電話:(02)2595-1455"
+        android:textColor="#182D2E"
+        android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintVertical_bias="0.52" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="營業時間：⏰
-        10:30-19:00週一公休"
-        android:textColor="#339966"
-        android:textSize="30dp"
+        android:text="營業時間：10:30-19:00週一公休"
+        android:textColor="#182D2E"
+        android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintHorizontal_bias="0.289"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F7DADE"
+        android:background="#FFFEE6"
         android:text="前往Instagram看更多照片"
-        android:textColor="#339966"
-        android:textSize="30dp"
+
+        android:textColor="#182D2E"
+        android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -112,10 +112,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F7DADE"
-        android:text="前往Facebook粉絲專業"
-        android:textColor="#339966"
-        android:textSize="30dp"
+        android:background="#FFFEE6"
+        android:text="前往Facebook粉絲專頁"
+        android:textColor="#182D2E"
+        android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -126,10 +126,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F7DADE"
+        android:background="#FFFEE6"
         android:text="幫我Google"
-        android:textColor="#339966"
-        android:textSize="30dp"
+        android:textColor="#182D2E"
+        android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -141,16 +141,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintHorizontal_bias="0.787"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916" />
+        app:layout_constraintVertical_bias="0.926" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="他媽的去過了啦"
+        android:text="去過了"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.438"

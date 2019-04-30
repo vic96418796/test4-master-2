@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F7DADE"
+    android:background="#FFFEE6"
     android:layout_height="match_parent"
     tools:context=".Main5Activity">
 
@@ -42,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         android:background="@drawable/btn_shape"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
