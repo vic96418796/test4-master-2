@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class Main3Activity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class Main3Activity extends AppCompatActivity {
         ImageButton account = findViewById(R.id.account);
         ImageButton food4 = findViewById(R.id.food4);
         ImageButton map = findViewById(R.id.map);
+
 
         food4.setOnClickListener(new View.OnClickListener() {
             @Override

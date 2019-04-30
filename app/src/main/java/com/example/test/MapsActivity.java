@@ -51,15 +51,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        double lat, lng;
+        LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // 設定定位資訊由 GPS提供
+        lat = location.getLatitude();  // 取得經度
+        lng = location.getLongitude(); // 取得緯度
+        LatLng HOME = new LatLng(lat, lng);
 
-
-        LatLng Taipei101 = new LatLng(25.033611, 121.56500);
-        zoom = 17;
-        mMap.addMarker(new MarkerOptions().position(Taipei101).title("台北101"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101, zoom));
-
-        LatLng Myhome = new LatLng(25.033705, 121.431425);
-        mMap.addMarker(new MarkerOptions().position(Myhome).title("我家"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(HOME, 15.0f));
 
         requestPermission();
     }
