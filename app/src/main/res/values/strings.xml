@@ -2,6 +2,9 @@
     <string name="app_name">Food Dessert</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="facebook_app_id">390010048214491</string>
     <string name="fb_login_protocol_scheme">fb390010048214491</string>
     <string name="title_activity_main7">Main7Activity</string>
