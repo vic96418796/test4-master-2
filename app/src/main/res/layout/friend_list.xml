@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".friend_list">
 
+
+
+
+
 </android.support.constraint.ConstraintLayout>
