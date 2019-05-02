@@ -9,7 +9,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     android:background="#FFFEE6"
-    tools:context=".Main3Activity"
+    tools:context=".main_interface"
     tools:openDrawer="start">
 
     <LinearLayout

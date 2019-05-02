@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Main8Activity extends AppCompatActivity {
+public class food_leibay extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main8);
+        setContentView(R.layout.food_leibay);
         Button leibay_google = findViewById(R.id.leibay_google);
         Button leibay_ig = findViewById(R.id.leibay_ig);
         Button leibay_fb = findViewById(R.id.leibay_fb);

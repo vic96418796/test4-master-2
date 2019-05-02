@@ -23,12 +23,11 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main6Activity extends AppCompatActivity {
+public class fb_login extends AppCompatActivity {
 
     private LoginButton loginButton;
     private CircleImageView circleImageView;
@@ -40,7 +39,7 @@ public class Main6Activity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main6);
+        setContentView(R.layout.fb_login);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         loginButton = findViewById(R.id.login_button);
@@ -81,7 +80,7 @@ public class Main6Activity extends AppCompatActivity {
                 txtName.setText("");
                 txtEmail.setText("");
                 circleImageView.setImageResource(0);
-                Toast.makeText(Main6Activity.this,"User Logged out",Toast.LENGTH_LONG).show();
+                Toast.makeText(fb_login.this,"User Logged out",Toast.LENGTH_LONG).show();
             }
             else {
                 loadUserProfile(currentAccessToken);
@@ -102,7 +101,7 @@ public class Main6Activity extends AppCompatActivity {
                     txtEmail.setText(email);
                     RequestOptions requestOptions = new RequestOptions();
                     requestOptions.dontAnimate();
-                    Glide.with(Main6Activity.this).load(image_url).into(circleImageView);
+                    Glide.with(fb_login.this).load(image_url).into(circleImageView);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
