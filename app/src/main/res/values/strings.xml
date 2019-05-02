@@ -12,8 +12,8 @@
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
 
-    <drawable name="color1">#C7D3C9</drawable>
-    <drawable name="color2">#8FB0A9</drawable>
+    <drawable name="color1">#FFD33F</drawable>
+    <drawable name="color2">#FFFEE6</drawable>
 
     <string name="幫我GOOGLE">https://www.walkerland.com.tw/article/view/147835</string>
     <string name="leibay_fb">https://www.facebook.com/leibaycafe/?__tn__=%2Cd%2CP-R&amp;eid=ARBZxEkb-NBizLYKoVYjaGPUGbx5sSPYEkF2ed1gF2YhxQ_B8wiefWAlNEu35aYIU77t4idqGQ0o7lPx</string>

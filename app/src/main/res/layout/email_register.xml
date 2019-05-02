@@ -45,7 +45,7 @@
         android:text="註冊"
         android:textSize="40dp"
         android:background="@drawable/btn_shape"
-        android:textColor="#182D2E"
+        android:textColor="#EE6C48"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
