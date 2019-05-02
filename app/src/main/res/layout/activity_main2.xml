@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7DADE"
+    android:background="#FFFEE6"
     tools:context=".Main2Activity"
 
 
@@ -44,7 +44,7 @@
         android:text="註冊"
         android:textSize="40dp"
         android:background="@drawable/btn_shape"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"

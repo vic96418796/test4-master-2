@@ -1,6 +1,6 @@
 package com.example.test;
 
-import android.support.annotation.NonNull;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.content.Intent;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
+
+import com.firebase.client.annotations.NotNull;
 
 public class Main7Activity extends AppCompatActivity {
 
@@ -37,7 +39,7 @@ public class Main7Activity extends AppCompatActivity {
 
         navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NotNull MenuItem menuItem) {
                 drawerLayout.closeDrawer(GravityCompat.START);
 
                 int id = menuItem.getItemId();
@@ -61,6 +63,7 @@ public class Main7Activity extends AppCompatActivity {
 
         ImageButton collection = findViewById(R.id.collection);
         Button logout = findViewById(R.id.logout);
+        ImageButton map = findViewById(R.id.map);
 
         collection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +81,12 @@ public class Main7Activity extends AppCompatActivity {
             }
         });
 
-
-
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Main7Activity.this,MapsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

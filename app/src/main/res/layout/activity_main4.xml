@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F7DADE"
+    android:background="#FFFEE6"
     android:layout_height="match_parent"
     tools:context=".Main4Activity">
 
@@ -27,7 +27,7 @@
         android:text="清除全部"
         android:textSize="20dp"
         android:background="@drawable/btn_shape"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -53,9 +53,9 @@
         android:id="@+id/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="可帶環保餐具"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.061"
@@ -68,9 +68,9 @@
         android:id="@+id/parking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="有車位"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.569"
@@ -83,9 +83,9 @@
         android:id="@+id/sea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="在海邊"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
@@ -98,9 +98,9 @@
         android:id="@+id/ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="要門票"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.386"
@@ -113,9 +113,9 @@
         android:id="@+id/booking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="要訂位"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
@@ -128,9 +128,9 @@
         android:id="@+id/animal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="動物友善"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.403"
@@ -140,12 +140,12 @@
         app:layout_constraintVertical_bias="0.288" />
 
     <Button
-        android:id="@+id/mo_time_limit"
+        android:id="@+id/no_time_limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="不限時"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.767"
@@ -158,9 +158,9 @@
         android:id="@+id/wifi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="有wifi"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
@@ -170,11 +170,12 @@
         app:layout_constraintVertical_bias="0.376" />
 
     <Button
+        android:id="@+id/socket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="有插座"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
@@ -182,7 +183,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.376" />
-
 
 
     <TextView
@@ -196,97 +196,97 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.456" />
 
     <Button
         android:id="@+id/brunch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="早午餐"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintVertical_bias="0.538" />
 
     <Button
         android:id="@+id/eat_for_good"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="吃到飽"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintVertical_bias="0.622" />
 
     <Button
-        android:id="@+id/afternoon_tea"
+        android:id="@+id/aftertea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="下午茶"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.522" />
+        app:layout_constraintVertical_bias="0.538" />
 
     <Button
         android:id="@+id/scene"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="景點"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintVertical_bias="0.622" />
 
     <Button
         android:id="@+id/pay_limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="低消"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.522" />
+        app:layout_constraintVertical_bias="0.538" />
 
     <Button
         android:id="@+id/dessert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_shape"
+        android:background="@drawable/btn_st"
         android:text="甜點"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintVertical_bias="0.622" />
 
 
 
@@ -340,7 +340,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/btn_shape"
-        android:textColor="#FEDFE1"
+        android:textColor="#182D2E"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.809" />
 
@@ -349,7 +349,7 @@
         android:id="@+id/account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F7DADE"
+        android:background="#FFFEE6"
         android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.893"
@@ -362,7 +362,7 @@
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F7DADE"
+        android:background="#FFFEE6"
         android:src="@drawable/map_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.53"
@@ -375,7 +375,7 @@
         android:id="@+id/collection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F7DADE"
+        android:background="#FFFEE6"
         android:src="@drawable/like"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.155"

@@ -2,12 +2,23 @@
     <string name="app_name">Food Dessert</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="facebook_app_id">390010048214491</string>
     <string name="fb_login_protocol_scheme">fb390010048214491</string>
     <string name="title_activity_main7">Main7Activity</string>
 
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
+
+    <drawable name="color1">#C7D3C9</drawable>
+    <drawable name="color2">#8FB0A9</drawable>
+
+    <string name="幫我GOOGLE">https://www.walkerland.com.tw/article/view/147835</string>
+    <string name="leibay_fb">https://www.facebook.com/leibaycafe/?__tn__=%2Cd%2CP-R&amp;eid=ARBZxEkb-NBizLYKoVYjaGPUGbx5sSPYEkF2ed1gF2YhxQ_B8wiefWAlNEu35aYIU77t4idqGQ0o7lPx</string>
+    <string name="leibay_ig">https://www.instagram.com/explore/locations/288833261519250/leibay-cafe/?hl=zh-tw</string>
+
 
 
 </resources>
