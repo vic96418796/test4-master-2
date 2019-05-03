@@ -125,8 +125,7 @@ public class search_label extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_label);
-        ImageButton collection = findViewById(R.id.collection);
-        ImageButton account = findViewById(R.id.account);
+
 
         final Button tools = findViewById(R.id.tools);
         if ( a == 0 ) {
@@ -424,20 +423,7 @@ public class search_label extends AppCompatActivity {
         });
 
 
-        collection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (search_label.this, main_interface.class);
-                startActivity(intent);
-            }
-        });
-        account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (search_label.this, profile.class);
-                startActivity(intent);
-            }
-        });
+
         context = this;
 
         adapter = new ArrayAdapter<String>(this,R.layout.myspinner, Taiwan);
