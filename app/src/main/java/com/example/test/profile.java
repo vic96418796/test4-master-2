@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.content.Intent;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+
+
 public class profile extends AppCompatActivity {
 
 
@@ -26,7 +30,7 @@ public class profile extends AppCompatActivity {
 
 
         ImageButton collection = findViewById(R.id.collection);
-        Button logout = findViewById(R.id.logout);
+        final Button logout = findViewById(R.id.logout);
         ImageButton map = findViewById(R.id.map);
 
         collection.setOnClickListener(new View.OnClickListener() {
@@ -40,8 +44,21 @@ public class profile extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent ( profile.this, login_interface.class);
-                startActivity(intent);
+                new AlertDialog.Builder(profile.this)
+                        .setTitle("登出")
+                        .setMessage("確定要登出嗎?")
+                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (logout.callOnClick()){
+                                    Intent intent = new Intent (profile.this, email_login.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消",null)
+                        .show();
+
             }
         });
 
