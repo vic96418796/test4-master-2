@@ -24,6 +24,9 @@
         <activity android:name=".main_interface" />
         <activity android:name=".email_login" />
         <activity android:name=".email_register" />
+        <activity android:name=".login_interface" />
+
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,7 +46,7 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".login_interface"
+            android:name=".welcomeactivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

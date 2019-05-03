@@ -45,12 +45,14 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(profile.this)
+                        .setIcon(R.mipmap.ic_launcher)
                         .setTitle("登出")
                         .setMessage("確定要登出嗎?")
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (logout.callOnClick()){
+
                                     Intent intent = new Intent (profile.this, email_login.class);
                                     startActivity(intent);
                                 }
