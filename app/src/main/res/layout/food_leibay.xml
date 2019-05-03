@@ -5,7 +5,7 @@
     android:background="#FFFEE6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main8Activity">
+    tools:context=".food_leibay">
 
     <ImageView
         android:layout_width="210dp"

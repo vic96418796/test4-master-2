@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.Intent;
 
 
-public class Main4Activity extends AppCompatActivity {
+public class search_label extends AppCompatActivity {
     private String[] Taiwan = new String[]{"基隆","台北","新北","桃園","新竹","苗栗","台中","南投","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭",
             "澎湖","金門","馬祖"};
     private String[] zone_基隆 = new String[]{"仁愛區","中正區","信義區","中山區","安樂區","暖暖區","七堵區"};
@@ -124,7 +124,7 @@ public class Main4Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main4);
+        setContentView(R.layout.search_label);
         ImageButton collection = findViewById(R.id.collection);
         ImageButton account = findViewById(R.id.account);
 
@@ -427,14 +427,14 @@ public class Main4Activity extends AppCompatActivity {
         collection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (Main4Activity.this,Main3Activity.class);
+                Intent intent = new Intent (search_label.this, main_interface.class);
                 startActivity(intent);
             }
         });
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (Main4Activity.this,Main7Activity.class);
+                Intent intent = new Intent (search_label.this, profile.class);
                 startActivity(intent);
             }
         });

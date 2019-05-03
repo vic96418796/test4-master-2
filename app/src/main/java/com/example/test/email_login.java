@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -87,7 +86,7 @@ public class email_login extends AppCompatActivity {
                         else if(task.isSuccessful()){
 
                             Toast.makeText(email_login.this,"登入成功",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(email_login.this,Main3Activity.class);
+                            Intent intent = new Intent(email_login.this, main_interface.class);
                             startActivity(intent);
 
 

@@ -16,14 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main8Activity"></activity>
-        <activity android:name=".Main7Activity" />
-        <activity android:name=".Main6Activity" />
-        <activity android:name=".Main5Activity" />
-        <activity android:name=".Main4Activity" />
-        <activity android:name=".Main3Activity" />
+        <activity android:name=".friend_list"></activity>
+        <activity android:name=".food_leibay" />
+        <activity android:name=".profile" />
+        <activity android:name=".fb_login" />
+        <activity android:name=".search_label" />
+        <activity android:name=".main_interface" />
         <activity android:name=".email_login" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".email_register" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,7 +42,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".login_interface"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
