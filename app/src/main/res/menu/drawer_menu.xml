@@ -4,29 +4,30 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_friend1"
-            android:icon="@drawable/ic_profile"
-            android:title="friend1" />
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/like"
+            android:title="我的收藏" />
         <item
-            android:id="@+id/nav_friend2"
-            android:icon="@drawable/ic_profile"
-            android:title="friend2" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profile"
+            android:title="個人資料" />
         <item
-            android:id="@+id/nav_friend3"
-            android:icon="@drawable/ic_profile"
-            android:title="friend3" />
+            android:id="@+id/nav_maps"
+            android:icon="@drawable/map_location"
+            android:title="我的地圖" />
     </group>
 
     <item android:title="Interaction">
         <menu>
             <item
-                android:id="@+id/nav_add"
+                android:id="@+id/nav_friend"
                 android:icon="@drawable/ic_profile"
-                android:title="Add a new friend" />
+                android:title="好友列表" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_share"
-                android:title="share" />
+                android:title="分享地圖" />
+
         </menu>
     </item>
 </menu>

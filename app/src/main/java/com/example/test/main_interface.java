@@ -35,9 +35,9 @@ public class main_interface extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        ImageButton account = findViewById(R.id.account);
+
         ImageButton food4 = findViewById(R.id.food4);
-        ImageButton map = findViewById(R.id.map);
+
 
 
 
@@ -49,13 +49,7 @@ public class main_interface extends AppCompatActivity {
             }
         });
         Button search = findViewById(R.id.search);
-        account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (main_interface.this, profile.class);
-                startActivity(intent);
-            }
-        });
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,13 +57,7 @@ public class main_interface extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (main_interface.this,MapsActivity.class);
-                startActivity(intent);
-            }
-        });
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigation_view = (NavigationView) findViewById(R.id.nav_view);
 
@@ -78,8 +66,18 @@ public class main_interface extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
-                if (id == R.id.nav_add) {
+                if (id == R.id.nav_friend) {
                     Intent intent = new Intent(main_interface.this,friend_list.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_profile) {
+                    Intent intent = new Intent(main_interface.this,profile.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_maps) {
+                    Intent intent = new Intent(main_interface.this,MapsActivity.class);
                     startActivity(intent);
                     return true;
                 }

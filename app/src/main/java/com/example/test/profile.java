@@ -2,20 +2,35 @@ package com.example.test;
 
 
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+
 import android.content.Intent;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.widget.TextView;
+
+import com.firebase.client.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 
 
-public class profile extends AppCompatActivity {
-
+public class profile extends AppCompatActivity implements set_profile.set_profileListener{
+    private DrawerLayout drawer;
+    private NavigationView navigation_view;
+    private TextView textViewUsername;
+    private TextView textViewUsermail;
+    private Button set;
 
 
     @Override
@@ -27,19 +42,42 @@ public class profile extends AppCompatActivity {
 
 
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer, toolbar,  R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        ImageButton collection = findViewById(R.id.collection);
-        final Button logout = findViewById(R.id.logout);
-        ImageButton map = findViewById(R.id.map);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigation_view = (NavigationView) findViewById(R.id.nav_view);
 
-        collection.setOnClickListener(new View.OnClickListener() {
+        navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (profile.this, main_interface.class);
-                startActivity(intent);
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                drawer.closeDrawer(GravityCompat.START);
+                int id = menuItem.getItemId();
+                if (id == R.id.nav_friend) {
+                    Intent intent = new Intent(profile.this,friend_list.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_maps) {
+                    Intent intent = new Intent(profile.this,MapsActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_favorite) {
+                    Intent intent = new Intent(profile.this,main_interface.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
             }
         });
+        final Button logout = findViewById(R.id.logout);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +101,37 @@ public class profile extends AppCompatActivity {
 
             }
         });
-
-        map.setOnClickListener(new View.OnClickListener() {
+        textViewUsername = (TextView) findViewById(R.id.user_name);
+        Button set = findViewById(R.id.set);
+        set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (profile.this,MapsActivity.class);
-                startActivity(intent);
+                openDialog();
             }
         });
+
+
+    }
+    public void openDialog() {
+        set_profile set_profile = new set_profile();
+        set_profile.show(getSupportFragmentManager(),"set_profile");
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.isDrawerOpen(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+
+    }
+
+    @Override
+    public void applyTexts(String user_name) {
+        textViewUsername.setText(user_name);
+
     }
 }
