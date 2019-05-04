@@ -85,9 +85,12 @@ public class email_login extends AppCompatActivity {
                         }
                         else if(task.isSuccessful()){
 
+
+                            email_login.this.finish();
                             Toast.makeText(email_login.this,"登入成功",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(email_login.this, main_interface.class);
                             startActivity(intent);
+
 
 
 

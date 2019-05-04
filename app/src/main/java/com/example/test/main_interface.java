@@ -13,6 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.support.v7.widget.Toolbar;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.KeyEvent;
 
 public class main_interface extends AppCompatActivity {
     private DrawerLayout drawer;
@@ -93,4 +98,25 @@ public class main_interface extends AppCompatActivity {
 
 
     }
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            new AlertDialog.Builder(main_interface.this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle("確認視窗")
+                    .setMessage("確定要登出嗎?")
+                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(main_interface.this, email_login.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("取消",null)
+                    .show();
+        }
+        return true;
+
+    }
+
 }
