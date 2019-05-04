@@ -88,6 +88,7 @@ public class friend_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openDialog();
+
             }
         });
 
@@ -95,6 +96,7 @@ public class friend_list extends AppCompatActivity {
     public void openDialog() {
         add_dialog add_dialog = new add_dialog();
         add_dialog.show(getSupportFragmentManager(),"Add friend");
+
 
     }
     @Override

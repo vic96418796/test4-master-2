@@ -21,16 +21,14 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
+
 
 
 public class profile extends AppCompatActivity implements set_profile.set_profileListener{
     private DrawerLayout drawer;
     private NavigationView navigation_view;
     private TextView textViewUsername;
-    private TextView textViewUsermail;
-    private Button set;
+
 
 
     @Override

@@ -23,6 +23,7 @@ public class set_profile extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.set_profile,null);
         builder.setView(view)
+                .setIcon(R.mipmap.ic_launcher)
                 .setTitle("設定")
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
