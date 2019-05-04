@@ -17,10 +17,31 @@ import android.widget.Button;
 public class food_leibay extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigation_view;
+    int a = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_leibay);
+
+        final Button pass = findViewById(R.id.pass);
+        if ( a == 0 ) {
+            pass.setSelected(false); }
+        else {
+            pass.setSelected(true); }
+        pass.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( a == 0 ) {
+                    pass.setSelected(true);
+                    a++;
+                }
+                else {
+                    pass.setSelected(false);
+                    a--;
+                }
+            }
+        });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -64,7 +85,7 @@ public class food_leibay extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
-                if (id == R.id.nav_add) {
+                if (id == R.id.nav_friend) {
                     Intent intent = new Intent(food_leibay.this,friend_list.class);
                     startActivity(intent);
                     return true;

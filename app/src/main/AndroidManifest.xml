@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".friend_list"></activity>
+        <activity android:name=".friend_list" />
         <activity android:name=".food_leibay" />
         <activity android:name=".profile" />
         <activity android:name=".fb_login" />
@@ -25,8 +25,6 @@
         <activity android:name=".email_login" />
         <activity android:name=".email_register" />
         <activity android:name=".login_interface" />
-
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

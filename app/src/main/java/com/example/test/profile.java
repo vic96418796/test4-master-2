@@ -19,17 +19,28 @@ import android.content.Intent;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 
 
-public class profile extends AppCompatActivity {
+public class profile extends AppCompatActivity implements set_profile.set_profileListener{
     private DrawerLayout drawer;
     private NavigationView navigation_view;
+    private TextView textViewUsername;
+    private TextView textViewUsermail;
+    private Button set;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,7 +59,7 @@ public class profile extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
-                if (id == R.id.nav_add) {
+                if (id == R.id.nav_friend) {
                     Intent intent = new Intent(profile.this,friend_list.class);
                     startActivity(intent);
                     return true;
@@ -90,9 +101,23 @@ public class profile extends AppCompatActivity {
 
             }
         });
+        textViewUsername = (TextView) findViewById(R.id.user_name);
+        Button set = findViewById(R.id.set);
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
 
     }
+    public void openDialog() {
+        set_profile set_profile = new set_profile();
+        set_profile.show(getSupportFragmentManager(),"set_profile");
+
+    }
+
     @Override
     public void onBackPressed(){
         if(drawer.isDrawerOpen(GravityCompat.START)){
@@ -101,6 +126,12 @@ public class profile extends AppCompatActivity {
             super.onBackPressed();
         }
 
+
+    }
+
+    @Override
+    public void applyTexts(String user_name) {
+        textViewUsername.setText(user_name);
 
     }
 }

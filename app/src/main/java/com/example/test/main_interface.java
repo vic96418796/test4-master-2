@@ -61,7 +61,7 @@ public class main_interface extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
-                if (id == R.id.nav_add) {
+                if (id == R.id.nav_friend) {
                     Intent intent = new Intent(main_interface.this,friend_list.class);
                     startActivity(intent);
                     return true;
