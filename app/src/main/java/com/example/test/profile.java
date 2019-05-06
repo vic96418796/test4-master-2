@@ -58,7 +58,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_friend) {
-                    Intent intent = new Intent(profile.this,friend_list.class);
+                    Intent intent = new Intent(profile.this, FriendList.class);
                     startActivity(intent);
                     return true;
                 }
@@ -69,6 +69,11 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                 }
                 if (id == R.id.nav_favorite) {
                     Intent intent = new Intent(profile.this,main_interface.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_restaurant) {
+                    Intent intent = new Intent( profile.this,RestaurantList.class);
                     startActivity(intent);
                     return true;
                 }

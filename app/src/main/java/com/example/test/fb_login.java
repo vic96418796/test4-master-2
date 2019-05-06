@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -99,8 +98,8 @@ public class fb_login extends AppCompatActivity {
                     String image_url = object.getString("http://graph.facebook.com/"+id+ "/picture?type=normal");
                     txtName.setText((first_name+" "+last_name));
                     txtEmail.setText(email);
-                    RequestOptions requestOptions = new RequestOptions();
-                    requestOptions.dontAnimate();
+//                    RequestOptions requestOptions = new RequestOptions();
+//                    requestOptions.dontAnimate();
                     Glide.with(fb_login.this).load(image_url).into(circleImageView);
                 } catch (JSONException e) {
                     e.printStackTrace();

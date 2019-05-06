@@ -13,10 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.support.v7.widget.Toolbar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.KeyEvent;
 
 public class main_interface extends AppCompatActivity {
@@ -67,7 +65,7 @@ public class main_interface extends AppCompatActivity {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_friend) {
-                    Intent intent = new Intent(main_interface.this,friend_list.class);
+                    Intent intent = new Intent(main_interface.this, FriendList.class);
                     startActivity(intent);
                     return true;
                 }
@@ -78,6 +76,11 @@ public class main_interface extends AppCompatActivity {
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(main_interface.this,MapsActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_restaurant) {
+                    Intent intent = new Intent( main_interface.this,RestaurantList.class);
                     startActivity(intent);
                     return true;
                 }

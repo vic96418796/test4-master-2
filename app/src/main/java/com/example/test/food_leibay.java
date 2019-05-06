@@ -86,7 +86,7 @@ public class food_leibay extends AppCompatActivity {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_friend) {
-                    Intent intent = new Intent(food_leibay.this,friend_list.class);
+                    Intent intent = new Intent(food_leibay.this, FriendList.class);
                     startActivity(intent);
                     return true;
                 }
@@ -102,6 +102,11 @@ public class food_leibay extends AppCompatActivity {
                 }
                 if (id == R.id.nav_favorite) {
                     Intent intent = new Intent(food_leibay.this,main_interface.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if (id == R.id.nav_restaurant) {
+                    Intent intent = new Intent( food_leibay.this,RestaurantList.class);
                     startActivity(intent);
                     return true;
                 }

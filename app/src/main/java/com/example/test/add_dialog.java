@@ -35,10 +35,10 @@ public class add_dialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String edit_friend_email = editeTextFriend_id.getText().toString();
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        Map<String, Object> friend = new HashMap<>();
-                        friend.put("friend_id", edit_friend_email);
-                        db.collection("friend")
-                                .add(friend);
+                        Map<String, Object> Friend = new HashMap<>();
+                        Friend.put("Friend_id", edit_friend_email);
+                        db.collection("Friend")
+                                .add(Friend);
                     }
                 });
 

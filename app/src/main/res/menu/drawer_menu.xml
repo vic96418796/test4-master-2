@@ -15,6 +15,10 @@
             android:id="@+id/nav_maps"
             android:icon="@drawable/map_location"
             android:title="我的地圖" />
+        <item
+            android:id="@+id/nav_restaurant"
+            android:icon="@drawable/ic_chat"
+            android:title="全部餐廳" />
     </group>
 
     <item android:title="Interaction">

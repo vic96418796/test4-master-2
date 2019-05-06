@@ -30,20 +30,32 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_friend"
-                    android:layout_below="@+id/add"
+                <EditText
+                    android:id="@+id/search_edittext"
+                    android:textColorHint="#B4C0B4"
+                    android:textSize="30dp"
+                    android:textStyle="italic"
+                    android:padding="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint=" 搜尋餐廳 "/>
 
                 <Button
-                    android:id="@+id/add"
+                    android:id="@+id/search_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="300dp"
-                    android:text="新增"
+                    android:background="@drawable/btn_shape"
+                    android:text=" 搜尋 "
+                    android:textColor="#EE6C48"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginLeft="320dp"
                     android:textSize="30dp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_restaurant"
+                    android:layout_below="@+id/search_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
             </RelativeLayout>
 
 
