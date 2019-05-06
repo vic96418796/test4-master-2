@@ -1,5 +1,6 @@
 package com.example.test;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -62,6 +63,19 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 .load(picReference)
                 .into(holder.restaurant_image);
 
+        final String restaurant_id = RestaurantList.get(position).restaurantId;
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent();
+                intent.setClass(context,RestaurantInformation.class);
+                intent.putExtra("RestaurantId", restaurant_id);
+                Log.d(TAG,"Id: "+restaurant_id);
+                context.startActivity(intent);
+
+            }
+        });
 
     }
     @Override

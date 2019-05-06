@@ -34,7 +34,7 @@
                     android:id="@+id/search_edittext"
                     android:textColorHint="#B4C0B4"
                     android:textSize="30dp"
-                    android:textStyle="italic"
+                    android:textStyle="normal"
                     android:padding="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
