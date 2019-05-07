@@ -90,7 +90,7 @@ public class FriendList extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(FriendList.this,main_interface.class);
+                    Intent intent = new Intent(FriendList.this, favotire_main_interface.class);
                     startActivity(intent);
                     return true;
                 }

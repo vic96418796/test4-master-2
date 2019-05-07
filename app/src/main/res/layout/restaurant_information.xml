@@ -10,7 +10,6 @@
     android:background="#FFFEE6"
     tools:openDrawer="start"
     tools:context=".FriendList" >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,7 +22,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -32,7 +30,6 @@
                 android:layout_height="match_parent"
                 android:background="#FFFEE6"
                 tools:context=".RestaurantInformation">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,14 +38,15 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/restaurant_name"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
                         android:text="餐廳名稱"
-                        android:textSize="22dp"
-                        android:layout_gravity="center"
+                        android:textSize="25dp"
                         android:textColor="#000000"
                         android:gravity="center"/>
                     <View
@@ -75,11 +73,13 @@
                         android:textSize="20dp"
                         android:textColor="#FF0000"
                         android:text="餐廳地址"/>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_margin="10dp"
                         android:background="#FF8800" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -88,61 +88,68 @@
                             android:id="@+id/restaurant_phone"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_margin="10dp"
+                            android:layout_margin="5dp"
                             android:text="餐廳電話"
                             android:textColor="#000000"
-                            android:textSize="25dp" />
+                            android:textSize="20dp"
+                            android:autoLink="all"/>
                         <TextView
                             android:id="@+id/restaurant_time"
                             android:layout_below="@+id/restaurant_phone"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_margin="10dp"
+                            android:layout_margin="5dp"
                             android:text="餐廳時間"
                             android:textColor="#000000"
-                            android:textSize="25dp" />
-
-                        <Button
-                            android:gravity="center"
-                            android:id="@+id/restaurant_fb"
+                            android:textSize="20dp"
+                            android:autoLink="all"/>
+                        <TextView
+                            android:gravity="left"
+                            android:id="@+id/restaurant_google"
                             android:layout_below="@+id/restaurant_time"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="#FFFEE6"
-                            android:text="查看 Facebook 粉絲專頁"
-                            android:textAllCaps="false"
-                            android:textColor="#000000"
-                            android:textSize="25dp" />
-                        <Button
-                            android:gravity="center"
-                            android:id="@+id/restaurant_ig"
-                            android:layout_below="@+id/restaurant_fb"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="#FFFEE6"
-                            android:text="查看 Instagram 更多照片"
-                            android:textAllCaps="false"
-                            android:textColor="#000000"
-                            android:textSize="25dp" />
-                        <Button
-                            android:gravity="center"
-                            android:id="@+id/restaurant_google"
-                            android:layout_below="@+id/restaurant_ig"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="33dp"
                             android:background="#FFFEE6"
                             android:text="幫我 Google"
                             android:textAllCaps="false"
                             android:textColor="#000000"
-                            android:textSize="25dp" />
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textSize="20dp"
+                            android:autoLink="web"/>
+                        <TextView
+                            android:gravity="left"
+                            android:id="@+id/restaurant_fb"
+                            android:layout_below="@+id/restaurant_google"
+                            android:layout_width="match_parent"
+                            android:layout_height="33dp"
+                            android:background="#FFFEE6"
+                            android:text="查看 Facebook 粉絲專頁"
+                            android:textAllCaps="false"
+                            android:textColor="#000000"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textSize="20dp"
+                            android:autoLink="web"/>
+                        <TextView
+                            android:gravity="left"
+                            android:id="@+id/restaurant_ig"
+                            android:layout_below="@+id/restaurant_fb"
+                            android:layout_width="match_parent"
+                            android:layout_height="33dp"
+                            android:background="#FFFEE6"
+                            android:text="查看 Instagram 更多照片"
+                            android:textAllCaps="false"
+                            android:textColor="#000000"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textSize="20dp"
+                            android:autoLink="web"/>
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
-
-
         </FrameLayout>
     </LinearLayout>
-
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -150,7 +157,5 @@
         android:id="@+id/nav_view"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu">
-
     </android.support.design.widget.NavigationView>
-
 </android.support.v4.widget.DrawerLayout>

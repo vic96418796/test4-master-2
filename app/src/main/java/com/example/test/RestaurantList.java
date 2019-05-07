@@ -12,8 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -32,10 +31,13 @@ public class RestaurantList extends AppCompatActivity {
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
     private String userId;
+    int a = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_list);
+
+
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -89,7 +91,7 @@ public class RestaurantList extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(RestaurantList.this,main_interface.class);
+                    Intent intent = new Intent(RestaurantList.this, favotire_main_interface.class);
                     startActivity(intent);
                     return true;
                 }

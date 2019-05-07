@@ -68,7 +68,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(profile.this,main_interface.class);
+                    Intent intent = new Intent(profile.this, favotire_main_interface.class);
                     startActivity(intent);
                     return true;
                 }

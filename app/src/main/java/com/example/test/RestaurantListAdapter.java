@@ -8,6 +8,8 @@ import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -29,6 +31,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import java.util.List;
+
+
+
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
     private static final String TAG = "TEST";
     public FirebaseAuth firebaseAuth;
@@ -39,6 +44,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public String date;
     private FirebaseAuth auth;
     private String userId;
+    int a = 0;
+
     public RestaurantListAdapter(Context applicationContext, List<Restaurant> RestaurantList) {
         this.RestaurantList = RestaurantList;
         this.context = context;
@@ -52,7 +59,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return new ViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.restaurant_id.setText(RestaurantList.get(position).getRestaurant_id());
         holder.restaurant_add.setText(RestaurantList.get(position).getRestaurant_add());
         String Image =RestaurantList.get(position).getRestaurant_image();
@@ -76,6 +83,13 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
             }
         });
+        //按鈕變色
+        holder.restaurant_like.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.restaurant_like.setImageDrawable(context.getDrawable(R.drawable.love));
+            }
+        });
 
     }
     @Override
@@ -87,12 +101,15 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         public TextView restaurant_id;
         public TextView restaurant_add;
         public ImageView restaurant_image;
+        public ImageButton restaurant_like;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             restaurant_id = (TextView)mView.findViewById(R.id.restaurant_id);
             restaurant_add = (TextView)mView.findViewById(R.id.restaurant_add);
             restaurant_image = (ImageView)mView.findViewById(R.id.restaurant_image);
+            restaurant_like = (ImageButton)mView.findViewById(R.id.restaurant_like);
         }
     }
 }

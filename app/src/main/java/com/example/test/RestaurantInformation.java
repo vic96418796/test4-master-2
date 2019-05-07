@@ -1,23 +1,18 @@
 package com.example.test;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.w3c.dom.Text;
-
 public class RestaurantInformation extends AppCompatActivity {
 
     private static final String TAG ="Products";
@@ -41,9 +34,9 @@ public class RestaurantInformation extends AppCompatActivity {
     public TextView restaurantPhone;
     public TextView restaurantTime;
     public ImageView restaurantImage;
-    public Button restaurantFB;
-    public Button restaurantIG;
-    public Button restaurantGOOGLE;
+    public TextView restaurantFB;
+    public TextView restaurantIG;
+    public TextView restaurantGOOGLE;
 
 
     private DrawerLayout drawer;
@@ -62,9 +55,9 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
         restaurantImage=(ImageView) findViewById(R.id.restaurant_image);
         restaurantTime=(TextView) findViewById(R.id.restaurant_time);
-        restaurantFB=(Button) findViewById(R.id.restaurant_fb);
-        restaurantIG=(Button) findViewById(R.id.restaurant_ig);
-        restaurantGOOGLE=(Button) findViewById(R.id.restaurant_google);
+        restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
+        restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
+        restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
 
 
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -84,15 +77,15 @@ public class RestaurantInformation extends AppCompatActivity {
                                 .using(new FirebaseImageLoader())
                                 .load(picReference)
                                 .into(restaurantImage);
-
-                        restaurantFB.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Uri uri = Uri.parse("https://www.facebook.com/leibaycafe/?__tn__=%2Cd%2CP-R&eid=ARDEUskerrvj-PzoEFgBM5RKZ0Rv8GMqwHHdcwvxbGKFLyX82WpqMoZwO_ytypq_T6z2S73_vDD7F6xt");
-                                Intent web = new Intent(Intent.ACTION_VIEW,uri);
-                                startActivity(web);
-                            }
-                        });
+                        restaurantFB.setText(document.get("Restaurant_fb").toString());
+                        restaurantFB.setMovementMethod(LinkMovementMethod.getInstance());
+                        restaurantFB.setAutoLinkMask(Linkify.WEB_URLS);
+                        restaurantIG.setText(document.get("Restaurant_ig").toString());
+                        restaurantIG.setMovementMethod(LinkMovementMethod.getInstance());
+                        restaurantIG.setAutoLinkMask(Linkify.WEB_URLS);
+                        restaurantGOOGLE.setText(document.get("Restaurant_google").toString());
+                        restaurantGOOGLE.setMovementMethod(LinkMovementMethod.getInstance());
+                        restaurantGOOGLE.setAutoLinkMask(Linkify.WEB_URLS);
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -127,7 +120,7 @@ public class RestaurantInformation extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(RestaurantInformation.this,main_interface.class);
+                    Intent intent = new Intent(RestaurantInformation.this, favotire_main_interface.class);
                     startActivity(intent);
                     return true;
                 }

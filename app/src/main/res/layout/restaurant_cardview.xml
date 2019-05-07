@@ -35,6 +35,7 @@
             android:layout_toRightOf="@id/restaurant_image"
             android:layout_toEndOf="@+id/restaurant_image"
             android:layout_marginTop="10dp">
+
             <TextView
                 android:id="@+id/restaurant_id"
                 android:textColor="#000000"
@@ -44,8 +45,15 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                />
+                android:layout_marginStart="10dp" />
+
+            <ImageButton
+                android:id="@+id/restaurant_like"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="130dp"
+                android:src="@drawable/non_love"
+                android:background="#FFFFFF" />
             <TextView
                 android:id="@+id/restaurant_add"
                 android:textColor="#000000"
@@ -55,8 +63,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="80dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                />
+                android:layout_marginStart="10dp" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
