@@ -15,7 +15,7 @@ import android.content.Intent;
 
 public class search_label extends AppCompatActivity {
     private String[] Taiwan = new String[]{"基隆","台北","新北","桃園","新竹","苗栗","台中","南投","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭",
-            "澎湖","金門","馬祖"};
+            "澎湖","金門","連江"};
     private String[] zone_基隆 = new String[]{"仁愛區","中正區","信義區","中山區","安樂區","暖暖區","七堵區"};
     private String[] zone_台北 = new String[]{"中正區","大同區","中山區","松山區","大安區","萬華區","信義區","士林區","北投區","內湖區","南港區","文山區"};
     private String[] zone_新北 = new String[]{"板橋區","新莊區","中和區","永和區","土城區","樹林區","三峽區","鶯歌區","三重區","蘆洲區","五股區","泰山區","林口區",
@@ -127,97 +127,6 @@ public class search_label extends AppCompatActivity {
         setContentView(R.layout.search_label);
 
 
-        final Button tools = findViewById(R.id.tools);
-        if ( a == 0 ) {
-            tools.setSelected(false); }
-        else {
-            tools.setSelected(true); }
-        tools.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( a == 0 ) {
-                    tools.setSelected(true);
-                    a++;
-                }
-                else {
-                    tools.setSelected(false);
-                    a--;
-                }
-            }
-        });
-        final Button parking = findViewById(R.id.parking);
-        if ( b == 0 ) {
-            parking.setSelected(false); }
-        else {
-            parking.setSelected(true); }
-        parking.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( b == 0 ) {
-                    parking.setSelected(true);
-                    b++;
-                }
-                else {
-                    parking.setSelected(false);
-                    b--;
-                }
-            }
-        });
-        final Button sea = findViewById(R.id.sea);
-        if ( c == 0 ) {
-            sea.setSelected(false); }
-        else {
-            sea.setSelected(true); }
-        sea.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( c == 0 ) {
-                    sea.setSelected(true);
-                    c++;
-
-                }
-                else {
-                    sea.setSelected(false);
-                    c--;
-                }
-            }
-        });
-        final Button ticket = findViewById(R.id.ticket);
-        if ( d == 0 ) {
-            ticket.setSelected(false); }
-        else {
-            ticket.setSelected(true); }
-        ticket.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( d == 0 ) {
-                    ticket.setSelected(true);
-                    d++;
-                }
-                else {
-                    ticket.setSelected(false);
-                    d--;
-                }
-            }
-        });
-        final Button booking = findViewById(R.id.booking);
-        if ( e == 0 ) {
-            booking.setSelected(false); }
-        else {
-            booking.setSelected(true); }
-        booking.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( e == 0 ) {
-                    booking.setSelected(true);
-                    e++;
-                }
-                else {
-                    booking.setSelected(false);
-                    e--;
-                }
-            }
-        });
         final Button animal = findViewById(R.id.animal);
         if ( f == 0 ) {
             animal.setSelected(false); }
@@ -308,24 +217,7 @@ public class search_label extends AppCompatActivity {
                 }
             }
         });
-        final Button eat_for_good = findViewById(R.id.eat_for_good);
-        if ( k == 0 ) {
-            eat_for_good.setSelected(false); }
-        else {
-            eat_for_good.setSelected(true); }
-        eat_for_good.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( k == 0 ) {
-                    eat_for_good.setSelected(true);
-                    k++;
-                }
-                else {
-                    eat_for_good.setSelected(false);
-                    k--;
-                }
-            }
-        });
+
         final Button aftertea = findViewById(R.id.aftertea);
         if ( l == 0 ) {
             aftertea.setSelected(false); }
@@ -344,24 +236,7 @@ public class search_label extends AppCompatActivity {
                 }
             }
         });
-        final Button scene = findViewById(R.id.scene);
-        if ( m == 0 ) {
-            scene.setSelected(false); }
-        else {
-            scene.setSelected(true); }
-        scene.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( m == 0 ) {
-                    scene.setSelected(true);
-                    m++;
-                }
-                else {
-                    scene.setSelected(false);
-                    m--;
-                }
-            }
-        });
+
         final Button pay_limit = findViewById(R.id.pay_limit);
         if ( n == 0 ) {
             pay_limit.setSelected(false); }
@@ -404,19 +279,15 @@ public class search_label extends AppCompatActivity {
         clean_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tools.setSelected(false);
-                parking.setSelected(false);
-                sea.setSelected(false);
-                ticket.setSelected(false);
-                booking.setSelected(false);
+
                 animal.setSelected(false);
                 no_time_limit.setSelected(false);
                 wifi.setSelected(false);
                 socket.setSelected(false);
                 brunch.setSelected(false);
-                eat_for_good.setSelected(false);
+
                 aftertea.setSelected(false);
-                scene.setSelected(false);
+
                 pay_limit.setSelected(false);
                 dessert.setSelected(false);
             }

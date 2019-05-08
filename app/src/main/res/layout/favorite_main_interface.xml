@@ -52,6 +52,7 @@
                         android:layout_marginLeft="265dp"
                         android:textSize="30dp" />
                 <View
+                    android:id="@+id/view"
                     android:layout_below="@+id/favorite"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
@@ -59,8 +60,9 @@
                     android:background="#FF8800" />
 
                 <android.support.v7.widget.RecyclerView
+
                     android:id="@+id/recyclerView_restaurant"
-                    android:layout_below="@+id/favorite"
+                    android:layout_below="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />

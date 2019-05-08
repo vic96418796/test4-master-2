@@ -37,8 +37,9 @@
             android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/restaurant_id"
-                android:textColor="#000000"
+
+                android:id="@+id/restaurant_name"
+                android:textColor="#FF1493"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +56,7 @@
                 android:src="@drawable/non_love"
                 android:background="#FFFFFF" />
             <TextView
-                android:id="@+id/restaurant_add"
+                android:id="@+id/restaurant_tags"
                 android:textColor="#000000"
                 android:textSize="15dp"
                 android:layout_width="match_parent"

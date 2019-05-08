@@ -66,7 +66,7 @@ public class RestaurantInformation extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        restaurantName.setText(document.get("Restaurant_id").toString());
+                        restaurantName.setText(document.get("Restaurant_name").toString());
                         restaurantAdd.setText(document.get("Restaurant_add").toString());
                         restaurantPhone.setText(document.get("Restaurant_phone").toString());
                         restaurantTime.setText(document.get("Restaurant_time").toString());

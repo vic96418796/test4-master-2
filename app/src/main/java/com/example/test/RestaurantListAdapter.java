@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,11 +29,17 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Nullable;
 
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
@@ -42,9 +50,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public Context context;
     public String com_date;
     public String date;
-    private FirebaseAuth auth;
-    private String userId;
-    int a = 0;
+
+
+
+
 
     public RestaurantListAdapter(Context applicationContext, List<Restaurant> RestaurantList) {
         this.RestaurantList = RestaurantList;
@@ -53,15 +62,15 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_cardview, parent,false);
-        auth = FirebaseAuth.getInstance();
-        userId = auth.getCurrentUser().getUid();
+        firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         return new ViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.restaurant_id.setText(RestaurantList.get(position).getRestaurant_id());
-        holder.restaurant_add.setText(RestaurantList.get(position).getRestaurant_add());
+        final String userId = firebaseAuth.getCurrentUser().getUid();
+        holder.restaurant_name.setText(RestaurantList.get(position).getRestaurant_name());
+        holder.restaurant_tags.setText(RestaurantList.get(position).getRestaurant_tags());
         String Image =RestaurantList.get(position).getRestaurant_image();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference picReference = storageReference.child("Restaurant/"+Image);
@@ -83,13 +92,49 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
             }
         });
-        //按鈕變色
-        holder.restaurant_like.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.restaurant_like.setImageDrawable(context.getDrawable(R.drawable.love));
-            }
-        });
+        //按鈕變色,收藏
+        if (firebaseAuth.getCurrentUser() != null) {
+            db.collection("User/" + userId + "/Favorite_restaurant")
+                    .document(restaurant_id)
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                            if (documentSnapshot.exists() && e == null) {
+                                holder.restaurant_like.setImageResource(R.drawable.love);
+                            } else {
+                                holder.restaurant_like.setImageResource(R.drawable.non_love);
+                            }
+                        }
+                    });
+        }
+        if (firebaseAuth.getCurrentUser() != null) {
+            holder.restaurant_like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.collection("User/" + userId + "/Favorite_restaurant")
+                            .document(restaurant_id).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (!task.getResult().exists()) {
+                                    Map<String,String> favorite = new HashMap<>();
+                                    favorite.put("Restaurant_id",restaurant_id);
+                                    db.collection("User/" + userId + "/Favorite_restaurant")
+                                            .document(restaurant_id).set(favorite);
+                                } else {
+                                    db.collection("User/" + userId + "/Favorite_restaurant")
+                                            .document(restaurant_id).delete();
+                                }
+                            } else {
+                                Toast.makeText(context, "ERROR" + task.getException()
+                                        .getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
     }
     @Override
@@ -98,18 +143,20 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        public TextView restaurant_id;
+        public TextView restaurant_name;
         public TextView restaurant_add;
         public ImageView restaurant_image;
         public ImageButton restaurant_like;
+        public TextView restaurant_tags;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            restaurant_id = (TextView)mView.findViewById(R.id.restaurant_id);
+            restaurant_name = (TextView)mView.findViewById(R.id.restaurant_name);
             restaurant_add = (TextView)mView.findViewById(R.id.restaurant_add);
             restaurant_image = (ImageView)mView.findViewById(R.id.restaurant_image);
             restaurant_like = (ImageButton)mView.findViewById(R.id.restaurant_like);
+            restaurant_tags = (TextView)mView.findViewById(R.id.restaurant_tags);
         }
     }
 }
