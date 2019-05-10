@@ -21,13 +21,17 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class profile extends AppCompatActivity implements set_profile.set_profileListener{
     private DrawerLayout drawer;
     private NavigationView navigation_view;
     private TextView textViewUsername;
+    public FirebaseAuth firebaseAuth;
+    public FirebaseFirestore db;
+    private TextView user_email;
 
 
 
@@ -35,7 +39,6 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-
 
 
 
@@ -68,7 +71,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(profile.this, favotire_main_interface.class);
+                    Intent intent = new Intent(profile.this, favorite_main_interface.class);
                     startActivity(intent);
                     return true;
                 }

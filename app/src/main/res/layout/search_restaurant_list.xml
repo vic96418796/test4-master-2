@@ -31,9 +31,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text=" 搜尋結果 "
+                    android:textColor="#EE6C48"
+                    android:textSize="30dp" />
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="62dp"
+                    android:padding="16dp"
+                    android:background="#FF8800" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_restaurant"
+                    android:id="@+id/recyclerView_search_restaurant"
                     android:layout_below="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

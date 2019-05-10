@@ -9,9 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -30,6 +36,30 @@ public class RestaurantList extends AppCompatActivity {
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
     private String userId;
+//搜尋
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.restaurant_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                RestaurantListAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +91,9 @@ public class RestaurantList extends AppCompatActivity {
                 }
             }
         });
+
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -86,7 +119,7 @@ public class RestaurantList extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(RestaurantList.this, favotire_main_interface.class);
+                    Intent intent = new Intent(RestaurantList.this, favorite_main_interface.class);
                     startActivity(intent);
                     return true;
                 }

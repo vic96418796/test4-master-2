@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_shape"
-        android:text="管理標籤"
+        android:text=" 管理標籤 "
         android:textColor="#EE6C48"
         android:textSize="25dp"
         android:layout_marginTop="250dp"
@@ -42,11 +42,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_shape"
-        android:text="分享清單給朋友"
+        android:text=" 分享清單給朋友 "
         android:textColor="#EE6C48"
         android:textSize="25dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="320dp"/>
+        android:layout_marginTop="350dp"/>
 
     <Button
         android:id="@+id/logout"
@@ -79,11 +79,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:text="user_email"
         android:id="@+id/user_email"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="120dp"/>
 
     <Button
         android:id="@+id/set"
@@ -95,13 +95,12 @@
         android:textSize="30dp"
         android:layout_marginTop="250dp"
         android:layout_marginLeft="250dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="______________________"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:layout_marginTop="280dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="320dp"
+                android:padding="16dp"
+                android:background="#FF8800" />
         </FrameLayout>
     </LinearLayout>
 

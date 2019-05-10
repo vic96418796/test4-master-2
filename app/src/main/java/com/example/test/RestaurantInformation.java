@@ -26,7 +26,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class RestaurantInformation extends AppCompatActivity {
-
     private static final String TAG ="Products";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     public TextView restaurantName;
@@ -37,19 +36,14 @@ public class RestaurantInformation extends AppCompatActivity {
     public TextView restaurantFB;
     public TextView restaurantIG;
     public TextView restaurantGOOGLE;
-
-
     private DrawerLayout drawer;
     private NavigationView navigation_view;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_information);
-
         Intent intent = this.getIntent();//取得傳遞過來的資料
         String restaurantId = intent.getStringExtra("RestaurantId");
-
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
         restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
         restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
@@ -58,8 +52,6 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
         restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
         restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
-
-
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -94,7 +86,6 @@ public class RestaurantInformation extends AppCompatActivity {
                 }
             }
         });
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -120,7 +111,7 @@ public class RestaurantInformation extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(RestaurantInformation.this, favotire_main_interface.class);
+                    Intent intent = new Intent(RestaurantInformation.this, favorite_main_interface.class);
                     startActivity(intent);
                     return true;
                 }
@@ -137,7 +128,6 @@ public class RestaurantInformation extends AppCompatActivity {
                 return false;
             }
         });
-
     }
     @Override
     public void onBackPressed(){
