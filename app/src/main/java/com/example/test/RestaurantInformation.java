@@ -65,10 +65,7 @@ public class RestaurantInformation extends AppCompatActivity {
                         String image = document.get("Restaurant_image").toString();
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
                         StorageReference picReference = storageReference.child("Restaurant/"+image);
-                        Glide.with(restaurantImage.getContext())
-                                .using(new FirebaseImageLoader())
-                                .load(picReference)
-                                .into(restaurantImage);
+
                         restaurantFB.setText(document.get("Restaurant_fb").toString());
                         restaurantFB.setMovementMethod(LinkMovementMethod.getInstance());
                         restaurantFB.setAutoLinkMask(Linkify.WEB_URLS);

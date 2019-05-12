@@ -93,10 +93,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         String Image =RestaurantList.get(position).getRestaurant_image();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference picReference = storageReference.child("Restaurant/"+Image);
-        Glide.with(holder.restaurant_image.getContext())
-                .using(new FirebaseImageLoader())
-                .load(picReference)
-                .into(holder.restaurant_image);
+
         final String restaurant_id = RestaurantList.get(position).restaurantId;
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

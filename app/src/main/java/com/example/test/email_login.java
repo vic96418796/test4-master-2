@@ -32,8 +32,6 @@ public class email_login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.email_login);
 
-        Button login = findViewById(R.id.login);
-
 
 
         auth = FirebaseAuth.getInstance();
