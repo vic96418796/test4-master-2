@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FriendInformation"></activity>
         <activity android:name=".RestaurantInformation"></activity>
         <activity android:name=".FriendList" />
         <activity android:name=".profile" />
@@ -39,7 +40,7 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAOYXGlPZxq_NZWZF5iqFuelEIB5rGF74E" />
 
         <activity
             android:name=".MapsActivity"

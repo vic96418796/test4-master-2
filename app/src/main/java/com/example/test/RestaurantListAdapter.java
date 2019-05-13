@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -18,28 +16,19 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 import javax.annotation.Nullable;
-
-
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
 
     private List<Restaurant> RestaurantListFull;
@@ -85,6 +74,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         db = FirebaseFirestore.getInstance();
         return new ViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final String userId = firebaseAuth.getCurrentUser().getUid();
@@ -93,7 +83,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         String Image =RestaurantList.get(position).getRestaurant_image();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference picReference = storageReference.child("Restaurant/"+Image);
-
+        Glide.with(holder.restaurant_image.getContext())
+                .using(new FirebaseImageLoader())
+                .load(picReference)
+                .into(holder.restaurant_image);
         final String restaurant_id = RestaurantList.get(position).restaurantId;
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,26 +156,23 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     private Filter RestaurantFilter = new Filter() {
         @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Restaurant> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(RestaurantList);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for (Restaurant item : RestaurantList) {
-                    if (item.getRestaurant_name().contains(filterPattern)||item.getRestaurant_tags().contains(filterPattern)) {
-                        filteredList.add(item);
+        protected FilterResults performFiltering(CharSequence searchString) {
+                List<Restaurant> filteredList = new ArrayList<>();
+                if (searchString == null || searchString.length() == 0) {
+                    filteredList.addAll(RestaurantList);
+                } else {
+                    String filterPattern = searchString.toString().toLowerCase().trim();
+                    for (Restaurant item : RestaurantList) {
+                        if (item.getRestaurant_name().toLowerCase().contains(filterPattern) || item.getRestaurant_tags().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(item);
+                        }
                     }
                 }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+
+                return results;
             }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             RestaurantList.clear();

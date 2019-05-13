@@ -1,10 +1,13 @@
 package com.example.test;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -13,12 +16,13 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     private static final String TAG = "TEST";
     public FirebaseAuth firebaseAuth;
     public FirebaseFirestore db;
-    public List<Friend>FriendList;
+    public List<Friend> FriendList;
     public Context context;
     public String com_date;
     public String date;
     private FirebaseAuth auth;
     private String userId;
+    private ImageView friend_image;
     public FriendListAdapter(Context applicationContext, List<Friend> FriendList) {
         this.FriendList = FriendList;
         this.context = context;
@@ -33,7 +37,19 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final String friend_id = FriendList.get(position).friendId;
         holder.friend_id.setText(FriendList.get(position).getFriend_id());
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent();
+                intent.setClass(context,FriendInformation.class);
+                intent.putExtra("FriendId", friend_id);
+                Log.d(TAG,"Id: "+friend_id);
+                context.startActivity(intent);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -46,6 +62,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
             super(itemView);
             mView = itemView;
             friend_id = (TextView)mView.findViewById(R.id.friend_id);
+            friend_image = (ImageView)mView.findViewById(R.id.friend_image);
         }
     }
 }

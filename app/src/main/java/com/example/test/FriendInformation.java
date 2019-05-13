@@ -25,59 +25,31 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class RestaurantInformation extends AppCompatActivity {
-    private static final String TAG ="Restaurants";
+public class FriendInformation extends AppCompatActivity {
+    private static final String TAG ="Friends";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public TextView restaurantName;
-    public TextView restaurantAdd;
-    public TextView restaurantPhone;
-    public TextView restaurantTime;
-    public ImageView restaurantImage;
-    public TextView restaurantFB;
-    public TextView restaurantIG;
-    public TextView restaurantGOOGLE;
+    public TextView friend_name;
+    public TextView friend_id;
     private DrawerLayout drawer;
     private NavigationView navigation_view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.restaurant_information);
+        setContentView(R.layout.friend_information);
         Intent intent = this.getIntent();//取得傳遞過來的資料
-        String restaurantId = intent.getStringExtra("RestaurantId");
-        restaurantName=(TextView)findViewById(R.id.restaurant_name);
-        restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
-        restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
-        restaurantImage=(ImageView) findViewById(R.id.restaurant_image);
-        restaurantTime=(TextView) findViewById(R.id.restaurant_time);
-        restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
-        restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
-        restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
-        Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        String friendId = intent.getStringExtra("FriendId");
+        friend_name=(TextView)findViewById(R.id.user_name_profile);
+        friend_id=(TextView)findViewById(R.id.user_id);
+
+
+        Task<DocumentSnapshot> documentSnapshotTask = db.collection("Friend").document(friendId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        restaurantName.setText(document.get("Restaurant_name").toString());
-                        restaurantAdd.setText(document.get("Restaurant_add").toString());
-                        restaurantPhone.setText(document.get("Restaurant_phone").toString());
-                        restaurantTime.setText(document.get("Restaurant_time").toString());
-                        String image = document.get("Restaurant_image").toString();
-                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-                        StorageReference picReference = storageReference.child("Restaurant/"+image);
-                        Glide.with(restaurantImage.getContext())
-                                .using(new FirebaseImageLoader())
-                                .load(picReference)
-                                .into(restaurantImage);
-                        restaurantFB.setText(document.get("Restaurant_fb").toString());
-                        restaurantFB.setMovementMethod(LinkMovementMethod.getInstance());
-                        restaurantFB.setAutoLinkMask(Linkify.WEB_URLS);
-                        restaurantIG.setText(document.get("Restaurant_ig").toString());
-                        restaurantIG.setMovementMethod(LinkMovementMethod.getInstance());
-                        restaurantIG.setAutoLinkMask(Linkify.WEB_URLS);
-                        restaurantGOOGLE.setText(document.get("Restaurant_google").toString());
-                        restaurantGOOGLE.setMovementMethod(LinkMovementMethod.getInstance());
-                        restaurantGOOGLE.setAutoLinkMask(Linkify.WEB_URLS);
+                        friend_name.setText(document.get("Friend_name").toString());
+                        friend_id.setText(document.get("Friend_id").toString());
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -101,27 +73,27 @@ public class RestaurantInformation extends AppCompatActivity {
                 drawer.closeDrawer(GravityCompat.START);
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_profile) {
-                    Intent intent = new Intent(RestaurantInformation.this,profile.class);
+                    Intent intent = new Intent(FriendInformation.this,profile.class);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_maps) {
-                    Intent intent = new Intent(RestaurantInformation.this,MapsActivity.class);
+                    Intent intent = new Intent(FriendInformation.this,MapsActivity.class);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_favorite) {
-                    Intent intent = new Intent(RestaurantInformation.this, favorite_main_interface.class);
+                    Intent intent = new Intent(FriendInformation.this, favorite_main_interface.class);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent( RestaurantInformation.this,RestaurantList.class);
+                    Intent intent = new Intent( FriendInformation.this,RestaurantList.class);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_friend) {
-                    Intent intent = new Intent(RestaurantInformation.this,FriendList.class);
+                    Intent intent = new Intent(FriendInformation.this,FriendList.class);
                     startActivity(intent);
                     return true;
                 }
