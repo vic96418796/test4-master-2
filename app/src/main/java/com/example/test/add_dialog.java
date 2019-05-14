@@ -37,6 +37,7 @@ public class add_dialog extends AppCompatDialogFragment {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         Map<String, Object> Friend = new HashMap<>();
                         Friend.put("Friend_id", edit_friend_email);
+                        Friend.put("Friend_name",edit_friend_email);
                         db.collection("Friend")
                                 .add(Friend);
                     }

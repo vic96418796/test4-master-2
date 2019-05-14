@@ -78,8 +78,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         lat = new ArrayList<>();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));

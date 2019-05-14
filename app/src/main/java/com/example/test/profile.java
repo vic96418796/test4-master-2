@@ -46,7 +46,6 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
 
 
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
