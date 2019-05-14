@@ -1,6 +1,7 @@
 package com.example.test;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -39,10 +40,12 @@ public class favorite_main_interface extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView mMainList;
     private RestaurantListAdapter RestaurantListAdapter;
+    private Restaurant restaurant;
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
     private String userId;
     private ArrayList<String> restaurantList;
+    private ArrayList<Double> lat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,7 @@ public class favorite_main_interface extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
         RestaurantList = new ArrayList<>();
+        lat = new ArrayList<>();
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
         mMainList.setHasFixedSize(true);
@@ -104,6 +108,18 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
             }
         });
+        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        restaurant = documentSnapshot.toObject(Restaurant.class);
+                        lat.add(restaurant.getRestaurant_lat());
+                        lat.add(restaurant.getRestaurant_long());
+                    }
+                }
+            }
+        });
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer, toolbar,  R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
@@ -129,6 +145,7 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(favorite_main_interface.this,MapsActivity.class);
+                    intent.putExtra("lat",lat);
                     startActivity(intent);
                     return true;
                 }

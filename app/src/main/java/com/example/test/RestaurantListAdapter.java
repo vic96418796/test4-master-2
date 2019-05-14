@@ -80,6 +80,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         final String userId = firebaseAuth.getCurrentUser().getUid();
         holder.restaurant_name.setText(RestaurantList.get(position).getRestaurant_name());
         holder.restaurant_tags.setText(RestaurantList.get(position).getRestaurant_tags());
+
         String Image =RestaurantList.get(position).getRestaurant_image();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference picReference = storageReference.child("Restaurant/"+Image);

@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -29,21 +30,107 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 import static android.app.PendingIntent.getActivity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
+    private FirebaseFirestore db;
+    private List<Restaurant> restaurantList1;
+    private static final String TAG = "MapsActivity";
+
+    private RestaurantListAdapter RestaurantListAdapter;
+    private List<Restaurant> RestaurantList1;
+    Restaurant restaurant = new Restaurant();
+
+
+
+
+
     private GoogleMap mMap;
     float zoom;
     private LocationManager locMGR;
+    ArrayList<Double> lat;
     String bestProv;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        lat = new ArrayList<>();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
+        for(int i =0;i<lat.size();i++){
+            Log.d(TAG,"lat: "+lat.get(i));
+        }
+
+//        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
+        db= FirebaseFirestore.getInstance();
+
+
+
+//        db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.d(TAG, "Error :" + e.getMessage());
+//                } else {
+//                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+//                        if (doc.getType() == DocumentChange.Type.ADDED) {
+//                            String restaurant_id = doc.getDocument().getId();
+//                            restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+//                            lat.add(restaurant.getRestaurant_lat());
+//                            lat.add(restaurant.getRestaurant_long());
+//                            RestaurantList1.add(restaurant);
+//                            RestaurantListAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//        db.collection("Restaruant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+//                        restaurant = documentSnapshot.toObject(Restaurant.class);
+//                    }
+//                    isCheck = true;
+//                }
+//            }
+//        });
+
+
+
+
+
+
+
+
+
+
+
 
 
         
@@ -52,6 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
 
 
 
@@ -67,6 +155,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        for (int l = 0;l<=lat.size()/2;l++){
+            LatLng res = new LatLng(lat.get(l),lat.get(l+1));
+            mMap.addMarker(new MarkerOptions().position(res));
+        }
+
+
+
         LatLng Taipei101 = new LatLng(25.033611,121.56500);
         zoom = 17;
         mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101"));
