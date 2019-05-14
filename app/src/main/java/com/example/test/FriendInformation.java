@@ -8,6 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -20,18 +22,31 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FriendInformation extends AppCompatActivity {
     private static final String TAG ="Friends";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     public TextView friend_name;
     public TextView friend_id;
+    public FirebaseAuth auth;
     private DrawerLayout drawer;
     private NavigationView navigation_view;
+    private RecyclerView mMainList;
+    private RestaurantListAdapter RestaurantListAdapter;
+    private List<Restaurant> RestaurantList;
+    private ArrayList<String> restaurantList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +55,6 @@ public class FriendInformation extends AppCompatActivity {
         String friendId = intent.getStringExtra("FriendId");
         friend_name=(TextView)findViewById(R.id.user_name_profile);
         friend_id=(TextView)findViewById(R.id.user_id);
-
-
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Friend").document(friendId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -58,6 +71,65 @@ public class FriendInformation extends AppCompatActivity {
                 }
             }
         });
+
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        RestaurantList = new ArrayList<>();
+        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
+        mMainList = (RecyclerView)findViewById(R.id.recyclerView_friend_restaurant);
+        mMainList.setHasFixedSize(true);
+        mMainList.setLayoutManager(new LinearLayoutManager(this));
+        mMainList.setAdapter(RestaurantListAdapter);
+        final String currentUserID = auth.getCurrentUser().getUid();
+
+        db.collection("User/"+currentUserID+"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.d(TAG, "Error :" + e.getMessage());
+                } else {
+                    restaurantList = new ArrayList<>();
+                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+                            String restaurant_id = doc.getDocument().getId();
+                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+                            restaurantList.add(restaurant_id);
+                            RestaurantListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    for (String restaurantId : restaurantList) {
+                        db.collection("Restaurant")
+                                .document(restaurantId)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot doc = task.getResult();
+                                            if (doc.exists()) {
+                                                String restaurant_id = doc.getId();
+                                                Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
+                                                RestaurantList.add(restaurant);
+                                                RestaurantListAdapter.notifyDataSetChanged();
+                                                Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
+                                            } else {
+                                                Log.d(TAG, "No such document");
+                                            }
+                                        } else {
+                                            Log.d(TAG, "get failed with ", task.getException());
+                                        }
+                                    }
+
+
+                                });
+                    }
+                }
+            }
+        });
+
+
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);

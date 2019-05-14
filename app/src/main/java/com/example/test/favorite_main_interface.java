@@ -75,9 +75,9 @@ public class favorite_main_interface extends AppCompatActivity {
                             RestaurantListAdapter.notifyDataSetChanged();
                         }
                     }
-                    for (String productId : restaurantList) {
+                    for (String restaurantId : restaurantList) {
                         db.collection("Restaurant")
-                                .document(productId)
+                                .document(restaurantId)
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
@@ -137,6 +137,7 @@ public class favorite_main_interface extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
+
                 return false;
             }
         });

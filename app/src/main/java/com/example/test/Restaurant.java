@@ -6,6 +6,26 @@ public class Restaurant extends RestaurantID {
     private String Restaurant_add;
     private String Restaurant_image;
     private String Restaurant_tags;
+    private String Restaurant_lat;
+    private String Restaurant_long;
+
+    public String getRestaurant_lat() {
+        return Restaurant_lat;
+    }
+
+
+    public void setRestaurant_lat(String restaurant_lat) {
+        Restaurant_lat = restaurant_lat;
+    }
+
+    public String getRestaurant_long() {
+        return Restaurant_long;
+    }
+
+    public void setRestaurant_long(String restaurant_long) {
+        Restaurant_long = restaurant_long;
+    }
+
     //FIREBASE日期
     public static final Parcelable.Creator<Timestamp> CREATOR = null;
     public Restaurant() {
