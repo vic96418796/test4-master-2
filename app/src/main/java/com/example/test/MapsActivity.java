@@ -28,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     float zoom;
     private LocationManager locMGR;
     ArrayList<Double> lat;
+
     String bestProv;
 
 
@@ -78,10 +80,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         lat = new ArrayList<>();
+
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
+
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
+
         }
+
+
 
 //        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
         db= FirebaseFirestore.getInstance();
@@ -162,11 +169,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng Taipei101 = new LatLng(25.033611,121.56500);
         zoom = 17;
-        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101"));
+        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
 
         LatLng Myhome = new LatLng(25.033705,121.431425);
-        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome"));
+        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
 
         requestPermission();
     }
