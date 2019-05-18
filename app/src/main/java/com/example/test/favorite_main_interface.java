@@ -146,6 +146,7 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(favorite_main_interface.this,profile.class);
+                    intent.putExtra("user_id",userId);
                     startActivity(intent);
                     return true;
                 }

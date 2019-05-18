@@ -42,8 +42,7 @@ public class RestaurantInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_information);
-        Intent intent = this.getIntent();//取得傳遞過來的資料
-        String restaurantId = intent.getStringExtra("RestaurantId");
+
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
         restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
         restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
@@ -52,6 +51,9 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
         restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
         restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
+
+        Intent intent = this.getIntent();//取得傳遞過來的資料
+        String restaurantId = intent.getStringExtra("RestaurantId");
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

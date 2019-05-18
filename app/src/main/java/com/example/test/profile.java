@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,19 +24,30 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class profile extends AppCompatActivity implements set_profile.set_profileListener{
+    private static final String TAG ="Users";
     private DrawerLayout drawer;
     private NavigationView navigation_view;
     private TextView textViewUsername;
     public FirebaseAuth auth;
-    public FirebaseFirestore db;
+    public FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView user_email;
     private String userId;
 
@@ -43,6 +57,26 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+//        設定USER_ID
+        Intent intent = this.getIntent();
+        userId = intent.getStringExtra("user_id");
+        Log.d(TAG,"userId: "+userId);
+        Task<DocumentSnapshot> documentSnapshotTask = db.collection("User").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        user_email.setText(document.get("User_id").toString());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
 
 
 
@@ -105,12 +139,33 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
             }
         });
         textViewUsername = (TextView) findViewById(R.id.user_name_profile);
+        user_email = (TextView) findViewById(R.id.user_id);
         Button set = findViewById(R.id.set);
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
 
+            }
+        });
+
+        //get User Info
+        DocumentReference docRef = db.collection("User").document(userId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        String user_name = document.getString("user_name");
+                        textViewUsername.setText(user_name);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
             }
         });
     }
@@ -134,6 +189,21 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     @Override
     public void applyTexts(String user_name) {
         textViewUsername.setText(user_name);
+        // Create a new user with a first and last name
+        Map<String, Object> user = new HashMap<>();
+        user.put("user_name", user_name);
+
+
+// Add a new document with a generated ID
+        db.collection("User").document(userId)
+                .update(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d(TAG,"test");
+                    }
+                });
+
 
     }
 }

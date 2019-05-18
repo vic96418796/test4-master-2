@@ -160,7 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        for (int l = 0;l<=lat.size()/2;l++){
+        for (int l = 0;l<=lat.size()/2-1;l++){
             LatLng res = new LatLng(lat.get(l),lat.get(l+1));
             mMap.addMarker(new MarkerOptions().position(res));
         }

@@ -19,19 +19,11 @@
             android:id="@+id/nav_restaurant"
             android:icon="@drawable/ic_chat"
             android:title="全部餐廳" />
+        <item
+        android:id="@+id/nav_friend"
+        android:icon="@drawable/ic_profile"
+        android:title="好友列表" />
     </group>
 
-    <item android:title="Interaction">
-        <menu>
-            <item
-                android:id="@+id/nav_friend"
-                android:icon="@drawable/ic_profile"
-                android:title="好友列表" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_share"
-                android:title="分享地圖" />
 
-        </menu>
-    </item>
 </menu>

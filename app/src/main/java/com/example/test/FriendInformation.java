@@ -28,12 +28,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FriendInformation extends AppCompatActivity {
     private static final String TAG ="Friends";
@@ -47,6 +49,7 @@ public class FriendInformation extends AppCompatActivity {
     private RestaurantListAdapter RestaurantListAdapter;
     private List<Restaurant> RestaurantList;
     private ArrayList<String> restaurantList;
+    private ArrayList<String> userAll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,52 +83,122 @@ public class FriendInformation extends AppCompatActivity {
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(RestaurantListAdapter);
-        final String currentUserID = auth.getCurrentUser().getUid();
 
-        db.collection("User/"+currentUserID+"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.d(TAG, "Error :" + e.getMessage());
-                } else {
-                    restaurantList = new ArrayList<>();
-                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-                        if (doc.getType() == DocumentChange.Type.ADDED) {
-                            String restaurant_id = doc.getDocument().getId();
-                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
-                            restaurantList.add(restaurant_id);
-                            RestaurantListAdapter.notifyDataSetChanged();
-                        }
-                    }
-                    for (String restaurantId : restaurantList) {
-                        db.collection("Restaurant")
-                                .document(restaurantId)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot doc = task.getResult();
-                                            if (doc.exists()) {
-                                                String restaurant_id = doc.getId();
-                                                Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
-                                                RestaurantList.add(restaurant);
+        userAll = new ArrayList<>();
+        db.collection("User")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                userAll.add(document.getId());
+                            }
+                            for(String user:userAll){
+                                Log.d(TAG,"userAll: "+user);
+                            }
+                            int i = (int) (Math.random()*userAll.size());
+                            db.collection("User/"+userAll.get(i)+"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                @Override
+                                public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                                    if (e != null) {
+                                        Log.d(TAG, "Error :" + e.getMessage());
+                                    } else {
+                                        restaurantList = new ArrayList<>();
+                                        for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                                            if (doc.getType() == DocumentChange.Type.ADDED) {
+                                                String restaurant_id = doc.getDocument().getId();
+                                                Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+                                                restaurantList.add(restaurant_id);
                                                 RestaurantListAdapter.notifyDataSetChanged();
-                                                Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
-                                            } else {
-                                                Log.d(TAG, "No such document");
                                             }
-                                        } else {
-                                            Log.d(TAG, "get failed with ", task.getException());
+                                        }
+                                        for (String restaurantId : restaurantList) {
+                                            db.collection("Restaurant")
+                                                    .document(restaurantId)
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                DocumentSnapshot doc = task.getResult();
+                                                                if (doc.exists()) {
+                                                                    String restaurant_id = doc.getId();
+                                                                    Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
+                                                                    RestaurantList.add(restaurant);
+                                                                    RestaurantListAdapter.notifyDataSetChanged();
+                                                                    Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
+                                                                } else {
+                                                                    Log.d(TAG, "No such document");
+                                                                }
+                                                            } else {
+                                                                Log.d(TAG, "get failed with ", task.getException());
+                                                            }
+                                                        }
+
+
+                                                    });
                                         }
                                     }
+                                }
+                            });
 
 
-                                });
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+
                     }
-                }
-            }
-        });
+                });
+        final String currentUserID = auth.getCurrentUser().getUid();
+//        隨機選取
+        /*final String randomUserID = auth.getUid();*/
+
+//        db.collection("User/"+"PEguibcINdZRqGAHcMentsgm28E2"+"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.d(TAG, "Error :" + e.getMessage());
+//                } else {
+//                    restaurantList = new ArrayList<>();
+//                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+//                        if (doc.getType() == DocumentChange.Type.ADDED) {
+//                            String restaurant_id = doc.getDocument().getId();
+//                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+//                            restaurantList.add(restaurant_id);
+//                            RestaurantListAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                    for (String restaurantId : restaurantList) {
+//                        db.collection("Restaurant")
+//                                .document(restaurantId)
+//                                .get()
+//                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            DocumentSnapshot doc = task.getResult();
+//                                            if (doc.exists()) {
+//                                                String restaurant_id = doc.getId();
+//                                                Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
+//                                                RestaurantList.add(restaurant);
+//                                                RestaurantListAdapter.notifyDataSetChanged();
+//                                                Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
+//                                            } else {
+//                                                Log.d(TAG, "No such document");
+//                                            }
+//                                        } else {
+//                                            Log.d(TAG, "get failed with ", task.getException());
+//                                        }
+//                                    }
+//
+//
+//                                });
+//                    }
+//                }
+//            }
+//        });
 
 
 
