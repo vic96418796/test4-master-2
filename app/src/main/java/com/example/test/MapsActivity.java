@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     float zoom;
     private LocationManager locMGR;
     ArrayList<Double> lat;
-
+    ArrayList<String>namelst;
     String bestProv;
 
 
@@ -82,12 +82,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lat = new ArrayList<>();
 
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
+        namelst=new ArrayList<>();
+        namelst = (ArrayList<String>) getIntent().getSerializableExtra("namelst");
 
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
 
         }
-
+        for (int r = 0;r<namelst.size();r++){
+            Log.d(TAG,"namelst" + namelst.get(r));
+        }
 
 
 //        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
@@ -160,9 +164,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        int y = 0;
         for (int l = 0;l<=lat.size()/2-1;l++){
-            LatLng res = new LatLng(lat.get(l),lat.get(l+1));
-            mMap.addMarker(new MarkerOptions().position(res));
+            LatLng res = new LatLng(lat.get(y),lat.get(y+1));
+            y+=2;
+            mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
         }
 
 

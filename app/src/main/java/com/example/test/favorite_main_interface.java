@@ -46,7 +46,7 @@ public class favorite_main_interface extends AppCompatActivity {
     private String userId;
     private ArrayList<String> restaurantList;
     private ArrayList<Double> lat;
-   
+    private ArrayList<String> namelst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,8 @@ public class favorite_main_interface extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
         RestaurantList = new ArrayList<>();
         lat = new ArrayList<>();
+        namelst = new ArrayList<>();
+
 
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
@@ -119,6 +121,8 @@ public class favorite_main_interface extends AppCompatActivity {
                         restaurant = documentSnapshot.toObject(Restaurant.class);
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
+                        namelst.add(restaurant.getRestaurant_name());
+
 
                     }
                 }
@@ -153,6 +157,7 @@ public class favorite_main_interface extends AppCompatActivity {
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(favorite_main_interface.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
+                    intent.putExtra("namelst",namelst);
 
                     startActivity(intent);
 
