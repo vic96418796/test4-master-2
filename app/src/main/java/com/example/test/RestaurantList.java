@@ -18,8 +18,11 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -36,6 +39,9 @@ public class RestaurantList extends AppCompatActivity {
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
     private String userId;
+    private ArrayList<Double> lat;
+    private ArrayList<String> namelst;
+    private Restaurant restaurant;
 //搜尋
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,6 +70,8 @@ public class RestaurantList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_list);
+        lat = new ArrayList<>();
+        namelst = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -91,7 +99,21 @@ public class RestaurantList extends AppCompatActivity {
                 }
             }
         });
+        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        restaurant = documentSnapshot.toObject(Restaurant.class);
+                        lat.add(restaurant.getRestaurant_lat());
+                        lat.add(restaurant.getRestaurant_long());
+                        namelst.add(restaurant.getRestaurant_name());
 
+
+                    }
+                }
+            }
+        });
 
 
 
@@ -111,11 +133,14 @@ public class RestaurantList extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(RestaurantList.this,profile.class);
+                    intent.putExtra("user_id",userId);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(RestaurantList.this,MapsActivity.class);
+                    intent.putExtra("lat",lat);
+                    intent.putExtra("namelst",namelst);
                     startActivity(intent);
                     return true;
                 }

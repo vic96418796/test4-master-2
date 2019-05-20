@@ -34,9 +34,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +52,9 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView user_email;
     private String userId;
+    private ArrayList<Double> lat;
+    private ArrayList<String> namelst;
+    private Restaurant restaurant;
 
 
 
@@ -57,11 +62,14 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+        lat = new ArrayList<>();
+        namelst = new ArrayList<>();
 //        設定USER_ID
         Intent intent = this.getIntent();
         userId = intent.getStringExtra("user_id");
         Log.d(TAG,"userId: "+userId);
-        Task<DocumentSnapshot> documentSnapshotTask = db.collection("User").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        Task<DocumentSnapshot> documentSnapshotTask = db.collection("User").document(userId)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -76,8 +84,21 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                 }
             }
         });
+        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        restaurant = documentSnapshot.toObject(Restaurant.class);
+                        lat.add(restaurant.getRestaurant_lat());
+                        lat.add(restaurant.getRestaurant_long());
+                        namelst.add(restaurant.getRestaurant_name());
 
 
+                    }
+                }
+            }
+        });
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -101,6 +122,8 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(profile.this,MapsActivity.class);
+                    intent.putExtra("lat",lat);
+                    intent.putExtra("namelst",namelst);
                     startActivity(intent);
                     return true;
                 }

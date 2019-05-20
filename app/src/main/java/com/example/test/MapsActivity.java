@@ -53,27 +53,15 @@ import static android.app.PendingIntent.getActivity;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private FirebaseFirestore db;
-    private List<Restaurant> restaurantList1;
     private static final String TAG = "MapsActivity";
-
     private RestaurantListAdapter RestaurantListAdapter;
-    private List<Restaurant> RestaurantList1;
     Restaurant restaurant = new Restaurant();
-
-
-
-
-
     private GoogleMap mMap;
     float zoom;
     private LocationManager locMGR;
     ArrayList<Double> lat;
     ArrayList<String>namelst;
     String bestProv;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,62 +73,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         namelst=new ArrayList<>();
         namelst = (ArrayList<String>) getIntent().getSerializableExtra("namelst");
 
+
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
 
         }
         for (int r = 0;r<namelst.size();r++){
-            Log.d(TAG,"namelst" + namelst.get(r));
+            Log.d(TAG,"namelst: " + namelst.get(r));
+
         }
 
 
-//        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
         db= FirebaseFirestore.getInstance();
-
-
-
-//        db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.d(TAG, "Error :" + e.getMessage());
-//                } else {
-//                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-//                        if (doc.getType() == DocumentChange.Type.ADDED) {
-//                            String restaurant_id = doc.getDocument().getId();
-//                            restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
-//                            lat.add(restaurant.getRestaurant_lat());
-//                            lat.add(restaurant.getRestaurant_long());
-//                            RestaurantList1.add(restaurant);
-//                            RestaurantListAdapter.notifyDataSetChanged();
-//                        }
-//                    }
-//                }
-//            }
-//        });
-//        db.collection("Restaruant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    for(DocumentSnapshot documentSnapshot : task.getResult()){
-//                        restaurant = documentSnapshot.toObject(Restaurant.class);
-//                    }
-//                    isCheck = true;
-//                }
-//            }
-//        });
-
-
-
-
-
-
-
-
-
-
-
-
 
         
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

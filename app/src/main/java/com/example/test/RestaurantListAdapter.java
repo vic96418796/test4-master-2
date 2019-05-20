@@ -108,9 +108,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             if (documentSnapshot.exists() && e == null) {
-                                holder.restaurant_like.setImageResource(R.drawable.love);
+                                holder.restaurant_like.setImageResource(R.drawable.love32);
                             } else {
-                                holder.restaurant_like.setImageResource(R.drawable.non_love);
+                                holder.restaurant_like.setImageResource(R.drawable.nonlove32);
                             }
                         }
                     });

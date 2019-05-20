@@ -51,10 +51,10 @@
             <ImageButton
                 android:id="@+id/restaurant_like"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="130dp"
-                android:src="@drawable/non_love"
-                android:background="#FFFFFF" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="#FFFFFF"
+                android:src="@drawable/non_love" />
             <TextView
                 android:id="@+id/restaurant_tags"
                 android:textColor="#000000"
