@@ -68,7 +68,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     float zoom;
     private LocationManager locMGR;
     ArrayList<Double> lat;
+    ArrayList<Double> lat1;
     ArrayList<String>namelst;
+    ArrayList<String>num;
     String bestProv;
 
 
@@ -84,13 +86,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
         namelst=new ArrayList<>();
         namelst = (ArrayList<String>) getIntent().getSerializableExtra("namelst");
+        num = new ArrayList<>();
+        num= (ArrayList<String>) getIntent().getSerializableExtra("num");
+        lat1 = new ArrayList<>();
 
-        for(int i =0;i<lat.size();i++){
+        lat1 = (ArrayList<Double>) getIntent().getSerializableExtra("lat1");
+
+         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
+
+        }
+        for(int ii =0;ii<lat1.size();ii++){
+            Log.d(TAG,"lat1: "+lat1.get(ii));
 
         }
         for (int r = 0;r<namelst.size();r++){
             Log.d(TAG,"namelst" + namelst.get(r));
+        }
+        for (int rr = 0;rr<num.size();rr++){
+            Log.d(TAG,"num" + num.get(rr));
         }
 
 
@@ -165,11 +179,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         int y = 0;
+        int yy = 0;
         for (int l = 0;l<=lat.size()/2-1;l++){
             LatLng res = new LatLng(lat.get(y),lat.get(y+1));
             y+=2;
             mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
         }
+        for (int ll = 0;ll<=lat1.size()/2-1;ll++){
+            LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
+            yy+=2;
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        }
+
 
 
 

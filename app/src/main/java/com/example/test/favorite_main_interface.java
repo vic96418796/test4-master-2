@@ -47,6 +47,9 @@ public class favorite_main_interface extends AppCompatActivity {
     private ArrayList<String> restaurantList;
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,8 @@ public class favorite_main_interface extends AppCompatActivity {
         RestaurantList = new ArrayList<>();
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
-
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
 
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
@@ -82,6 +86,7 @@ public class favorite_main_interface extends AppCompatActivity {
                             Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
                             restaurantList.add(restaurant_id);
                             RestaurantListAdapter.notifyDataSetChanged();
+
                         }
                     }
                     for (String restaurantId : restaurantList) {
@@ -97,6 +102,9 @@ public class favorite_main_interface extends AppCompatActivity {
                                                 String restaurant_id = doc.getId();
                                                 Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
                                                 RestaurantList.add(restaurant);
+
+                                                lat1.add(restaurant.getRestaurant_lat());
+                                                lat1.add(restaurant.getRestaurant_long());
                                                 RestaurantListAdapter.notifyDataSetChanged();
                                                 Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
                                             } else {
@@ -113,6 +121,9 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
             }
         });
+
+
+
         db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -122,7 +133,7 @@ public class favorite_main_interface extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
-
+                        num.add(restaurant.getRestaurant_phone());
 
                     }
                 }
@@ -158,7 +169,8 @@ public class favorite_main_interface extends AppCompatActivity {
                     Intent intent = new Intent(favorite_main_interface.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
-
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
 
 

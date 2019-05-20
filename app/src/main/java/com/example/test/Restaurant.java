@@ -8,22 +8,26 @@ public class Restaurant extends RestaurantID {
     private String Restaurant_tags;
     private Double Restaurant_lat;
     private Double Restaurant_long;
+    private String Restaurant_phone;
 
 
     //FIREBASE日期
     public static final Parcelable.Creator<Timestamp> CREATOR = null;
     public Restaurant() {
     }
-    public Restaurant(Double restaurant_lat,Double restaurant_long,String restaurant_name,String restaurant_add,String restaurant_image,String restaurant_tags) {
+    public Restaurant(String restaurant_phone,Double restaurant_lat,Double restaurant_long,String restaurant_name,String restaurant_add,String restaurant_image,String restaurant_tags) {
         Restaurant_name = restaurant_name;
         Restaurant_lat = restaurant_lat;
         Restaurant_long = restaurant_long;
         Restaurant_add = restaurant_add;
         Restaurant_image = restaurant_image;
         Restaurant_tags = restaurant_tags;
+        Restaurant_phone = restaurant_phone;
     }
     public String getRestaurant_name() { return Restaurant_name; }
     public void setRestaurant_name(String restaurant_name) { Restaurant_name = restaurant_name; }
+    public String getRestaurant_phone() { return Restaurant_phone; }
+    public void setRestaurant_phone(String restaurant_phone) { Restaurant_phone = restaurant_phone; }
     public Double getRestaurant_lat() { return Restaurant_lat; }
     public void setRestaurant_lat(Double restaurant_lat){Restaurant_lat = restaurant_lat;}
     public Double getRestaurant_long() { return Restaurant_long; }
