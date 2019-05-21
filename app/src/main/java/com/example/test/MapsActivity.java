@@ -185,7 +185,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-        Toast.makeText(this,x+"\n"+y,Toast.LENGTH_LONG).show();
+
 
     }
 
