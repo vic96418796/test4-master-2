@@ -31,15 +31,19 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -54,7 +58,13 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     private String userId;
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
     private Restaurant restaurant;
+
+
+
+
 
 
 
@@ -64,10 +74,16 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
         setContentView(R.layout.profile);
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
+
 //        設定USER_ID
         Intent intent = this.getIntent();
         userId = intent.getStringExtra("user_id");
         Log.d(TAG,"userId: "+userId);
+
+
+
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("User").document(userId)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -93,6 +109,8 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
+                        num.add(restaurant.getRestaurant_phone());
+
 
 
                     }
@@ -124,6 +142,8 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                     Intent intent = new Intent(profile.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }

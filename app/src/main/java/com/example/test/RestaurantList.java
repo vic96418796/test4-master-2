@@ -41,6 +41,8 @@ public class RestaurantList extends AppCompatActivity {
     private String userId;
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
     private Restaurant restaurant;
 //搜尋
     @Override
@@ -72,6 +74,8 @@ public class RestaurantList extends AppCompatActivity {
         setContentView(R.layout.restaurant_list);
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -108,6 +112,7 @@ public class RestaurantList extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
+                        num.add(restaurant.getRestaurant_phone());
 
 
                     }
@@ -141,6 +146,8 @@ public class RestaurantList extends AppCompatActivity {
                     Intent intent = new Intent(RestaurantList.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }

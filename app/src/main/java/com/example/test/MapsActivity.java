@@ -82,7 +82,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         lat = new ArrayList<>();
-
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
         namelst=new ArrayList<>();
         namelst = (ArrayList<String>) getIntent().getSerializableExtra("namelst");

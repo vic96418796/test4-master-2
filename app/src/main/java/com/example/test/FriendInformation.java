@@ -52,6 +52,8 @@ public class FriendInformation extends AppCompatActivity {
     private ArrayList<String> userAll;
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
     private Restaurant restaurant;
     private String userId;
 
@@ -63,6 +65,8 @@ public class FriendInformation extends AppCompatActivity {
 
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
         Intent intent = this.getIntent();//取得傳遞過來的資料
         String friendId = intent.getStringExtra("FriendId");
         friend_name=(TextView)findViewById(R.id.user_name_profile);
@@ -92,6 +96,7 @@ public class FriendInformation extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
+                        num.add(restaurant.getRestaurant_phone());
 
 
                     }
@@ -204,6 +209,8 @@ public class FriendInformation extends AppCompatActivity {
                     Intent intent = new Intent(FriendInformation.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }

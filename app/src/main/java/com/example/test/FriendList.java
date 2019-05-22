@@ -39,6 +39,8 @@ public class FriendList extends AppCompatActivity {
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
     private Restaurant restaurant;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class FriendList extends AppCompatActivity {
         setContentView(R.layout.friend_list);
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -83,7 +87,7 @@ public class FriendList extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
-
+                        num.add(restaurant.getRestaurant_phone());
 
                     }
                 }
@@ -114,6 +118,8 @@ public class FriendList extends AppCompatActivity {
                     Intent intent = new Intent(FriendList.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }

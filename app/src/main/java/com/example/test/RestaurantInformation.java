@@ -44,6 +44,8 @@ public class RestaurantInformation extends AppCompatActivity {
     private NavigationView navigation_view;
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
     private Restaurant restaurant;
     private String userId;
     private FirebaseAuth auth;
@@ -55,6 +57,8 @@ public class RestaurantInformation extends AppCompatActivity {
         setContentView(R.layout.restaurant_information);
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
 
 
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
@@ -111,6 +115,8 @@ public class RestaurantInformation extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_lat());
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
+                        num.add(restaurant.getRestaurant_phone());
+
 
 
                     }
@@ -141,6 +147,8 @@ public class RestaurantInformation extends AppCompatActivity {
                     Intent intent = new Intent(RestaurantInformation.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }
