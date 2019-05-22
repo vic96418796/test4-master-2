@@ -89,7 +89,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         num = new ArrayList<>();
         num= (ArrayList<String>) getIntent().getSerializableExtra("num");
         lat1 = new ArrayList<>();
-
         lat1 = (ArrayList<Double>) getIntent().getSerializableExtra("lat1");
 
          for(int i =0;i<lat.size();i++){
@@ -183,7 +182,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int l = 0;l<=lat.size()/2-1;l++){
             LatLng res = new LatLng(lat.get(y),lat.get(y+1));
             y+=2;
-            mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+            mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).snippet(num.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
         }
         for (int ll = 0;ll<=lat1.size()/2-1;ll++){
             LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
