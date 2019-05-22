@@ -37,10 +37,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="cursive"
+                    android:gravity="left"
                     android:text="   已收藏的餐廳 "
                     android:textColor="#000000"
-                    android:gravity="left"
-                    android:textSize="30dp"/>
+                    android:textSize="30dp" />
 
                 <View
                     android:id="@+id/view"
