@@ -188,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int ll = 0;ll<=lat1.size()/2-1;ll++){
             LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
             yy+=2;
-            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconlike)));
         }
 
 

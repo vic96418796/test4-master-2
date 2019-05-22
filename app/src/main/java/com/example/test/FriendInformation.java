@@ -50,10 +50,19 @@ public class FriendInformation extends AppCompatActivity {
     private List<Restaurant> RestaurantList;
     private ArrayList<String> restaurantList;
     private ArrayList<String> userAll;
+    private ArrayList<Double> lat;
+    private ArrayList<String> namelst;
+    private Restaurant restaurant;
+    private String userId;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friend_information);
+        setContentView(R.layout.friend_information);;
+
+        lat = new ArrayList<>();
+        namelst = new ArrayList<>();
         Intent intent = this.getIntent();//取得傳遞過來的資料
         String friendId = intent.getStringExtra("FriendId");
         friend_name=(TextView)findViewById(R.id.user_name_profile);
@@ -71,6 +80,21 @@ public class FriendInformation extends AppCompatActivity {
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        restaurant = documentSnapshot.toObject(Restaurant.class);
+                        lat.add(restaurant.getRestaurant_lat());
+                        lat.add(restaurant.getRestaurant_long());
+                        namelst.add(restaurant.getRestaurant_name());
+
+
+                    }
                 }
             }
         });
@@ -152,53 +176,6 @@ public class FriendInformation extends AppCompatActivity {
                     }
                 });
         final String currentUserID = auth.getCurrentUser().getUid();
-//        隨機選取
-        /*final String randomUserID = auth.getUid();*/
-
-//        db.collection("User/"+"PEguibcINdZRqGAHcMentsgm28E2"+"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.d(TAG, "Error :" + e.getMessage());
-//                } else {
-//                    restaurantList = new ArrayList<>();
-//                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-//                        if (doc.getType() == DocumentChange.Type.ADDED) {
-//                            String restaurant_id = doc.getDocument().getId();
-//                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
-//                            restaurantList.add(restaurant_id);
-//                            RestaurantListAdapter.notifyDataSetChanged();
-//                        }
-//                    }
-//                    for (String restaurantId : restaurantList) {
-//                        db.collection("Restaurant")
-//                                .document(restaurantId)
-//                                .get()
-//                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                        if (task.isSuccessful()) {
-//                                            DocumentSnapshot doc = task.getResult();
-//                                            if (doc.exists()) {
-//                                                String restaurant_id = doc.getId();
-//                                                Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
-//                                                RestaurantList.add(restaurant);
-//                                                RestaurantListAdapter.notifyDataSetChanged();
-//                                                Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
-//                                            } else {
-//                                                Log.d(TAG, "No such document");
-//                                            }
-//                                        } else {
-//                                            Log.d(TAG, "get failed with ", task.getException());
-//                                        }
-//                                    }
-//
-//
-//                                });
-//                    }
-//                }
-//            }
-//        });
 
 
 
@@ -219,11 +196,14 @@ public class FriendInformation extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(FriendInformation.this,profile.class);
+                    intent.putExtra("user_id",userId);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(FriendInformation.this,MapsActivity.class);
+                    intent.putExtra("lat",lat);
+                    intent.putExtra("namelst",namelst);
                     startActivity(intent);
                     return true;
                 }
