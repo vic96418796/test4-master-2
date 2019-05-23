@@ -2,6 +2,7 @@ package com.example.test;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
+import android.view.View;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -122,6 +125,14 @@ public class favorite_main_interface extends AppCompatActivity {
                         num.add(restaurant.getRestaurant_phone());
                     }
                 }
+            }
+        });
+        FloatingActionButton add_restaurant = findViewById(R.id.add_restaurant);
+        add_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(favorite_main_interface.this,RestaurantList.class);
+                startActivity(intent);
             }
         });
         drawer = findViewById(R.id.drawer_layout);
