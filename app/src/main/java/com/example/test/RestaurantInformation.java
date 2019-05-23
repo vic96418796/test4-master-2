@@ -13,6 +13,8 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,7 +73,7 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
 
         Intent intent = this.getIntent();//取得傳遞過來的資料
-        String restaurantId = intent.getStringExtra("RestaurantId");
+        final String restaurantId = intent.getStringExtra("RestaurantId");
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -121,6 +123,15 @@ public class RestaurantInformation extends AppCompatActivity {
 
                     }
                 }
+            }
+        });
+        Button meme = findViewById(R.id.meme);
+        meme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantInformation.this,RestaurantMemeList.class);
+                intent.putExtra("restaurantId",restaurantId);
+                startActivity(intent);
             }
         });
         Toolbar toolbar = findViewById(R.id.toolbar);

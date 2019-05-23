@@ -85,7 +85,7 @@ public class RestaurantList extends AppCompatActivity {
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(RestaurantListAdapter);
-        final String currentUserID = auth.getCurrentUser().getUid();
+
         db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
@@ -103,6 +103,8 @@ public class RestaurantList extends AppCompatActivity {
                 }
             }
         });
+
+
         db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -119,9 +121,6 @@ public class RestaurantList extends AppCompatActivity {
                 }
             }
         });
-
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);

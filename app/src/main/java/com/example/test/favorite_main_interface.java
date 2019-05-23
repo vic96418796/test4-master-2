@@ -1,7 +1,6 @@
 package com.example.test;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.support.v7.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +25,6 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +44,6 @@ public class favorite_main_interface extends AppCompatActivity {
     private ArrayList<String> namelst;
     private ArrayList<String> num;
     private ArrayList<Double>lat1;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +59,12 @@ public class favorite_main_interface extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
-
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(RestaurantListAdapter);
-        final String currentUserID = auth.getCurrentUser().getUid();
-        db.collection("User/"+currentUserID+"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("User/"+ userId +"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 if (e != null) {
@@ -86,7 +77,6 @@ public class favorite_main_interface extends AppCompatActivity {
                             Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
                             restaurantList.add(restaurant_id);
                             RestaurantListAdapter.notifyDataSetChanged();
-
                         }
                     }
                     for (String restaurantId : restaurantList) {
@@ -102,7 +92,6 @@ public class favorite_main_interface extends AppCompatActivity {
                                                 String restaurant_id = doc.getId();
                                                 Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
                                                 RestaurantList.add(restaurant);
-
                                                 lat1.add(restaurant.getRestaurant_lat());
                                                 lat1.add(restaurant.getRestaurant_long());
                                                 RestaurantListAdapter.notifyDataSetChanged();
@@ -121,9 +110,6 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
             }
         });
-
-
-
         db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -134,19 +120,15 @@ public class favorite_main_interface extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
-
                     }
                 }
             }
         });
-
-
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer, toolbar,  R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigation_view = (NavigationView) findViewById(R.id.nav_view);
         navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -172,8 +154,6 @@ public class favorite_main_interface extends AppCompatActivity {
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
                     startActivity(intent);
-
-
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
@@ -181,7 +161,6 @@ public class favorite_main_interface extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
-
                 return false;
             }
         });

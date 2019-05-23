@@ -12,9 +12,4 @@ public class Friend extends FriendID {
     }
     public String getFriend_id() { return Friend_id; }
     public void setFriend_id(String friend_id) { Friend_id = friend_id; }
-
-
-
-
-
 }

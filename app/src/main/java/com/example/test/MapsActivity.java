@@ -2,28 +2,17 @@ package com.example.test;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Toast;
-
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,39 +20,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import static android.app.PendingIntent.getActivity;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
-
     private FirebaseFirestore db;
     private List<Restaurant> restaurantList1;
     private static final String TAG = "MapsActivity";
-
     private RestaurantListAdapter RestaurantListAdapter;
     private List<Restaurant> RestaurantList1;
     Restaurant restaurant = new Restaurant();
-
-
-
-
-
     private GoogleMap mMap;
     float zoom;
     private LocationManager locMGR;
@@ -72,11 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<String>namelst;
     ArrayList<String>num;
     String bestProv;
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,14 +51,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         num= (ArrayList<String>) getIntent().getSerializableExtra("num");
         lat1 = new ArrayList<>();
         lat1 = (ArrayList<Double>) getIntent().getSerializableExtra("lat1");
-
-         for(int i =0;i<lat.size();i++){
+        for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
-
         }
         for(int ii =0;ii<lat1.size();ii++){
             Log.d(TAG,"lat1: "+lat1.get(ii));
-
         }
         for (int r = 0;r<namelst.size();r++){
             Log.d(TAG,"namelst" + namelst.get(r));
@@ -104,16 +63,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int rr = 0;rr<num.size();rr++){
             Log.d(TAG,"num" + num.get(rr));
         }
-
-
 //        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
         db= FirebaseFirestore.getInstance();
-
-
-
-//        db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+//        db.collection("Restaurant"t(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
 //                if (e != null) {
 //                    Log.d(TAG, "Error :" + e.getMessage());
 //                } else {
@@ -125,7 +77,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                            lat.add(restaurant.getRestaurant_long());
 //                            RestaurantList1.add(restaurant);
 //                            RestaurantListAdapter.notifyDataSetChanged();
-//                        }
+//                        ).addSnapshotListener(new EventListener<QuerySnapshot>() {
+////            @Override
+////            public void onEven}
 //                    }
 //                }
 //            }

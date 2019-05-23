@@ -41,7 +41,6 @@ public class FriendList extends AppCompatActivity {
     private Restaurant restaurant;
     private ArrayList<String> num;
     private ArrayList<Double>lat1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +87,10 @@ public class FriendList extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
-
                     }
                 }
             }
         });
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);

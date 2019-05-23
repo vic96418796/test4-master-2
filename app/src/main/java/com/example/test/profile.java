@@ -61,6 +61,12 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     private ArrayList<String> num;
     private ArrayList<Double>lat1;
     private Restaurant restaurant;
+    private ArrayList<String> restaurantList;
+    private List<Restaurant> RestaurantList;
+    private RestaurantListAdapter RestaurantListAdapter;
+
+
+
 
 
 

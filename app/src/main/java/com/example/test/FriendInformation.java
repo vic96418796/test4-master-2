@@ -15,11 +15,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,12 +26,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FriendInformation extends AppCompatActivity {
     private static final String TAG ="Friends";
@@ -56,13 +48,10 @@ public class FriendInformation extends AppCompatActivity {
     private ArrayList<Double>lat1;
     private Restaurant restaurant;
     private String userId;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_information);;
-
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
         num = new ArrayList<>();
@@ -97,13 +86,10 @@ public class FriendInformation extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
-
-
                     }
                 }
             }
         });
-
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         RestaurantList = new ArrayList<>();
@@ -112,7 +98,6 @@ public class FriendInformation extends AppCompatActivity {
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(RestaurantListAdapter);
-
         userAll = new ArrayList<>();
         db.collection("User")
                 .get()
@@ -172,19 +157,12 @@ public class FriendInformation extends AppCompatActivity {
                                     }
                                 }
                             });
-
-
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-
                     }
                 });
         final String currentUserID = auth.getCurrentUser().getUid();
-
-
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
