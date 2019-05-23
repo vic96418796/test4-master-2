@@ -1,7 +1,5 @@
 package com.example.test;
 
-
-
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +20,7 @@ import android.content.Intent;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,8 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 public class profile extends AppCompatActivity implements set_profile.set_profileListener{
     private static final String TAG ="Users";
     private DrawerLayout drawer;
@@ -55,6 +52,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     public FirebaseAuth auth;
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView user_email;
+    private ImageView user_image;
     private String userId;
     private ArrayList<Double> lat;
     private ArrayList<String> namelst;
@@ -64,16 +62,6 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     private ArrayList<String> restaurantList;
     private List<Restaurant> RestaurantList;
     private RestaurantListAdapter RestaurantListAdapter;
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +70,10 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
-
 //        設定USER_ID
         Intent intent = this.getIntent();
         userId = intent.getStringExtra("user_id");
         Log.d(TAG,"userId: "+userId);
-
-
-
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("User").document(userId)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -98,6 +82,13 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         user_email.setText(document.get("User_id").toString());
+                        String image = document.get("User_image").toString();
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                        StorageReference picReference = storageReference.child("User/"+image);
+                        Glide.with(user_image.getContext())
+                                .using(new FirebaseImageLoader())
+                                .load(picReference)
+                                .into(user_image);
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -116,15 +107,10 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
-
-
-
                     }
                 }
             }
         });
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -189,6 +175,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
         });
         textViewUsername = (TextView) findViewById(R.id.user_name_profile);
         user_email = (TextView) findViewById(R.id.user_id);
+        user_image = (ImageView) findViewById(R.id.user_image);
         Button set = findViewById(R.id.set);
         set.setOnClickListener(new View.OnClickListener() {
             @Override

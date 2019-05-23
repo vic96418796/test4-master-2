@@ -15,7 +15,11 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +30,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +41,7 @@ public class FriendInformation extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     public TextView friend_name;
     public TextView friend_id;
+    public ImageView friend_image;
     public FirebaseAuth auth;
     private DrawerLayout drawer;
     private NavigationView navigation_view;
@@ -60,6 +68,7 @@ public class FriendInformation extends AppCompatActivity {
         String friendId = intent.getStringExtra("FriendId");
         friend_name=(TextView)findViewById(R.id.user_name_profile);
         friend_id=(TextView)findViewById(R.id.user_id);
+        friend_image=(ImageView)findViewById(R.id.friend_image);
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Friend").document(friendId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -68,6 +77,13 @@ public class FriendInformation extends AppCompatActivity {
                     if (document.exists()) {
                         friend_name.setText(document.get("Friend_name").toString());
                         friend_id.setText(document.get("Friend_id").toString());
+                        String image = document.get("Friend_image").toString();
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                        StorageReference picReference = storageReference.child("Friend/"+image);
+                        Glide.with(friend_image.getContext())
+                                .using(new FirebaseImageLoader())
+                                .load(picReference)
+                                .into(friend_image);
                     } else {
                         Log.d(TAG, "No such document");
                     }

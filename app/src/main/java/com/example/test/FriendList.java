@@ -1,6 +1,7 @@
 package com.example.test;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -133,8 +134,8 @@ public class FriendList extends AppCompatActivity {
                 return false;
             }
         });
-        Button add = findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton add_friend = findViewById(R.id.add_friend);
+        add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();

@@ -44,7 +44,13 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final String friend_id = FriendList.get(position).friendId;
-
+        String Image =FriendList.get(position).getFriend_image();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference picReference = storageReference.child("Friend/"+Image);
+        Glide.with(holder.friend_image.getContext())
+                .using(new FirebaseImageLoader())
+                .load(picReference)
+                .into(holder.friend_image);
         holder.friend_id.setText(FriendList.get(position).getFriend_id());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +71,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
         public TextView friend_id;
+        public ImageView friend_image;
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            friend_image = (ImageView)mView.findViewById(R.id.friend_image);
             friend_id = (TextView)mView.findViewById(R.id.friend_id);
             friend_image = (ImageView)mView.findViewById(R.id.friend_image);
         }
