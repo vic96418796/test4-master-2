@@ -151,32 +151,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int y = 0;
         int yy = 0;
         int yyy = 0;
+        //全部餐廳
         for (int l = 0;l<=lat.size()/2-1;l++){
             LatLng res = new LatLng(lat.get(y),lat.get(y+1));
             y+=2;
             mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).snippet(num.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
         }
+        //個人收藏
         for (int ll = 0;ll<=lat1.size()/2-1;ll++){
             LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
             yy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconlike)));
         }
+        //好友共同擁有
         for (int lll=0;lll<=lat3.size()/2-1;lll++){
             LatLng res = new LatLng(lat3.get(yyy),lat3.get(yyy+1));
             yyy+=2;
-            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriend)));
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
         }
 
 
 
 
-        LatLng Taipei101 = new LatLng(25.033611,121.56500);
-        zoom = 17;
-        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
-
-        LatLng Myhome = new LatLng(25.033705,121.431425);
-        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+//        LatLng Taipei101 = new LatLng(25.033611,121.56500);
+//        zoom = 17;
+//        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
+//
+//        LatLng Myhome = new LatLng(25.033705,121.431425);
+//        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
 
         requestPermission();
     }

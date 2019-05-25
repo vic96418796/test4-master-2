@@ -39,7 +39,7 @@ public class favorite_main_interface extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView mMainList;
     private RestaurantListAdapter RestaurantListAdapter;
-    private RestaurantListAdapter RestaurantListAdapter1;
+//    private RestaurantListAdapter RestaurantListAdapter1;
     private Restaurant restaurant;
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
@@ -60,16 +60,12 @@ public class favorite_main_interface extends AppCompatActivity {
     private ArrayList<String>friendlist2;
     private ArrayList<String>restaurantList1;
     ArrayList<String>friendlist1;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorite_main_interface);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         //收藏
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -84,16 +80,14 @@ public class favorite_main_interface extends AppCompatActivity {
         useridd = new ArrayList<>();
         userid2 = new ArrayList<>();
         record = new ArrayList<>();
-
         friendlist2 = new ArrayList<>();
-
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         restaurantList1 = new ArrayList<>();
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
-        RestaurantListAdapter1 = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
+//        RestaurantListAdapter1 = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
@@ -145,7 +139,6 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
             }
         });
-
         db.collection("User")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -163,11 +156,9 @@ public class favorite_main_interface extends AppCompatActivity {
                             for(int iii =0;iii<userid2.size();iii++){
                                 Log.d(TAG,"userid2: "+userid2.get(iii));
                             }
-
                         }
                     }
                 });
-
         db.collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {//這裡是抓全部USER
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -218,18 +209,14 @@ public class favorite_main_interface extends AppCompatActivity {
                                                        @Override
                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                            if(task.isSuccessful()){
-
-
                                                                for(DocumentSnapshot documentSnapshot:task.getResult()){
                                                                    String restaurant_id = documentSnapshot.getString("Restaurant_id");
                                                                    restaurantList1.add(restaurant_id);
                                                                    Log.d(TAG,"finaldB: "+restaurant_id);
-
                                                                }
                                                                for(int r =0;r<restaurantList1.size();r++){
                                                                    if(lat11.contains(restaurantList1.get(r))){
                                                                        clat.add(restaurantList1.get(r));
-
                                                                    }
                                                                }
                                                                for(int re =0;re<clat.size();re++){
@@ -242,23 +229,17 @@ public class favorite_main_interface extends AppCompatActivity {
                                                                            for(DocumentSnapshot documentSnapshot : task.getResult()){
                                                                                String restaurant_id = documentSnapshot.getId();
                                                                                Restaurant restaurant = documentSnapshot.toObject(Restaurant.class).withId(restaurant_id);
-
-
                                                                                for (int re =0;re<clat.size();re++){
                                                                                    if (clat.get(re).equalsIgnoreCase(restaurant_id)){
-                                                                                       lat3.add(restaurant.getRestaurant_lat());
-                                                                                       lat3.add(restaurant.getRestaurant_long());
-                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
-                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
+//                                                                                       lat3.add(restaurant.getRestaurant_lat());
+//                                                                                       lat3.add(restaurant.getRestaurant_long());
+//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
+//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
                                                                                    }
                                                                                }
                                                                                for(int re =0;re<lat3.size();re++){
                                                                                    Log.d(TAG,"finaldlll: "+lat3.get(re));
                                                                                }
-
-
-
-
                                                                            }
                                                                            for(int iii =0;iii<friendlist1.size();iii++){
                                                                                Log.d(TAG,"friendlist1: "+friendlist1.get(iii));
@@ -266,26 +247,18 @@ public class favorite_main_interface extends AppCompatActivity {
                                                                        }
                                                                    }
                                                                });
-
                                                            }
                                                        }
                                                    });
                                                }
                                             }
                                         });
-
                             }
-
                         }
                     });
                 }
             }
         });
-
-
-
-
-
         db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -303,11 +276,6 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-
         FloatingActionButton add_restaurant = findViewById(R.id.add_restaurant);
         add_restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,10 +311,10 @@ public class favorite_main_interface extends AppCompatActivity {
                     Intent intent = new Intent(favorite_main_interface.this,MapsActivity.class);
                     intent.putExtra("lat",lat);
                     intent.putExtra("namelst",namelst);
-                    intent.putExtra("restaurantList1",restaurantList1);
-                    intent.putExtra("clat",clat);
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
+                    intent.putExtra("restaurantList1",restaurantList1);
+                    intent.putExtra("clat",clat);
                     intent.putExtra("lat3",lat3);
                     startActivity(intent);
                     return true;
@@ -359,7 +327,6 @@ public class favorite_main_interface extends AppCompatActivity {
                 return false;
             }
         });
-
     }
     @Override
     public void onBackPressed(){

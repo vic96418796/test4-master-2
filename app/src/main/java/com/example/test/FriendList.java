@@ -56,12 +56,10 @@ public class FriendList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_list);
-
         useridd = new ArrayList<>();
         userid2 = new ArrayList<>();
         record = new ArrayList<>();
         friendlist1 = new ArrayList<>();
-
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
         num = new ArrayList<>();
