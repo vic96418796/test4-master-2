@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/image"
-            android:src="@drawable/comment64"
+            android:src="@drawable/comment128"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"

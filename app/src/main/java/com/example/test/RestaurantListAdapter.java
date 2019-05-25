@@ -56,7 +56,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             restaurant_name = (TextView)mView.findViewById(R.id.restaurant_name);
             restaurant_add = (TextView)mView.findViewById(R.id.restaurant_add);
             restaurant_image = (ImageView)mView.findViewById(R.id.restaurant_image);
-            restaurant_like = (ImageButton)mView.findViewById(R.id.restaurant_like);
+            restaurant_like = (ImageButton)mView.findViewById(R.id.like_restaurant);
             restaurant_tags = (TextView)mView.findViewById(R.id.restaurant_tags);
         }
     }
@@ -108,9 +108,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             if (documentSnapshot.exists() && e == null) {
-                                holder.restaurant_like.setImageResource(R.drawable.love32);
+                                holder.restaurant_like.setImageResource(R.drawable.likefull128);
                             } else {
-                                holder.restaurant_like.setImageResource(R.drawable.nonlove32);
+                                holder.restaurant_like.setImageResource(R.drawable.like128);
                             }
                         }
                     });

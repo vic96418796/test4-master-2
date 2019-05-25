@@ -378,7 +378,7 @@ public class favorite_main_interface extends AppCompatActivity {
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(favorite_main_interface.this, email_login.class);
+                            Intent intent = new Intent(favorite_main_interface.this, login_interface.class);
                             startActivity(intent);
                         }
                     })

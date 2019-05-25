@@ -95,7 +95,7 @@
                         <Button
                             android:id="@+id/meme"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="30dp"
                             android:layout_margin="5dp"
                             android:text=" 查看評論 "
                             android:textColor="#000000"
