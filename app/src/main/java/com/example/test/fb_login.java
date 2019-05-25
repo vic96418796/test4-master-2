@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,10 +68,23 @@ public class fb_login extends AppCompatActivity {
                             register(email, password);
                         }
                         else if(task.isSuccessful()){
-                            fb_login.this.finish();
-                            Toast.makeText(fb_login.this,"登入成功",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(fb_login.this, favorite_main_interface.class);
-                            startActivity(intent);
+//                            fb_login.this.finish();
+                            new AlertDialog.Builder(fb_login.this)
+                                    .setTitle("登入")
+                                    .setIcon(R.mipmap.ic_launcher)
+                                    .setMessage("成功連接至 Facebook 帳號密碼")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(fb_login.this,"創建帳號密碼成功",Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent (fb_login.this, email_login.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton("取消",null)
+                                    .show();
+//                            Intent intent = new Intent(fb_login.this, favorite_main_interface.class);
+//                            startActivity(intent);
                         }
                     }
                 });
