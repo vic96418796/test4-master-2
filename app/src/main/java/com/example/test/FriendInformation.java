@@ -81,7 +81,6 @@ public class FriendInformation extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
-
         RestaurantList = new ArrayList<>();
         lat = new ArrayList<>();
         lat11 = new ArrayList<>();
@@ -181,11 +180,11 @@ public class FriendInformation extends AppCompatActivity {
                                             if (doc.exists()) {
                                                 String restaurant_id = doc.getId();
                                                 Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
-                                                RestaurantList.add(restaurant);
+//                                                RestaurantList.add(restaurant);
                                                 lat5.add(restaurant_id);
-                                                lat1.add(restaurant.getRestaurant_lat());
-                                                lat1.add(restaurant.getRestaurant_long());
-                                                lat11.add(restaurant_id);
+//                                                lat1.add(restaurant.getRestaurant_lat());
+//                                                lat1.add(restaurant.getRestaurant_long());
+//                                                lat11.add(restaurant_id);
                                                 Log.d(TAG,"12345"+lat1);
                                                 RestaurantListAdapter.notifyDataSetChanged();
                                                 Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
@@ -323,7 +322,6 @@ public class FriendInformation extends AppCompatActivity {
                 }
             }
         });
-
         db.collection("User")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -350,12 +348,9 @@ public class FriendInformation extends AppCompatActivity {
                                                 String restaurant_id = doc.getDocument().getId();
                                                 Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
                                                 restaurantList.add(restaurant_id);//restaurant id by personal favorite
-
                                                 RestaurantListAdapter.notifyDataSetChanged();
-
                                             }
                                         }
-
                                         for (String restaurantId : restaurantList) {
                                             db.collection("Restaurant")
                                                     .document(restaurantId)
@@ -375,12 +370,7 @@ public class FriendInformation extends AppCompatActivity {
                                                                         lat4.add(restaurant.getRestaurant_long());
                                                                         Log.d(TAG,"comeon: "+lat4);
                                                                     }
-
-
-
                                                                     RestaurantListAdapter.notifyDataSetChanged();
-
-
                                                                     Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
                                                                 } else {
                                                                     Log.d(TAG, "No such document");
@@ -388,14 +378,9 @@ public class FriendInformation extends AppCompatActivity {
                                                             } else {
                                                                 Log.d(TAG, "get failed with ", task.getException());
                                                             }
-
                                                         }
-
-
                                                     });
                                         }
-
-
                                     }
                                 }
                             });
