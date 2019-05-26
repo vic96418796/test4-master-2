@@ -164,7 +164,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (logout.callOnClick()){
-                                    Intent intent = new Intent (profile.this, email_login.class);
+                                    Intent intent = new Intent (profile.this, login_interface.class);
                                     startActivity(intent);
                                 }
                             }
