@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class email_login extends AppCompatActivity {
@@ -52,11 +53,12 @@ public class email_login extends AppCompatActivity {
         auth.removeAuthStateListener(authListener);
     }
     public void login(View v){
-        final String email = ((EditText)findViewById(R.id.email))
+         final String email = ((EditText)findViewById(R.id.email))
                 .getText().toString();
-        final String password = ((EditText)findViewById(R.id.password))
+         final String password = ((EditText)findViewById(R.id.password))
                 .getText().toString();
         Log.d("AUTH", email+"/"+password);
+
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -64,7 +66,19 @@ public class email_login extends AppCompatActivity {
                         Log.d("onComplete", "onComplete");
                         if (!task.isSuccessful()){
                             Log.d("onComplete", "登入失敗");
-                            register(email, password);
+                            new AlertDialog.Builder(email_login.this)
+                                    .setTitle("登入問題")
+                                    .setMessage("帳號或密碼錯誤，請重新輸入")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    })
+
+                                    .show();
+
                         }
                         else if(task.isSuccessful()){
                             email_login.this.finish();
@@ -72,9 +86,12 @@ public class email_login extends AppCompatActivity {
                             Intent intent = new Intent(email_login.this, favorite_main_interface.class);
                             startActivity(intent);
                         }
+
+
                     }
                 });
     }
+
     private void register(final String email, final String password) {
         new AlertDialog.Builder(email_login.this)
                 .setTitle("登入問題")

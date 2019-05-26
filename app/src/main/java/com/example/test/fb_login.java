@@ -65,7 +65,18 @@ public class fb_login extends AppCompatActivity {
                         Log.d("onComplete", "onComplete");
                         if (!task.isSuccessful()){
                             Log.d("onComplete", "登入失敗");
-                            register(email, password);
+                            new AlertDialog.Builder(fb_login.this)
+                                    .setTitle("登入問題")
+                                    .setMessage("帳號或密碼錯誤，請重新輸入")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    })
+
+                                    .show();
                         }
                         else if(task.isSuccessful()){
 //                            fb_login.this.finish();
