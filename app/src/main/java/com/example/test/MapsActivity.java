@@ -26,23 +26,30 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
     private FirebaseFirestore db;
-    private List<Restaurant> restaurantList1;
+
     private static final String TAG = "MapsActivity";
     private RestaurantListAdapter RestaurantListAdapter;
-    private List<Restaurant> RestaurantList1;
+
     Restaurant restaurant = new Restaurant();
     private GoogleMap mMap;
     float zoom;
     private LocationManager locMGR;
     ArrayList<Double> lat;
     ArrayList<Double> lat1;
+    ArrayList<Double> lat3;
     ArrayList<String>namelst;
     ArrayList<String>num;
     String bestProv;
+    ArrayList<String>restaurantList1;
+    ArrayList<String>clat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        restaurantList1 = new ArrayList<>();
+        restaurantList1 = (ArrayList<String>)getIntent().getSerializableExtra("restaurantList1");
+        clat = new ArrayList<>();
+        clat = (ArrayList<String>) getIntent().getSerializableExtra("clat");
         lat = new ArrayList<>();
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
         namelst=new ArrayList<>();
@@ -51,6 +58,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         num= (ArrayList<String>) getIntent().getSerializableExtra("num");
         lat1 = new ArrayList<>();
         lat1 = (ArrayList<Double>) getIntent().getSerializableExtra("lat1");
+        lat3 = new ArrayList<>();
+        lat3 = (ArrayList<Double>) getIntent().getSerializableExtra("lat3");
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
         }
@@ -62,6 +71,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         for (int rr = 0;rr<num.size();rr++){
             Log.d(TAG,"num" + num.get(rr));
+        }
+        for(int iii =0;iii<lat3.size();iii++){
+            Log.d(TAG,"lat3: "+lat3.get(iii));
+        }
+        for(int iq =0;iq<restaurantList1.size();iq++){
+            Log.d(TAG,"qq: "+restaurantList1.get(iq));
+        }
+        for(int iqq =0;iqq<clat.size();iqq++){
+            Log.d(TAG,"cclat: "+clat.get(iqq));
         }
 //        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
         db= FirebaseFirestore.getInstance();
@@ -132,27 +150,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         int y = 0;
         int yy = 0;
+        int yyy = 0;
+        //全部餐廳
         for (int l = 0;l<=lat.size()/2-1;l++){
             LatLng res = new LatLng(lat.get(y),lat.get(y+1));
             y+=2;
             mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).snippet(num.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
         }
+        //個人收藏
         for (int ll = 0;ll<=lat1.size()/2-1;ll++){
             LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
             yy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconlike)));
         }
+        //好友共同擁有
+        for (int lll=0;lll<=lat3.size()/2-1;lll++){
+            LatLng res = new LatLng(lat3.get(yyy),lat3.get(yyy+1));
+            yyy+=2;
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
+        }
 
 
 
 
-        LatLng Taipei101 = new LatLng(25.033611,121.56500);
-        zoom = 17;
-        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
-
-        LatLng Myhome = new LatLng(25.033705,121.431425);
-        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+//        LatLng Taipei101 = new LatLng(25.033611,121.56500);
+//        zoom = 17;
+//        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
+//
+//        LatLng Myhome = new LatLng(25.033705,121.431425);
+//        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
 
         requestPermission();
     }
