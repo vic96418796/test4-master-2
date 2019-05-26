@@ -54,6 +54,7 @@ public class FriendInformation extends AppCompatActivity {
     private ArrayList<String> namelst;
     private ArrayList<String> num;
     private ArrayList<Double>lat1;
+    private ArrayList<String>lat5;
     private Restaurant restaurant;
     private String userId;
     private ArrayList<String>lat11;
@@ -66,15 +67,21 @@ public class FriendInformation extends AppCompatActivity {
     private ArrayList<String>restaurant2;
     private ArrayList<String>friendlist2;
     private ArrayList<String>restaurantList1;
+    private ArrayList<Double>lat4;
     ArrayList<String>friendlist1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_information);;
+        auth = FirebaseAuth.getInstance();
+        userId = auth.getCurrentUser().getUid();
+        lat4 = new ArrayList<>();
         lat = new ArrayList<>();
+        lat5 = new ArrayList<>();
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
+
         RestaurantList = new ArrayList<>();
         lat = new ArrayList<>();
         lat11 = new ArrayList<>();
@@ -142,6 +149,55 @@ public class FriendInformation extends AppCompatActivity {
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(RestaurantListAdapter);
         userAll = new ArrayList<>();
+        db.collection("User/"+ userId +"/Favorite_restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.d(TAG, "Error :" + e.getMessage());
+                } else {
+                    restaurantList = new ArrayList<>();
+                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+                            String restaurant_id = doc.getDocument().getId();
+                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+                            restaurantList.add(restaurant_id);
+                            RestaurantListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    for (String restaurantId : restaurantList) {
+                        db.collection("Restaurant")
+                                .document(restaurantId)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot doc = task.getResult();
+                                            if (doc.exists()) {
+                                                String restaurant_id = doc.getId();
+                                                Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
+                                                RestaurantList.add(restaurant);
+                                                lat5.add(restaurant_id);
+                                                lat1.add(restaurant.getRestaurant_lat());
+                                                lat1.add(restaurant.getRestaurant_long());
+                                                lat11.add(restaurant_id);
+                                                Log.d(TAG,"12345"+lat1);
+                                                RestaurantListAdapter.notifyDataSetChanged();
+                                                Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
+                                            } else {
+                                                Log.d(TAG, "No such document");
+                                            }
+                                        } else {
+                                            Log.d(TAG, "get failed with ", task.getException());
+                                        }
+                                    }
+
+
+                                });
+                    }
+                }
+            }
+        });
         db.collection("User")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -262,6 +318,7 @@ public class FriendInformation extends AppCompatActivity {
                 }
             }
         });
+
         db.collection("User")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -287,10 +344,13 @@ public class FriendInformation extends AppCompatActivity {
                                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                                 String restaurant_id = doc.getDocument().getId();
                                                 Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
-                                                restaurantList.add(restaurant_id);
+                                                restaurantList.add(restaurant_id);//restaurant id by personal favorite
+
                                                 RestaurantListAdapter.notifyDataSetChanged();
+
                                             }
                                         }
+
                                         for (String restaurantId : restaurantList) {
                                             db.collection("Restaurant")
                                                     .document(restaurantId)
@@ -304,7 +364,18 @@ public class FriendInformation extends AppCompatActivity {
                                                                     String restaurant_id = doc.getId();
                                                                     Restaurant restaurant = doc.toObject(Restaurant.class).withId(restaurant_id);
                                                                     RestaurantList.add(restaurant);
+                                                                    Log.d(TAG,"zxc "+lat5);
+                                                                    if (lat5.contains(restaurant_id)){
+                                                                        lat4.add(restaurant.getRestaurant_lat());
+                                                                        lat4.add(restaurant.getRestaurant_long());
+                                                                        Log.d(TAG,"comeon: "+lat4);
+                                                                    }
+
+
+
                                                                     RestaurantListAdapter.notifyDataSetChanged();
+
+
                                                                     Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
                                                                 } else {
                                                                     Log.d(TAG, "No such document");
@@ -312,11 +383,14 @@ public class FriendInformation extends AppCompatActivity {
                                                             } else {
                                                                 Log.d(TAG, "get failed with ", task.getException());
                                                             }
+
                                                         }
 
 
                                                     });
                                         }
+
+
                                     }
                                 }
                             });
@@ -325,6 +399,8 @@ public class FriendInformation extends AppCompatActivity {
                         }
                     }
                 });
+
+
         final String currentUserID = auth.getCurrentUser().getUid();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -355,6 +431,7 @@ public class FriendInformation extends AppCompatActivity {
                     intent.putExtra("restaurantList1",restaurantList1);
                     intent.putExtra("clat",clat);
                     intent.putExtra("lat3",lat3);
+                    intent.putExtra("lat4",lat4);
                     startActivity(intent);
                     return true;
                 }

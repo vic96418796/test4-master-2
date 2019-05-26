@@ -42,6 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String bestProv;
     ArrayList<String>restaurantList1;
     ArrayList<String>clat;
+    ArrayList<Double>lat4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lat1 = (ArrayList<Double>) getIntent().getSerializableExtra("lat1");
         lat3 = new ArrayList<>();
         lat3 = (ArrayList<Double>) getIntent().getSerializableExtra("lat3");
+        lat4 = new ArrayList<>();
+        lat4 = (ArrayList<Double>) getIntent().getSerializableExtra("lat4");
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
         }
@@ -80,6 +83,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         for(int iqq =0;iqq<clat.size();iqq++){
             Log.d(TAG,"cclat: "+clat.get(iqq));
+        }
+        for(int i =0;i<lat4.size();i++){
+            Log.d(TAG,"lat4444: "+lat4.get(i));
         }
 //        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
         db= FirebaseFirestore.getInstance();
@@ -151,6 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int y = 0;
         int yy = 0;
         int yyy = 0;
+        int yyyy = 0;
         //全部餐廳
         for (int l = 0;l<=lat.size()/2-1;l++){
             LatLng res = new LatLng(lat.get(y),lat.get(y+1));
@@ -167,6 +174,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int lll=0;lll<=lat3.size()/2-1;lll++){
             LatLng res = new LatLng(lat3.get(yyy),lat3.get(yyy+1));
             yyy+=2;
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
+        }
+        for (int lll=0;lll<=lat4.size()/2-1;lll++){
+            LatLng res = new LatLng(lat4.get(yyyy),lat4.get(yyyy+1));
+            yyyy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
         }
 

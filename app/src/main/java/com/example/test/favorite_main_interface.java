@@ -231,10 +231,10 @@ public class favorite_main_interface extends AppCompatActivity {
                                                                                Restaurant restaurant = documentSnapshot.toObject(Restaurant.class).withId(restaurant_id);
                                                                                for (int re =0;re<clat.size();re++){
                                                                                    if (clat.get(re).equalsIgnoreCase(restaurant_id)){
-//                                                                                       lat3.add(restaurant.getRestaurant_lat());
-//                                                                                       lat3.add(restaurant.getRestaurant_long());
-//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
-//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
+                                                                                       lat3.add(restaurant.getRestaurant_lat());
+                                                                                       lat3.add(restaurant.getRestaurant_long());
+                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
+                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
                                                                                    }
                                                                                }
                                                                                for(int re =0;re<lat3.size();re++){
@@ -246,6 +246,7 @@ public class favorite_main_interface extends AppCompatActivity {
                                                                            }
                                                                        }
                                                                    }
+
                                                                });
                                                            }
                                                        }
@@ -299,11 +300,13 @@ public class favorite_main_interface extends AppCompatActivity {
                 if (id == R.id.nav_friend) {
                     Intent intent = new Intent(favorite_main_interface.this, FriendList.class);
                     startActivity(intent);
+                    intent.putExtra("lat1",lat1);
                     return true;
                 }
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(favorite_main_interface.this,profile.class);
                     intent.putExtra("user_id",userId);
+
                     startActivity(intent);
                     return true;
                 }
