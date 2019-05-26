@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +21,11 @@ public class email_register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.email_register);
-        Button register = findViewById(R.id.register);
+
         auth = FirebaseAuth.getInstance();
     }
     public void createUser1(View v) {
+        final Button register = findViewById(R.id.register);
         final String email1 = ((EditText)findViewById(R.id.edit_mail))
                 .getText().toString();
         final String password1 = ((EditText)findViewById(R.id.edit_pw))
@@ -38,10 +40,18 @@ public class email_register extends AppCompatActivity {
                                 new AlertDialog.Builder(email_register.this)
                                         .setMessage(message)
                                         .setIcon(R.mipmap.ic_launcher)
-                                        .setPositiveButton("OK", null)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if ( register.callOnClick()) {
+                                                    Intent intent = new Intent(email_register.this,email_login.class);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        })
+
                                         .show();
-                                Intent intent = new Intent(email_register.this,email_login.class);
-                                startActivity(intent);
+
                             }
                         });
     }

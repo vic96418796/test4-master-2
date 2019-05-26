@@ -96,29 +96,34 @@ public class FriendInformation extends AppCompatActivity {
         friend_name=(TextView)findViewById(R.id.user_name_profile);
         friend_id=(TextView)findViewById(R.id.user_id);
         friend_image=(ImageView)findViewById(R.id.friend_image);
-        Task<DocumentSnapshot> documentSnapshotTask = db.collection("Friend").document(friendId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        friend_name.setText(document.get("Friend_name").toString());
-                        friend_id.setText(document.get("Friend_id").toString());
-                        String image = document.get("Friend_image").toString();
-                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-                        StorageReference picReference = storageReference.child("Friend/"+image);
-                        Glide.with(friend_image.getContext())
-                                .using(new FirebaseImageLoader())
-                                .load(picReference)
-                                .into(friend_image);
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(userId!=null){
+            Task<DocumentSnapshot> documentSnapshotTask = db.collection("User/"+userId+"/Friend").document(friendId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            friend_name.setText(document.get("Friend_name").toString());
+                            friend_id.setText(document.get("Friend_id").toString());
+                            Log.d(TAG,"friendName: "+document.get("Friend_name").toString()+"friendId: "+document.get("Friend_id").toString());
+                            String image = document.get("Friend_image").toString();
+                            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                            StorageReference picReference = storageReference.child("Friend/"+image);
+                            Glide.with(friend_image.getContext())
+                                    .using(new FirebaseImageLoader())
+                                    .load(picReference)
+                                    .into(friend_image);
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
                     } else {
-                        Log.d(TAG, "No such document");
+                        Log.d(TAG, "get failed with ", task.getException());
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
-            }
-        });
+            });
+        }
+
         db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

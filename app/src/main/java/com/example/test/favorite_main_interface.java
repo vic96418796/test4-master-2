@@ -231,10 +231,10 @@ public class favorite_main_interface extends AppCompatActivity {
                                                                                Restaurant restaurant = documentSnapshot.toObject(Restaurant.class).withId(restaurant_id);
                                                                                for (int re =0;re<clat.size();re++){
                                                                                    if (clat.get(re).equalsIgnoreCase(restaurant_id)){
-//                                                                                       lat3.add(restaurant.getRestaurant_lat());
-//                                                                                       lat3.add(restaurant.getRestaurant_long());
-//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
-//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
+                                                                                       lat3.add(restaurant.getRestaurant_lat());
+                                                                                       lat3.add(restaurant.getRestaurant_long());
+                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
+                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
                                                                                    }
                                                                                }
                                                                                for(int re =0;re<lat3.size();re++){

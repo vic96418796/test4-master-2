@@ -95,7 +95,7 @@ public class FriendList extends AppCompatActivity {
 //                }
 //            }
 //        });
-        db.collection("Friend").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("User/"+userId+"/Friend").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -104,9 +104,7 @@ public class FriendList extends AppCompatActivity {
                         Friend friend = documentSnapshot.toObject(Friend.class).withId(friend_id);
                         FriendList.add(friend);
                         friendlist1.add(friend.getFriend_id());
-
                         FriendListAdapter.notifyDataSetChanged();
-
                     }
                     for(int iii =0;iii<friendlist1.size();iii++){
                         Log.d(TAG,"friendlist1: "+friendlist1.get(iii));
@@ -160,13 +158,11 @@ public class FriendList extends AppCompatActivity {
                         Log.d(TAG, "Error :" + e.getMessage());
                     } else {
                         restaurantList1 = new ArrayList<>();
-
                         for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                 String restaurant_id = doc.getDocument().getId();
                                 Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
                                 restaurantList1.add(restaurant_id);
-
                             }
                         }
 
@@ -202,13 +198,6 @@ public class FriendList extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
-
-
-
         db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
