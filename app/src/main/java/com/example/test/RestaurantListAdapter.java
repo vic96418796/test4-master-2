@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
 
     private List<Restaurant> RestaurantListFull;
-     private static final String TAG = "TEST";
+    private static final String TAG = "TEST";
     public FirebaseAuth firebaseAuth;
     public FirebaseFirestore db;
     public List<Restaurant> RestaurantList;

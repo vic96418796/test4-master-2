@@ -16,8 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FriendInformation"></activity>
-        <activity android:name=".RestaurantInformation"></activity>
+        <activity android:name=".edit_text"/>
+        <activity android:name=".FriendInformation" />
+        <activity android:name=".RestaurantInformation" />
         <activity android:name=".FriendList" />
         <activity android:name=".profile" />
         <activity android:name=".fb_login" />
