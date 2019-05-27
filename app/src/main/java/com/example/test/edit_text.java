@@ -36,8 +36,9 @@ import java.util.ArrayList;
 
 public class edit_text extends AppCompatActivity {
     DatabaseReference ref;
-    ArrayList<Restaurant> list;
+
     RecyclerView recyclerView;
+    ArrayList<Restaurant> list;
     SearchView searchView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawer;
@@ -92,13 +93,11 @@ public class edit_text extends AppCompatActivity {
     }
 
 
-    
+
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
             DocumentReference docRef = db.collection("cities").document("BJ");
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -119,82 +118,38 @@ public class edit_text extends AppCompatActivity {
                                 String restaurant_id = doc.getDocument().getId();
                                 Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
                                 list.add(restaurant);
-
                             }
                         }
-                        AdapterClass adapterClass = new AdapterClass(list);
+                        RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this,list);
                         recyclerView.setAdapter(adapterClass);
                     }
                 }
             });
-
-
             if (searchView != null) {
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String s) {
                         return false;
                     }
-
                     @Override
                     public boolean onQueryTextChange(String s) {
                         search(s);
                         return true;
                     }
                 });
-
-       /* if(ref !=null)
-        {
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists())
-                    {
-                        list = new ArrayList<>();
-                        for(DataSnapshot  ds : dataSnapshot.getChildren())
-                        {
-                            list.add(ds.getValue(resturant.class));
-                        }
-                        AdapterClass adapterClass = new AdapterClass(list);
-                        recyclerView.setAdapter(adapterClass);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(edit_text.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if (searchView !=null)
-        {
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String s) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    search(s);
-                    return true;
-                }
-            });
-        }*/
             }
         }
-
     private void search(String str)
     {
         ArrayList<Restaurant>  myList = new ArrayList<>();
         for(Restaurant object : list)
         {
-            if(object.getRestaurant_name().toLowerCase().contains(str.toLowerCase()))
+            if(object.getRestaurant_name().toLowerCase().contains(str.toLowerCase())||object.getRestaurant_tags().toLowerCase().contains(str.toLowerCase()))
             {
                 myList.add(object);
             }
         }
-        AdapterClass adapterClass = new AdapterClass(myList);
+        RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this,myList);
         recyclerView.setAdapter(adapterClass);
     }
 }

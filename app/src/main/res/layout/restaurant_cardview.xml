@@ -19,6 +19,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/like_restaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            app:elevation="6dp"
+            app:backgroundTint="#FFFFFF"
+            app:pressedTranslationZ="16dp"/>
         <ImageView
             android:id="@+id/restaurant_image"
             android:layout_width="160dp"
@@ -37,32 +46,33 @@
             android:layout_marginTop="10dp">
 
             <TextView
-
                 android:id="@+id/restaurant_name"
                 android:textColor="#FF1493"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp" />
 
-            <ImageButton
-                android:id="@+id/restaurant_like"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="130dp"
-                android:src="@drawable/non_love"
-                android:background="#FFFFFF" />
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/restaurant_like"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="100dp"-->
+                <!--android:layout_marginTop="120dp"-->
+                <!--android:background="#FFFFFF"-->
+                <!--android:src="@drawable/non_love" />-->
             <TextView
                 android:id="@+id/restaurant_tags"
                 android:textColor="#000000"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="65dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp" />
         </RelativeLayout>

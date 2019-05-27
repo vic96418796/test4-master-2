@@ -13,6 +13,8 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +22,14 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class RestaurantInformation extends AppCompatActivity {
     private static final String TAG ="Restaurants";
@@ -38,12 +44,25 @@ public class RestaurantInformation extends AppCompatActivity {
     public TextView restaurantGOOGLE;
     private DrawerLayout drawer;
     private NavigationView navigation_view;
+    private ArrayList<Double> lat;
+    private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
+    private Restaurant restaurant;
+    private String userId;
+    private FirebaseAuth auth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_information);
-        Intent intent = this.getIntent();//取得傳遞過來的資料
-        String restaurantId = intent.getStringExtra("RestaurantId");
+        lat = new ArrayList<>();
+        namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
+
+
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
         restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
         restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
@@ -52,6 +71,9 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
         restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
         restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
+
+        Intent intent = this.getIntent();//取得傳遞過來的資料
+        final String restaurantId = intent.getStringExtra("RestaurantId");
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -86,6 +108,32 @@ public class RestaurantInformation extends AppCompatActivity {
                 }
             }
         });
+        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        restaurant = documentSnapshot.toObject(Restaurant.class);
+                        lat.add(restaurant.getRestaurant_lat());
+                        lat.add(restaurant.getRestaurant_long());
+                        namelst.add(restaurant.getRestaurant_name());
+                        num.add(restaurant.getRestaurant_phone());
+
+
+
+                    }
+                }
+            }
+        });
+        Button meme = findViewById(R.id.meme);
+        meme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantInformation.this,RestaurantMemeList.class);
+                intent.putExtra("restaurantId",restaurantId);
+                startActivity(intent);
+            }
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -102,11 +150,16 @@ public class RestaurantInformation extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(RestaurantInformation.this,profile.class);
+                    intent.putExtra("user_id",userId);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(RestaurantInformation.this,MapsActivity.class);
+                    intent.putExtra("lat",lat);
+                    intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }
@@ -116,7 +169,7 @@ public class RestaurantInformation extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent( RestaurantInformation.this,RestaurantList.class);
+                    Intent intent = new Intent( RestaurantInformation.this,edit_text.class);
                     startActivity(intent);
                     return true;
                 }

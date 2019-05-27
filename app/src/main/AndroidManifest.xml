@@ -24,6 +24,7 @@
         <activity android:name=".fb_login" />
         <activity android:name=".search_label" />
         <activity android:name=".favorite_main_interface" />
+        <activity android:name=".RestaurantMemeList" />
         <activity android:name=".email_login" />
         <activity android:name=".email_register" />
         <activity android:name=".login_interface" />

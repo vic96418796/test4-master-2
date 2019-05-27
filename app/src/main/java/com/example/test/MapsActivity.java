@@ -2,48 +2,134 @@ package com.example.test;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.Log;
 import android.widget.Toast;
-
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import static android.app.PendingIntent.getActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+    private FirebaseFirestore db;
 
+    private static final String TAG = "MapsActivity";
+    private RestaurantListAdapter RestaurantListAdapter;
+
+    Restaurant restaurant = new Restaurant();
     private GoogleMap mMap;
     float zoom;
     private LocationManager locMGR;
+    ArrayList<Double> lat;
+    ArrayList<Double> lat1;
+    ArrayList<Double> lat3;
+    ArrayList<String>namelst;
+    ArrayList<String>num;
     String bestProv;
-
-
+    ArrayList<String>restaurantList1;
+    ArrayList<String>clat;
+    ArrayList<Double>lat4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        restaurantList1 = new ArrayList<>();
+        restaurantList1 = (ArrayList<String>)getIntent().getSerializableExtra("restaurantList1");
+        clat = new ArrayList<>();
+        clat = (ArrayList<String>) getIntent().getSerializableExtra("clat");
+        lat = new ArrayList<>();
+        lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
+        namelst=new ArrayList<>();
+        namelst = (ArrayList<String>) getIntent().getSerializableExtra("namelst");
+        num = new ArrayList<>();
+        num= (ArrayList<String>) getIntent().getSerializableExtra("num");
+        lat1 = new ArrayList<>();
+        lat1 = (ArrayList<Double>) getIntent().getSerializableExtra("lat1");
+        lat3 = new ArrayList<>();
+        lat3 = (ArrayList<Double>) getIntent().getSerializableExtra("lat3");
+        lat4 = new ArrayList<>();
+        lat4 = (ArrayList<Double>) getIntent().getSerializableExtra("lat4");
+        for(int i =0;i<lat.size();i++){
+            Log.d(TAG,"lat: "+lat.get(i));
+        }
+        for(int ii =0;ii<lat1.size();ii++){
+            Log.d(TAG,"lat1: "+lat1.get(ii));
+        }
+        for (int r = 0;r<namelst.size();r++){
+            Log.d(TAG,"namelst" + namelst.get(r));
+        }
+        for (int rr = 0;rr<num.size();rr++){
+            Log.d(TAG,"num" + num.get(rr));
+        }
+        for(int iii =0;iii<lat3.size();iii++){
+            Log.d(TAG,"lat3: "+lat3.get(iii));
+        }
+        for(int iq =0;iq<restaurantList1.size();iq++){
+            Log.d(TAG,"qq: "+restaurantList1.get(iq));
+        }
+        for(int iqq =0;iqq<clat.size();iqq++){
+            Log.d(TAG,"cclat: "+clat.get(iqq));
+        }
+        for(int i =0;i<lat4.size();i++){
+            Log.d(TAG,"lat4444: "+lat4.get(i));
+        }
+//        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
+        db= FirebaseFirestore.getInstance();
+//        db.collection("Restaurant"t(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.d(TAG, "Error :" + e.getMessage());
+//                } else {
+//                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+//                        if (doc.getType() == DocumentChange.Type.ADDED) {
+//                            String restaurant_id = doc.getDocument().getId();
+//                            restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+//                            lat.add(restaurant.getRestaurant_lat());
+//                            lat.add(restaurant.getRestaurant_long());
+//                            RestaurantList1.add(restaurant);
+//                            RestaurantListAdapter.notifyDataSetChanged();
+//                        ).addSnapshotListener(new EventListener<QuerySnapshot>() {
+////            @Override
+////            public void onEven}
+//                    }
+//                }
+//            }
+//        });
+//        db.collection("Restaruant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+//                        restaurant = documentSnapshot.toObject(Restaurant.class);
+//                    }
+//                    isCheck = true;
+//                }
+//            }
+//        });
+
+
+
+
+
+
+
+
+
+
+
 
 
         
@@ -52,6 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
 
 
 
@@ -67,13 +154,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng Taipei101 = new LatLng(25.033611,121.56500);
-        zoom = 17;
-        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
+        int y = 0;
+        int yy = 0;
+        int yyy = 0;
+        int yyyy = 0;
+        //全部餐廳
+        for (int l = 0;l<=lat.size()/2-1;l++){
+            LatLng res = new LatLng(lat.get(y),lat.get(y+1));
+            y+=2;
+            mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).snippet(num.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+        }
+        //個人收藏
+        for (int ll = 0;ll<=lat1.size()/2-1;ll++){
+            LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
+            yy+=2;
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconlike)));
+        }
+        //好友共同擁有
+        for (int lll=0;lll<=lat3.size()/2-1;lll++){
+            LatLng res = new LatLng(lat3.get(yyy),lat3.get(yyy+1));
+            yyy+=2;
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
+        }
+        for (int lll=0;lll<=lat4.size()/2-1;lll++){
+            LatLng res = new LatLng(lat4.get(yyyy),lat4.get(yyyy+1));
+            yyyy+=2;
+            mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
+        }
 
-        LatLng Myhome = new LatLng(25.033705,121.431425);
-        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome"));
+
+
+
+//        LatLng Taipei101 = new LatLng(25.033611,121.56500);
+//        zoom = 17;
+//        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
+//
+//        LatLng Myhome = new LatLng(25.033705,121.431425);
+//        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
 
         requestPermission();
     }
@@ -135,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-        Toast.makeText(this,x+"\n"+y,Toast.LENGTH_LONG).show();
+
 
     }
 

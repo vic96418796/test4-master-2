@@ -20,8 +20,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -34,33 +37,35 @@ public class RestaurantList extends AppCompatActivity {
     private static final String TAG = "FireLog";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView mMainList;
+    SearchView searchView;
+    private ArrayList<Restaurant> list;
     private RestaurantListAdapter RestaurantListAdapter;
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
     private String userId;
 //搜尋
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.restaurant_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                RestaurantListAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.restaurant_menu, menu);
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//
+//        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                RestaurantListAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,5 +153,63 @@ public class RestaurantList extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference docRef = db.collection("cities").document("BJ");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                resturant r = documentSnapshot.toObject(resturant.class);
+            }
+        });
+
+        db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                if (e != null) {
+                    // Log.d(TAG, "Error :" + e.getMessage());
+                } else {
+                    list = new ArrayList<>();
+                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+                            String restaurant_id = doc.getDocument().getId();
+                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+                            list.add(restaurant);
+                        }
+                    }
+                    RestaurantListAdapter RestaurantListAdapter = new RestaurantListAdapter(RestaurantList.this,list);
+                    mMainList.setAdapter(RestaurantListAdapter);
+                }
+            }
+        });
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    search(s);
+                    return true;
+                }
+            });
+        }
+    }
+    private void search(String str)
+    {
+        ArrayList<Restaurant>  myList = new ArrayList<>();
+        for(Restaurant object : RestaurantList)
+        {
+            if(object.getRestaurant_name().toLowerCase().contains(str.toLowerCase()))
+            {
+                myList.add(object);
+            }
+        }
+        RestaurantListAdapter RestaurantListAdapter = new RestaurantListAdapter(RestaurantList.this, myList);
+        mMainList.setAdapter(RestaurantListAdapter);
     }
 }

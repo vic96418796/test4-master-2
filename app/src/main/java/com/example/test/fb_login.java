@@ -1,115 +1,131 @@
+
 package com.example.test;
 
-import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.content.Intent;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import android.support.v7.app.AlertDialog;
+import android.content.DialogInterface;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class fb_login extends AppCompatActivity {
-
-    private LoginButton loginButton;
-    private CircleImageView circleImageView;
-    private TextView txtName,txtEmail;
-    private CallbackManager callbackManager;
-
+    FirebaseAuth auth;
+    FirebaseAuth.AuthStateListener authListener;
+    private String userUID;
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fb_login);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-
-        loginButton = findViewById(R.id.login_button);
-        txtName = findViewById(R.id.profile_name);
-        txtEmail = findViewById(R.id.profile_email);
-        circleImageView = findViewById(R.id.profile_pic);
-
-        callbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
-
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        auth = FirebaseAuth.getInstance();
+        authListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-            if(currentAccessToken==null) {
-                txtName.setText("");
-                txtEmail.setText("");
-                circleImageView.setImageResource(0);
-                Toast.makeText(fb_login.this,"User Logged out",Toast.LENGTH_LONG).show();
-            }
-            else {
-                loadUserProfile(currentAccessToken);
-            }
-        }
-    };
-    private void loadUserProfile(AccessToken newAccessToken) {
-        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                try {
-                    String first_name = object.getString("first_name");
-                    String last_name = object.getString("last_name");
-                    String email = object.getString("email");
-                    String id = object.getString("id");
-                    String image_url = object.getString("http://graph.facebook.com/"+id+ "/picture?type=normal");
-                    txtName.setText((first_name+" "+last_name));
-                    txtEmail.setText(email);
-//                    RequestOptions requestOptions = new RequestOptions();
-//                    requestOptions.dontAnimate();
-                    Glide.with(fb_login.this).load(image_url).into(circleImageView);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onAuthStateChanged(
+                    @NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user!=null) {
+                    Log.d("onAuthStateChanged", "登入:"+
+                            user.getUid());
+                    userUID =  user.getUid();
+                }else{
+                    Log.d("onAuthStateChanged", "已登出");
                 }
             }
-        });
+        };
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        auth.removeAuthStateListener(authListener);
+    }
+    public void login(View v){
+        final String email = ((EditText)findViewById(R.id.fbemail))
+                .getText().toString();
+        final String password = ((EditText)findViewById(R.id.fbpassword))
+                .getText().toString();
+        Log.d("AUTH", email+"/"+password);
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d("onComplete", "onComplete");
+                        if (!task.isSuccessful()){
+                            Log.d("onComplete", "登入失敗");
+                            new AlertDialog.Builder(fb_login.this)
+                                    .setTitle("登入問題")
+                                    .setMessage("帳號或密碼錯誤，請重新輸入")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+//                                            finish();
+//                                            startActivity(getIntent());
+                                        }
+                                    })
 
-        Bundle parameters = new Bundle();
-        parameters.putString("fields","first_name,;ast_name,email,id");
-        request.setParameters(parameters);
-        request.executeAsync();
+                                    .show();
+                        }
+                        else if(task.isSuccessful()){
+//                            fb_login.this.finish();
+                            new AlertDialog.Builder(fb_login.this)
+                                    .setTitle("登入")
+                                    .setIcon(R.mipmap.ic_launcher)
+                                    .setMessage("成功連接至 Facebook 帳號密碼")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(fb_login.this,"創建帳號密碼成功",Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent (fb_login.this, email_login.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton("取消",null)
+                                    .show();
+//                            Intent intent = new Intent(fb_login.this, favorite_main_interface.class);
+//                            startActivity(intent);
+                        }
+                    }
+                });
+    }
+    private void register(final String email, final String password) {
+        new AlertDialog.Builder(fb_login.this)
+                .setTitle("登入問題")
+                .setMessage("無此帳號，是否要以此帳號與密碼註冊?")
+                .setPositiveButton("註冊", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        createUser(email, password);
+                    }
+                })
+                .setNeutralButton("取消", null)
+                .show();
+    }
+    private void createUser(String email, String password) {
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                String message =
+                                        task.isComplete() ? "註冊成功" : "註冊失敗";
+                                new AlertDialog.Builder(fb_login.this)
+                                        .setMessage(message)
+                                        .setPositiveButton("OK", null)
+                                        .show();
+                            }
+                        });
     }
 }

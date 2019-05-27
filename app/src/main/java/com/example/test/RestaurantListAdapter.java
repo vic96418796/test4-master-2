@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
+public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder>  {
 
     private List<Restaurant> RestaurantListFull;
     private static final String TAG = "TEST";
@@ -39,6 +39,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public Context context;
     public String com_date;
     public String date;
+    ArrayList<Restaurant>  myList;
+    ArrayList<Restaurant>  list;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
@@ -56,7 +58,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             restaurant_name = (TextView)mView.findViewById(R.id.restaurant_name);
             restaurant_add = (TextView)mView.findViewById(R.id.restaurant_add);
             restaurant_image = (ImageView)mView.findViewById(R.id.restaurant_image);
-            restaurant_like = (ImageButton)mView.findViewById(R.id.restaurant_like);
+            restaurant_like = (ImageButton)mView.findViewById(R.id.like_restaurant);
             restaurant_tags = (TextView)mView.findViewById(R.id.restaurant_tags);
         }
     }
@@ -64,6 +66,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public RestaurantListAdapter(Context applicationContext, List<Restaurant> RestaurantList) {
         this.RestaurantList = RestaurantList;
+        this.list = list;
+        this.myList = myList;
         RestaurantListFull = new ArrayList<>(RestaurantList);
         this.context = context;
     }
@@ -80,6 +84,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         final String userId = firebaseAuth.getCurrentUser().getUid();
         holder.restaurant_name.setText(RestaurantList.get(position).getRestaurant_name());
         holder.restaurant_tags.setText(RestaurantList.get(position).getRestaurant_tags());
+
         String Image =RestaurantList.get(position).getRestaurant_image();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference picReference = storageReference.child("Restaurant/"+Image);
@@ -107,9 +112,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             if (documentSnapshot.exists() && e == null) {
-                                holder.restaurant_like.setImageResource(R.drawable.love);
+                                holder.restaurant_like.setImageResource(R.drawable.likefull128);
                             } else {
-                                holder.restaurant_like.setImageResource(R.drawable.non_love);
+                                holder.restaurant_like.setImageResource(R.drawable.like128);
                             }
                         }
                     });
@@ -149,35 +154,35 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return RestaurantList.size();
     }
 //搜尋
-    @Override
-    public Filter getFilter() {
-        return RestaurantFilter;
-    }
-
-    private Filter RestaurantFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence searchString) {
-                List<Restaurant> filteredList = new ArrayList<>();
-                if (searchString == null || searchString.length() == 0) {
-                    filteredList.addAll(RestaurantList);
-                } else {
-                    String filterPattern = searchString.toString().toLowerCase().trim();
-                    for (Restaurant item : RestaurantList) {
-                        if (item.getRestaurant_name().toLowerCase().contains(filterPattern) || item.getRestaurant_tags().toLowerCase().contains(filterPattern)) {
-                            filteredList.add(item);
-                        }
-                    }
-                }
-                FilterResults results = new FilterResults();
-                results.values = filteredList;
-
-                return results;
-            }
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            RestaurantList.clear();
-            RestaurantList.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    };
+//    @Override
+//    public Filter getFilter() {
+//        return RestaurantFilter;
+//    }
+//
+//    private Filter RestaurantFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence searchString) {
+//                List<Restaurant> filteredList = new ArrayList<>();
+//                if (searchString == null || searchString.length() == 0) {
+//                    filteredList.addAll(RestaurantList);
+//                } else {
+//                    String filterPattern = searchString.toString().toLowerCase().trim();
+//                    for (Restaurant item : RestaurantList) {
+//                        if (item.getRestaurant_name().toLowerCase().contains(filterPattern) || item.getRestaurant_tags().toLowerCase().contains(filterPattern)) {
+//                            filteredList.add(item);
+//                        }
+//                    }
+//                }
+//                FilterResults results = new FilterResults();
+//                results.values = filteredList;
+//
+//                return results;
+//            }
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            RestaurantList.clear();
+//            RestaurantList.addAll((List) results.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 }

@@ -85,13 +85,23 @@
                         android:orientation="horizontal">
                         <TextView
                             android:id="@+id/restaurant_phone"
-                            android:layout_width="match_parent"
+                            android:layout_width="280dp"
                             android:layout_height="40dp"
                             android:layout_margin="5dp"
                             android:text="餐廳電話"
                             android:textColor="#000000"
                             android:textSize="20dp"
                             android:autoLink="all"/>
+                        <Button
+                            android:id="@+id/meme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:text=" 查看評論 "
+                            android:textColor="#000000"
+                            android:textSize="20dp"
+                            android:background="@drawable/btn_st"
+                            android:layout_toRightOf="@+id/restaurant_phone"/>
                         <TextView
                             android:id="@+id/restaurant_time"
                             android:layout_below="@+id/restaurant_phone"
@@ -108,6 +118,7 @@
                             android:layout_below="@+id/restaurant_time"
                             android:layout_width="match_parent"
                             android:layout_height="33dp"
+                            android:layout_margin="5dp"
                             android:background="#FFFEE6"
                             android:text="幫我 Google"
                             android:textAllCaps="false"
@@ -122,6 +133,7 @@
                             android:layout_below="@+id/restaurant_google"
                             android:layout_width="match_parent"
                             android:layout_height="33dp"
+                            android:layout_margin="5dp"
                             android:background="#FFFEE6"
                             android:text="查看 Facebook 粉絲專頁"
                             android:textAllCaps="false"
@@ -136,6 +148,7 @@
                             android:layout_below="@+id/restaurant_fb"
                             android:layout_width="match_parent"
                             android:layout_height="33dp"
+                            android:layout_margin="5dp"
                             android:background="#FFFEE6"
                             android:text="查看 Instagram 更多照片"
                             android:textAllCaps="false"
