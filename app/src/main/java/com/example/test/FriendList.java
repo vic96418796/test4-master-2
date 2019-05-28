@@ -248,7 +248,7 @@ public class FriendList extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent( FriendList.this,RestaurantList.class);
+                    Intent intent = new Intent( FriendList.this,edit_text.class);
                     startActivity(intent);
                     return true;
                 }

@@ -52,6 +52,20 @@ public class RestaurantInformation extends AppCompatActivity {
     private Restaurant restaurant;
     private String userId;
     private FirebaseAuth auth;
+    private ArrayList<Double>lat4;
+    private ArrayList<Double>lat3;
+    private ArrayList<String>lat5;
+    private ArrayList<String>lat11;
+    private ArrayList<Double>lat2;
+    private ArrayList<String>clat;
+    private ArrayList<String>useridd;
+    private ArrayList<String>userid2;
+    private ArrayList<String>record;
+    private ArrayList<String>restaurant2;
+    private ArrayList<String>friendlist2;
+    private ArrayList<String>restaurantList1;
+    ArrayList<String>friendlist1;
+
 
 
     @Override
@@ -63,6 +77,17 @@ public class RestaurantInformation extends AppCompatActivity {
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
         latc = new ArrayList<>();
+        lat4 = new ArrayList<>();
+        lat3 = new ArrayList<>();
+        friendlist1 = new ArrayList<>();
+        useridd = new ArrayList<>();
+        userid2 = new ArrayList<>();
+        record = new ArrayList<>();
+        friendlist2 = new ArrayList<>();
+        restaurantList1 = new ArrayList<>();
+        clat = new ArrayList<>();
+
+
 
 
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
@@ -167,6 +192,10 @@ public class RestaurantInformation extends AppCompatActivity {
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
                     intent.putExtra("latc",latc);
+                    intent.putExtra("lat4",lat4);
+                    intent.putExtra("lat3",lat3);
+                    intent.putExtra("restaurantList1",restaurantList1);
+                    intent.putExtra("clat",clat);
                     startActivity(intent);
                     return true;
                 }

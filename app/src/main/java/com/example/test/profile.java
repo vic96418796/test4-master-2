@@ -145,7 +145,7 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent( profile.this,RestaurantList.class);
+                    Intent intent = new Intent( profile.this,edit_text.class);
                     startActivity(intent);
                     return true;
                 }

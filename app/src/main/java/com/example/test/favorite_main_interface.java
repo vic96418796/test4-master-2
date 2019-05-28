@@ -53,11 +53,13 @@ public class favorite_main_interface extends AppCompatActivity {
     private ArrayList<Double>lat2;
     private ArrayList<String>clat;
     private ArrayList<Double>lat3;
+    private ArrayList<Double>lat4;
     private ArrayList<String>useridd;
     private ArrayList<String>userid2;
     private ArrayList<String>record;
     private ArrayList<String>restaurant2;
     private ArrayList<String>friendlist2;
+    private ArrayList<Double>latc;
     private ArrayList<String>restaurantList1;
     ArrayList<String>friendlist1;
     @Override
@@ -72,6 +74,7 @@ public class favorite_main_interface extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
         RestaurantList = new ArrayList<>();
         lat = new ArrayList<>();
+        latc = new ArrayList<>();
         lat11 = new ArrayList<>();
         restaurant2 = new ArrayList<>();
         clat = new ArrayList<>();
@@ -86,6 +89,8 @@ public class favorite_main_interface extends AppCompatActivity {
         restaurantList1 = new ArrayList<>();
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
+        lat4 = new ArrayList<>();
+
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
 //        RestaurantListAdapter1 = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
@@ -231,10 +236,10 @@ public class favorite_main_interface extends AppCompatActivity {
                                                                                Restaurant restaurant = documentSnapshot.toObject(Restaurant.class).withId(restaurant_id);
                                                                                for (int re =0;re<clat.size();re++){
                                                                                    if (clat.get(re).equalsIgnoreCase(restaurant_id)){
-                                                                                       lat3.add(restaurant.getRestaurant_lat());
-                                                                                       lat3.add(restaurant.getRestaurant_long());
-                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
-                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
+//                                                                                       lat3.add(restaurant.getRestaurant_lat());
+//                                                                                       lat3.add(restaurant.getRestaurant_long());
+//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(0));
+//                                                                                       Log.d(TAG,"finaldza: "+lat3.get(1));
                                                                                    }
                                                                                }
                                                                                for(int re =0;re<lat3.size();re++){
@@ -281,7 +286,7 @@ public class favorite_main_interface extends AppCompatActivity {
         add_restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(favorite_main_interface.this,RestaurantList.class);
+                Intent intent = new Intent(favorite_main_interface.this,edit_text.class);
                 startActivity(intent);
             }
         });
@@ -319,11 +324,13 @@ public class favorite_main_interface extends AppCompatActivity {
                     intent.putExtra("restaurantList1",restaurantList1);
                     intent.putExtra("clat",clat);
                     intent.putExtra("lat3",lat3);
+                    intent.putExtra("lat4",lat4);
+                    intent.putExtra("latc",latc);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent( favorite_main_interface.this,RestaurantList.class);
+                    Intent intent = new Intent( favorite_main_interface.this,edit_text.class);
                     startActivity(intent);
                     return true;
                 }

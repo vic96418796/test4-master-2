@@ -15,13 +15,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,48 +37,41 @@ public class RestaurantList extends AppCompatActivity {
     private static final String TAG = "FireLog";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView mMainList;
+    SearchView searchView;
+    private ArrayList<Restaurant> list;
     private RestaurantListAdapter RestaurantListAdapter;
     private List<Restaurant> RestaurantList;
     private FirebaseAuth auth;
     private String userId;
-    private ArrayList<Double> lat;
-    private ArrayList<String> namelst;
-    private ArrayList<String> num;
-    private ArrayList<Double>lat1;
-    private Restaurant restaurant;
 //搜尋
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.restaurant_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                RestaurantListAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.restaurant_menu, menu);
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//
+//        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                RestaurantListAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_list);
-        lat = new ArrayList<>();
-        namelst = new ArrayList<>();
-        num = new ArrayList<>();
-        lat1 = new ArrayList<>();
+
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -86,7 +81,7 @@ public class RestaurantList extends AppCompatActivity {
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(RestaurantListAdapter);
-
+        final String currentUserID = auth.getCurrentUser().getUid();
         db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
@@ -104,24 +99,15 @@ public class RestaurantList extends AppCompatActivity {
                 }
             }
         });
-
-
-        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        final Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(DocumentSnapshot documentSnapshot : task.getResult()){
-                        restaurant = documentSnapshot.toObject(Restaurant.class);
-                        lat.add(restaurant.getRestaurant_lat());
-                        lat.add(restaurant.getRestaurant_long());
-                        namelst.add(restaurant.getRestaurant_name());
-                        num.add(restaurant.getRestaurant_phone());
-
-
-                    }
-                }
+            public void onClick(View view) {
+                Intent intent = new Intent (RestaurantList.this,edit_text.class);
+                startActivity(intent);
             }
         });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -138,16 +124,11 @@ public class RestaurantList extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(RestaurantList.this,profile.class);
-                    intent.putExtra("user_id",userId);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(RestaurantList.this,MapsActivity.class);
-                    intent.putExtra("lat",lat);
-                    intent.putExtra("namelst",namelst);
-                    intent.putExtra("num",num);
-                    intent.putExtra("lat1",lat1);
                     startActivity(intent);
                     return true;
                 }
@@ -172,5 +153,63 @@ public class RestaurantList extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference docRef = db.collection("cities").document("BJ");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                resturant r = documentSnapshot.toObject(resturant.class);
+            }
+        });
+
+        db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                if (e != null) {
+                    // Log.d(TAG, "Error :" + e.getMessage());
+                } else {
+                    list = new ArrayList<>();
+                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+                            String restaurant_id = doc.getDocument().getId();
+                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+                            list.add(restaurant);
+                        }
+                    }
+                    RestaurantListAdapter RestaurantListAdapter = new RestaurantListAdapter(RestaurantList.this,list);
+                    mMainList.setAdapter(RestaurantListAdapter);
+                }
+            }
+        });
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    search(s);
+                    return true;
+                }
+            });
+        }
+    }
+    private void search(String str)
+    {
+        ArrayList<Restaurant>  myList = new ArrayList<>();
+        for(Restaurant object : RestaurantList)
+        {
+            if(object.getRestaurant_name().toLowerCase().contains(str.toLowerCase()))
+            {
+                myList.add(object);
+            }
+        }
+        RestaurantListAdapter RestaurantListAdapter = new RestaurantListAdapter(RestaurantList.this, myList);
+        mMainList.setAdapter(RestaurantListAdapter);
     }
 }

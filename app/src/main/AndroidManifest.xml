@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantMeme"></activity>
+        <activity android:name=".edit_text"/>
         <activity android:name=".FriendInformation" />
         <activity android:name=".RestaurantInformation" />
         <activity android:name=".FriendList" />
@@ -24,11 +24,11 @@
         <activity android:name=".fb_login" />
         <activity android:name=".search_label" />
         <activity android:name=".favorite_main_interface" />
+        <activity android:name=".RestaurantMemeList" />
         <activity android:name=".email_login" />
         <activity android:name=".email_register" />
         <activity android:name=".login_interface" />
         <activity android:name=".RestaurantList" />
-        <activity android:name=".RestaurantMemeList" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,10 +42,7 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBZJpUPboudM9IEpN931NQqgtkmbL8mgxo" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:value="AIzaSyAOYXGlPZxq_NZWZF5iqFuelEIB5rGF74E" />
 
         <activity
             android:name=".MapsActivity"

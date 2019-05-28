@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> implements Filterable {
+public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder>  {
 
     private List<Restaurant> RestaurantListFull;
     private static final String TAG = "TEST";
@@ -39,6 +39,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public Context context;
     public String com_date;
     public String date;
+    ArrayList<Restaurant>  myList;
+    ArrayList<Restaurant>  list;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
@@ -64,6 +66,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public RestaurantListAdapter(Context applicationContext, List<Restaurant> RestaurantList) {
         this.RestaurantList = RestaurantList;
+        this.list = list;
+        this.myList = myList;
         RestaurantListFull = new ArrayList<>(RestaurantList);
         this.context = context;
     }
@@ -150,35 +154,35 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return RestaurantList.size();
     }
 //搜尋
-    @Override
-    public Filter getFilter() {
-        return RestaurantFilter;
-    }
-
-    private Filter RestaurantFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence searchString) {
-                List<Restaurant> filteredList = new ArrayList<>();
-                if (searchString == null || searchString.length() == 0) {
-                    filteredList.addAll(RestaurantList);
-                } else {
-                    String filterPattern = searchString.toString().toLowerCase().trim();
-                    for (Restaurant item : RestaurantList) {
-                        if (item.getRestaurant_name().toLowerCase().contains(filterPattern) || item.getRestaurant_tags().toLowerCase().contains(filterPattern)) {
-                            filteredList.add(item);
-                        }
-                    }
-                }
-                FilterResults results = new FilterResults();
-                results.values = filteredList;
-
-                return results;
-            }
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            RestaurantList.clear();
-            RestaurantList.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    };
+//    @Override
+//    public Filter getFilter() {
+//        return RestaurantFilter;
+//    }
+//
+//    private Filter RestaurantFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence searchString) {
+//                List<Restaurant> filteredList = new ArrayList<>();
+//                if (searchString == null || searchString.length() == 0) {
+//                    filteredList.addAll(RestaurantList);
+//                } else {
+//                    String filterPattern = searchString.toString().toLowerCase().trim();
+//                    for (Restaurant item : RestaurantList) {
+//                        if (item.getRestaurant_name().toLowerCase().contains(filterPattern) || item.getRestaurant_tags().toLowerCase().contains(filterPattern)) {
+//                            filteredList.add(item);
+//                        }
+//                    }
+//                }
+//                FilterResults results = new FilterResults();
+//                results.values = filteredList;
+//
+//                return results;
+//            }
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            RestaurantList.clear();
+//            RestaurantList.addAll((List) results.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 }

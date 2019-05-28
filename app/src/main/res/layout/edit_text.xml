@@ -9,8 +9,8 @@
     android:fitsSystemWindows="true"
     android:background="#FFFEE6"
     tools:openDrawer="start"
-    tools:context=".FriendList" >
-
+    android:orientation="vertical"
+    tools:context=".edit_text">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,21 +30,19 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_restaurant"
-                    android:layout_below="@+id/view"
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/searchView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="?attr/actionBarSize"
+                    app:queryHint="Search" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_below="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
             </RelativeLayout>
-
-
         </FrameLayout>
     </LinearLayout>
 
@@ -57,5 +55,4 @@
         app:menu="@menu/drawer_menu">
 
     </android.support.design.widget.NavigationView>
-
 </android.support.v4.widget.DrawerLayout>

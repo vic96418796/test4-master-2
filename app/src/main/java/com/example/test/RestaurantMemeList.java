@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -60,7 +61,8 @@ public class RestaurantMemeList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_meme_list);
-
+        ArrayList<Restaurant> list;
+        SearchView searchView;
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -154,7 +156,7 @@ public class RestaurantMemeList extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent(RestaurantMemeList.this, RestaurantList.class);
+                    Intent intent = new Intent(RestaurantMemeList.this, edit_text.class);
                     startActivity(intent);
                     return true;
                 }
