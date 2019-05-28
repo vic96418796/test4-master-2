@@ -43,13 +43,53 @@ public class edit_text extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawer;
     private NavigationView navigation_view;
+    private ArrayList<String> userAll;
+    private ArrayList<Double> lat;
+    private ArrayList<String> namelst;
+    private ArrayList<String> num;
+    private ArrayList<Double>lat1;
+    private ArrayList<String>lat5;
+    private Restaurant restaurant;
+    private String userId;
+    private ArrayList<String>lat11;
+    private ArrayList<Double>lat2;
+    private ArrayList<String>clat;
+    private ArrayList<Double>lat3;
+    private ArrayList<String>useridd;
+    private ArrayList<String>userid2;
+    private ArrayList<String>record;
+    private ArrayList<String>restaurant2;
+    private ArrayList<String>friendlist2;
+    private ArrayList<String>restaurantList1;
+    private ArrayList<Double>lat4;
+    ArrayList<String>friendlist1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_text);
-
+        lat4 = new ArrayList<>();
+        lat = new ArrayList<>();
+        lat5 = new ArrayList<>();
+        namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        lat1 = new ArrayList<>();
+        lat = new ArrayList<>();
+        lat11 = new ArrayList<>();
+        restaurant2 = new ArrayList<>();
+        clat = new ArrayList<>();
+        lat2 = new ArrayList<>();
+        friendlist1 = new ArrayList<>();
+        useridd = new ArrayList<>();
+        userid2 = new ArrayList<>();
+        record = new ArrayList<>();
+        friendlist2 = new ArrayList<>();
+        namelst = new ArrayList<>();
+        num = new ArrayList<>();
+        restaurantList1 = new ArrayList<>();
+        lat1 = new ArrayList<>();
+        lat3 = new ArrayList<>();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -69,11 +109,20 @@ public class edit_text extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_profile) {
                     Intent intent = new Intent(edit_text.this,profile.class);
+                    intent.putExtra("user_id",userId);
                     startActivity(intent);
                     return true;
                 }
                 if (id == R.id.nav_maps) {
                     Intent intent = new Intent(edit_text.this,MapsActivity.class);
+                    intent.putExtra("lat",lat);
+                    intent.putExtra("namelst",namelst);
+                    intent.putExtra("num",num);
+                    intent.putExtra("lat1",lat1);
+                    intent.putExtra("restaurantList1",restaurantList1);
+                    intent.putExtra("clat",clat);
+                    intent.putExtra("lat3",lat3);
+                    intent.putExtra("lat4",lat4);
                     startActivity(intent);
                     return true;
                 }

@@ -11,7 +11,6 @@
     tools:openDrawer="start"
     android:orientation="vertical"
     tools:context=".edit_text">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

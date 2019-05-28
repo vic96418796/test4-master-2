@@ -30,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantInformation extends AppCompatActivity {
     private static final String TAG ="Restaurants";
@@ -51,6 +52,21 @@ public class RestaurantInformation extends AppCompatActivity {
     private Restaurant restaurant;
     private String userId;
     private FirebaseAuth auth;
+    private List<Restaurant> RestaurantList;
+    private ArrayList<String> restaurantList;
+    private ArrayList<String> userAll;
+    private ArrayList<String>lat11;
+    private ArrayList<Double>lat2;
+    private ArrayList<String>clat;
+    private ArrayList<Double>lat3;
+    private ArrayList<String>useridd;
+    private ArrayList<String>userid2;
+    private ArrayList<String>record;
+    private ArrayList<String>restaurant2;
+    private ArrayList<String>friendlist2;
+    private ArrayList<String>restaurantList1;
+    private ArrayList<Double>lat4;
+    ArrayList<String>friendlist1;
 
 
     @Override
@@ -61,7 +77,19 @@ public class RestaurantInformation extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
-
+        RestaurantList = new ArrayList<>();
+        lat11 = new ArrayList<>();
+        restaurant2 = new ArrayList<>();
+        clat = new ArrayList<>();
+        lat2 = new ArrayList<>();
+        friendlist1 = new ArrayList<>();
+        useridd = new ArrayList<>();
+        userid2 = new ArrayList<>();
+        record = new ArrayList<>();
+        friendlist2 = new ArrayList<>();
+        restaurantList1 = new ArrayList<>();
+        lat3 = new ArrayList<>();
+        lat4 = new ArrayList<>();
 
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
         restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
@@ -118,9 +146,6 @@ public class RestaurantInformation extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
-
-
-
                     }
                 }
             }
@@ -160,6 +185,10 @@ public class RestaurantInformation extends AppCompatActivity {
                     intent.putExtra("namelst",namelst);
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
+                    intent.putExtra("restaurantList1",restaurantList1);
+                    intent.putExtra("clat",clat);
+                    intent.putExtra("lat3",lat3);
+                    intent.putExtra("lat4",lat4);
                     startActivity(intent);
                     return true;
                 }
