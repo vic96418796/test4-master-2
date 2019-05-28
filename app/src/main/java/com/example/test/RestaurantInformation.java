@@ -39,6 +39,7 @@ public class RestaurantInformation extends AppCompatActivity {
     public TextView restaurantPhone;
     public TextView restaurantTime;
     public ImageView restaurantImage;
+    private ArrayList<Double>latc;
     public TextView restaurantFB;
     public TextView restaurantIG;
     public TextView restaurantGOOGLE;
@@ -61,6 +62,7 @@ public class RestaurantInformation extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
+        latc = new ArrayList<>();
 
 
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
@@ -79,11 +81,15 @@ public class RestaurantInformation extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    Restaurant restaurant = document.toObject(Restaurant.class).withId(restaurantId);
                     if (document.exists()) {
                         restaurantName.setText(document.get("Restaurant_name").toString());
                         restaurantAdd.setText(document.get("Restaurant_add").toString());
                         restaurantPhone.setText(document.get("Restaurant_phone").toString());
                         restaurantTime.setText(document.get("Restaurant_time").toString());
+                        latc.add(restaurant.getRestaurant_lat());
+                        latc.add(restaurant.getRestaurant_long());
+                        Log.d(TAG, "latccc"+latc);
                         String image = document.get("Restaurant_image").toString();
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
                         StorageReference picReference = storageReference.child("Restaurant/"+image);
@@ -160,6 +166,7 @@ public class RestaurantInformation extends AppCompatActivity {
                     intent.putExtra("namelst",namelst);
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
+                    intent.putExtra("latc",latc);
                     startActivity(intent);
                     return true;
                 }

@@ -43,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<String>restaurantList1;
     ArrayList<String>clat;
     ArrayList<Double>lat4;
+    ArrayList<Double>latc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         restaurantList1 = (ArrayList<String>)getIntent().getSerializableExtra("restaurantList1");
         clat = new ArrayList<>();
         clat = (ArrayList<String>) getIntent().getSerializableExtra("clat");
+        latc = new ArrayList<>();
+        latc = (ArrayList<Double>)getIntent().getSerializableExtra("latc");
         lat = new ArrayList<>();
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
         namelst=new ArrayList<>();
@@ -181,6 +184,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             yyyy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
         }
+        LatLng res = new LatLng(latc.get(0),latc.get(1));
+        mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
 
 
