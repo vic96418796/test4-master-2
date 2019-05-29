@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static final String TAG = "MapsActivity";
     private RestaurantListAdapter RestaurantListAdapter;
+
 
     Restaurant restaurant = new Restaurant();
     private GoogleMap mMap;
@@ -43,6 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<String>restaurantList1;
     ArrayList<String>clat;
     ArrayList<Double>lat4;
+    ArrayList<Double>latc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         restaurantList1 = (ArrayList<String>)getIntent().getSerializableExtra("restaurantList1");
         clat = new ArrayList<>();
         clat = (ArrayList<String>) getIntent().getSerializableExtra("clat");
+        latc = new ArrayList<>();
+        latc = (ArrayList<Double>)getIntent().getSerializableExtra("latc");
         lat = new ArrayList<>();
         lat = (ArrayList<Double>) getIntent().getSerializableExtra("lat");
         namelst=new ArrayList<>();
@@ -163,6 +168,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             yyyy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
         }
+//        LatLng local = new LatLng(latc.get(0),latc.get(1));
+//        mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
+//        CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).bearing(90).tilt(90).build();
+
 
 
 
@@ -220,7 +229,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String y = "經=" + Double.toString(location.getLongitude());
         LatLng Point = new LatLng(location.getLatitude(), location.getLongitude());
         zoom = 17;
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point, zoom));
+        if (latc.isEmpty()){
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point, zoom));
+        }
+        else {
+            LatLng local = new LatLng(latc.get(0),latc.get(1));
+            mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
+            CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
+        }
+        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point, zoom));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)

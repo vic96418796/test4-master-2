@@ -59,6 +59,7 @@ public class favorite_main_interface extends AppCompatActivity {
     private ArrayList<String>record;
     private ArrayList<String>restaurant2;
     private ArrayList<String>friendlist2;
+    private ArrayList<Double>latc;
     private ArrayList<String>restaurantList1;
     ArrayList<String>friendlist1;
     @Override
@@ -73,6 +74,7 @@ public class favorite_main_interface extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
         RestaurantList = new ArrayList<>();
         lat = new ArrayList<>();
+        latc = new ArrayList<>();
         lat11 = new ArrayList<>();
         restaurant2 = new ArrayList<>();
         clat = new ArrayList<>();
@@ -323,6 +325,7 @@ public class favorite_main_interface extends AppCompatActivity {
                     intent.putExtra("clat",clat);
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("lat4",lat4);
+                    intent.putExtra("latc",latc);
                     startActivity(intent);
                     return true;
                 }

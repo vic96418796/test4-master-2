@@ -30,7 +30,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RestaurantInformation extends AppCompatActivity {
     private static final String TAG ="Restaurants";
@@ -40,6 +39,7 @@ public class RestaurantInformation extends AppCompatActivity {
     public TextView restaurantPhone;
     public TextView restaurantTime;
     public ImageView restaurantImage;
+    private ArrayList<Double>latc;
     public TextView restaurantFB;
     public TextView restaurantIG;
     public TextView restaurantGOOGLE;
@@ -52,21 +52,20 @@ public class RestaurantInformation extends AppCompatActivity {
     private Restaurant restaurant;
     private String userId;
     private FirebaseAuth auth;
-    private List<Restaurant> RestaurantList;
-    private ArrayList<String> restaurantList;
-    private ArrayList<String> userAll;
+    private ArrayList<Double>lat4;
+    private ArrayList<Double>lat3;
+    private ArrayList<String>lat5;
     private ArrayList<String>lat11;
     private ArrayList<Double>lat2;
     private ArrayList<String>clat;
-    private ArrayList<Double>lat3;
     private ArrayList<String>useridd;
     private ArrayList<String>userid2;
     private ArrayList<String>record;
     private ArrayList<String>restaurant2;
     private ArrayList<String>friendlist2;
     private ArrayList<String>restaurantList1;
-    private ArrayList<Double>lat4;
     ArrayList<String>friendlist1;
+
 
 
     @Override
@@ -77,19 +76,20 @@ public class RestaurantInformation extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
-        RestaurantList = new ArrayList<>();
-        lat11 = new ArrayList<>();
-        restaurant2 = new ArrayList<>();
-        clat = new ArrayList<>();
-        lat2 = new ArrayList<>();
+        latc = new ArrayList<>();
+        lat4 = new ArrayList<>();
+        lat3 = new ArrayList<>();
         friendlist1 = new ArrayList<>();
         useridd = new ArrayList<>();
         userid2 = new ArrayList<>();
         record = new ArrayList<>();
         friendlist2 = new ArrayList<>();
         restaurantList1 = new ArrayList<>();
-        lat3 = new ArrayList<>();
-        lat4 = new ArrayList<>();
+        clat = new ArrayList<>();
+
+
+
+
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
         restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
         restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
@@ -98,6 +98,7 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
         restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
         restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
+
         Intent intent = this.getIntent();//取得傳遞過來的資料
         final String restaurantId = intent.getStringExtra("RestaurantId");
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -105,11 +106,15 @@ public class RestaurantInformation extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    Restaurant restaurant = document.toObject(Restaurant.class).withId(restaurantId);
                     if (document.exists()) {
                         restaurantName.setText(document.get("Restaurant_name").toString());
                         restaurantAdd.setText(document.get("Restaurant_add").toString());
                         restaurantPhone.setText(document.get("Restaurant_phone").toString());
                         restaurantTime.setText(document.get("Restaurant_time").toString());
+                        latc.add(restaurant.getRestaurant_lat());
+                        latc.add(restaurant.getRestaurant_long());
+                        Log.d(TAG, "latccc"+latc);
                         String image = document.get("Restaurant_image").toString();
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
                         StorageReference picReference = storageReference.child("Restaurant/"+image);
@@ -144,6 +149,9 @@ public class RestaurantInformation extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
+
+
+
                     }
                 }
             }
@@ -183,10 +191,11 @@ public class RestaurantInformation extends AppCompatActivity {
                     intent.putExtra("namelst",namelst);
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
+                    intent.putExtra("latc",latc);
+                    intent.putExtra("lat4",lat4);
+                    intent.putExtra("lat3",lat3);
                     intent.putExtra("restaurantList1",restaurantList1);
                     intent.putExtra("clat",clat);
-                    intent.putExtra("lat3",lat3);
-                    intent.putExtra("lat4",lat4);
                     startActivity(intent);
                     return true;
                 }
