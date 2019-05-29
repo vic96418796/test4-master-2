@@ -167,6 +167,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             yyyy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
         }
+        if (!latc.isEmpty()){
+            LatLng local = new LatLng(latc.get(0),latc.get(1));
+            mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
+            CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
+        }
+//        LatLng local = new LatLng(latc.get(0),latc.get(1));
+//        mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
+//        CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
+//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
 //        LatLng local = new LatLng(latc.get(0),latc.get(1));
 //        mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
 //        CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).bearing(90).tilt(90).build();
@@ -223,6 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
     }
 
+
     public void onLocationChanged(Location location) {
         String x = "緯=" + Double.toString(location.getLatitude());
         String y = "經=" + Double.toString(location.getLongitude());
@@ -231,12 +242,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (latc.isEmpty()){
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point, zoom));
         }
-        else {
-            LatLng local = new LatLng(latc.get(0),latc.get(1));
-            mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
-            CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
-        }
+//        else {
+//            LatLng local = new LatLng(latc.get(0),latc.get(1));
+//            mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
+//            CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
+//            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
+//        }
         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point, zoom));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
