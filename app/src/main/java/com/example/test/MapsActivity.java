@@ -94,37 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 //        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList1);
         db= FirebaseFirestore.getInstance();
-//        db.collection("Restaurant"t(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.d(TAG, "Error :" + e.getMessage());
-//                } else {
-//                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
-//                        if (doc.getType() == DocumentChange.Type.ADDED) {
-//                            String restaurant_id = doc.getDocument().getId();
-//                            restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
-//                            lat.add(restaurant.getRestaurant_lat());
-//                            lat.add(restaurant.getRestaurant_long());
-//                            RestaurantList1.add(restaurant);
-//                            RestaurantListAdapter.notifyDataSetChanged();
-//                        ).addSnapshotListener(new EventListener<QuerySnapshot>() {
-////            @Override
-////            public void onEven}
-//                    }
-//                }
-//            }
-//        });
-//        db.collection("Restaruant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    for(DocumentSnapshot documentSnapshot : task.getResult()){
-//                        restaurant = documentSnapshot.toObject(Restaurant.class);
-//                    }
-//                    isCheck = true;
-//                }
-//            }
-//        });
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -174,25 +144,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
         }
-//        LatLng local = new LatLng(latc.get(0),latc.get(1));
-//        mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
-//        CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).build();
-//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(ress));
-//        LatLng local = new LatLng(latc.get(0),latc.get(1));
-//        mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));
-//        CameraPosition ress = new CameraPosition.Builder().target(local).zoom(17).bearing(90).tilt(90).build();
+        else{
+
+            LatLng Point = new LatLng(25.0337,121.431);
+            CameraPosition Point1 = new CameraPosition.Builder().target(Point).zoom(15).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(Point1));
 
 
+        }
 
-
-
-//        LatLng Taipei101 = new LatLng(25.033611,121.56500);
-//        zoom = 17;
-//        mMap.addMarker(new MarkerOptions().position(Taipei101).title("Taipei101").snippet("a205238@gmail.com來過!").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Taipei101,zoom));
-//
-//        LatLng Myhome = new LatLng(25.033705,121.431425);
-//        mMap.addMarker(new MarkerOptions().position(Myhome).title("Myhome").icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
 
         requestPermission();
     }
@@ -201,6 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (Build.VERSION.SDK_INT >= 23) {
             int hasPermission = ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION);
+
 
             if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{
@@ -232,6 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void setMyLocation() throws SecurityException {
         mMap.setMyLocationEnabled(true);
+
     }
 
 
