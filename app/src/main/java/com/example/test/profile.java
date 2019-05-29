@@ -76,6 +76,9 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     private ArrayList<String> restaurantList;
     private List<Restaurant> RestaurantList;
     private RestaurantListAdapter RestaurantListAdapter;
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +105,9 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
         latc = new ArrayList<>();
+        lat6 = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
 //        設定USER_ID
         Intent intent = this.getIntent();
 //        final String userId = intent.getStringExtra("user_id");
@@ -174,6 +180,9 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("lat4",lat4);
                     intent.putExtra("latc",latc);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }

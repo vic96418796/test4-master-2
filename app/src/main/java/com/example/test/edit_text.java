@@ -65,6 +65,7 @@ public class edit_text extends AppCompatActivity {
     private ArrayList<String> num;
     private ArrayList<Double> lat1;
     private ArrayList<String> lat5;
+    private ArrayList<Double>lat6;
     private Restaurant restaurant;
     private String userId;
     private ArrayList<String> lat11;
@@ -78,6 +79,8 @@ public class edit_text extends AppCompatActivity {
     private ArrayList<String> friendlist2;
     private ArrayList<String> restaurantList1;
     private ArrayList<Double> lat4;
+    private ArrayList<String> namelst12;
+    private ArrayList<String>namelst123;
     ArrayList<String> friendlist1;
     private ArrayList<Double> latc;
     LabelAdapter labelAdapter;
@@ -88,6 +91,7 @@ public class edit_text extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_text);
         lat4 = new ArrayList<>();
+
         lat = new ArrayList<>();
         lat5 = new ArrayList<>();
         namelst = new ArrayList<>();
@@ -109,6 +113,9 @@ public class edit_text extends AppCompatActivity {
         lat3 = new ArrayList<>();
         latc = new ArrayList<>();
         label = new ArrayList<>();
+        lat6 = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -152,8 +159,7 @@ public class edit_text extends AppCompatActivity {
                         lat.add(restaurant.getRestaurant_long());
                         namelst.add(restaurant.getRestaurant_name());
                         num.add(restaurant.getRestaurant_phone());
-                        restaurant2.add(restaurant_id);//                        Log.d(TAG,"finaldc: "+restaurant_id);
-
+                        restaurant2.add(restaurant_id);
                     }
                 }
             }
@@ -192,6 +198,9 @@ public class edit_text extends AppCompatActivity {
                     intent.putExtra("lat3", lat3);
                     intent.putExtra("lat4", lat4);
                     intent.putExtra("latc", latc);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }
@@ -224,6 +233,18 @@ public class edit_text extends AppCompatActivity {
             for (Restaurant object : list) {
                 if (object.getRestaurant_name().toLowerCase().contains(tag.toLowerCase()) || object.getRestaurant_tags().toLowerCase().contains(tag.toLowerCase())) {
                     myList.add(object);
+                }
+                if (object.getRestaurant_name().toLowerCase().contains(tag.toLowerCase()) || object.getRestaurant_tags().toLowerCase().contains(tag.toLowerCase())) {
+                    lat6.add(object.getRestaurant_lat());
+                }
+                if (object.getRestaurant_name().toLowerCase().contains(tag.toLowerCase()) || object.getRestaurant_tags().toLowerCase().contains(tag.toLowerCase())) {
+                    lat6.add(object.getRestaurant_long());
+                }
+                if (object.getRestaurant_name().toLowerCase().contains(tag.toLowerCase()) || object.getRestaurant_tags().toLowerCase().contains(tag.toLowerCase())) {
+                    namelst12.add(object.getRestaurant_name());
+                }
+                if (object.getRestaurant_name().toLowerCase().contains(tag.toLowerCase()) || object.getRestaurant_tags().toLowerCase().contains(tag.toLowerCase())) {
+                    namelst123.add(object.getRestaurant_phone());
                 }
             }
             RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this, myList);

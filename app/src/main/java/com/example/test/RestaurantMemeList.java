@@ -53,9 +53,25 @@ public class RestaurantMemeList extends AppCompatActivity {
     private ArrayList<String> namelst;
     private ArrayList<String> num;
     private ArrayList<Double> lat1;
+    private ArrayList<Double> latc;
     private Restaurant restaurant;
     private String restaurantId;
     private String userEmail;
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
+    private ArrayList<String>lat5;
+    private ArrayList<String>lat11;
+    private ArrayList<Double>lat2;
+    private ArrayList<String>clat;
+    private ArrayList<Double>lat3;
+    private ArrayList<String>useridd;
+    private ArrayList<String>userid2;
+    private ArrayList<String>record;
+    private ArrayList<String>restaurant2;
+    private ArrayList<String>friendlist2;
+    private ArrayList<String>restaurantList1;
+    private ArrayList<Double>lat4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +88,22 @@ public class RestaurantMemeList extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
+        lat4 = new ArrayList<>();
+        lat5 = new ArrayList<>();
+        lat11 = new ArrayList<>();
+        restaurant2 = new ArrayList<>();
+        clat = new ArrayList<>();
+        lat2 = new ArrayList<>();
+        useridd = new ArrayList<>();
+        userid2 = new ArrayList<>();
+        record = new ArrayList<>();
+        friendlist2 = new ArrayList<>();
+        restaurantList1 = new ArrayList<>();
+        lat3 = new ArrayList<>();
+        latc = new ArrayList<>();
+        lat6 = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
         Intent intent = getIntent();
         restaurantId = intent.getStringExtra("restaurantId");
         Log.d(TAG, "restaurantId: " + restaurantId);
@@ -152,6 +184,14 @@ public class RestaurantMemeList extends AppCompatActivity {
                     intent.putExtra("namelst", namelst);
                     intent.putExtra("num", num);
                     intent.putExtra("lat1", lat1);
+                    intent.putExtra("restaurantList1",restaurantList1);
+                    intent.putExtra("clat",clat);
+                    intent.putExtra("lat3",lat3);
+                    intent.putExtra("lat4",lat4);
+                    intent.putExtra("latc",latc);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }

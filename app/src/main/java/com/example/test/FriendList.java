@@ -46,12 +46,16 @@ public class FriendList extends AppCompatActivity {
     private ArrayList<String>restaurantList1;
     private User user;
     private ArrayList<String>useridd;
-
     private ArrayList<Integer>record;
     private ArrayList<String>userid2;
     private ArrayList<Double>lat2;
-
-
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
+    ArrayList<Double>lat3;
+    ArrayList<Double>lat4;
+    ArrayList<Double>clat;
+    ArrayList<Double>latc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,14 @@ public class FriendList extends AppCompatActivity {
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
         lat2 = new ArrayList<>();
+        lat4 = new ArrayList<>();
+        lat3 = new ArrayList<>();
+        clat = new ArrayList<>();
+        lat6 = new ArrayList<>();
+        latc = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        restaurantList1 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
@@ -238,6 +250,14 @@ public class FriendList extends AppCompatActivity {
                     intent.putExtra("namelst",namelst);
                     intent.putExtra("num",num);
                     intent.putExtra("lat1",lat1);
+                    intent.putExtra("restaurantList1",restaurantList1);
+                    intent.putExtra("clat",clat);
+                    intent.putExtra("lat3",lat3);
+                    intent.putExtra("lat4",lat4);
+                    intent.putExtra("latc",latc);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }

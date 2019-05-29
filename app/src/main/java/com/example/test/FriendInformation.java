@@ -71,6 +71,9 @@ public class FriendInformation extends AppCompatActivity {
     private ArrayList<Double>lat4;
     private ArrayList<Double> latc;
     ArrayList<String>friendlist1;
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +103,9 @@ public class FriendInformation extends AppCompatActivity {
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
         latc = new ArrayList<>();
+        lat6 = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
         Intent intent = this.getIntent();//取得傳遞過來的資料
         String friendId = intent.getStringExtra("FriendId");
         friend_name=(TextView)findViewById(R.id.user_name_profile);
@@ -426,6 +432,9 @@ public class FriendInformation extends AppCompatActivity {
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("lat4",lat4);
                     intent.putExtra("latc",latc);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }

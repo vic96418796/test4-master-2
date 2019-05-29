@@ -46,6 +46,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<String>clat;
     ArrayList<Double>lat4;
     ArrayList<Double>latc;
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lat3 = (ArrayList<Double>) getIntent().getSerializableExtra("lat3");
         lat4 = new ArrayList<>();
         lat4 = (ArrayList<Double>) getIntent().getSerializableExtra("lat4");
+        lat6 = new ArrayList<>();
+        lat6 = (ArrayList<Double>) getIntent().getSerializableExtra("lat6");
+        namelst12 = new ArrayList<>();
+        namelst12 = (ArrayList<String>) getIntent().getSerializableExtra("namelst12");
+        namelst123 = new ArrayList<>();
+        namelst123 = (ArrayList<String>) getIntent().getSerializableExtra("namelst123");
+
         for(int i =0;i<lat.size();i++){
             Log.d(TAG,"lat: "+lat.get(i));
         }
@@ -115,12 +125,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int yy = 0;
         int yyy = 0;
         int yyyy = 0;
+        int yyyyy = 0;
         //全部餐廳
-        for (int l = 0;l<=lat.size()/2-1;l++){
-            LatLng res = new LatLng(lat.get(y),lat.get(y+1));
-            y+=2;
-            mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).snippet(num.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+        if (lat6.isEmpty()){
+            for (int l = 0;l<=lat.size()/2-1;l++){
+                LatLng res = new LatLng(lat.get(y),lat.get(y+1));
+                y+=2;
+                mMap.addMarker(new MarkerOptions().position(res).title(namelst.get(l)).snippet(num.get(l)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+            }
         }
+        else{
+            for (int llll=0;llll<=lat6.size()/2-1;llll++){
+                LatLng res = new LatLng(lat6.get(yyyyy),lat6.get(yyyyy+1));
+                yyyyy+=2;
+                mMap.addMarker(new MarkerOptions().position(res).title(namelst12.get(llll)).snippet(namelst123.get(llll)).icon(BitmapDescriptorFactory.fromResource(R.drawable.fotojet)));
+            }
+        }
+
         //個人收藏
         for (int ll = 0;ll<=lat1.size()/2-1;ll++){
             LatLng res = new LatLng(lat1.get(yy),lat1.get(yy+1));
@@ -138,6 +159,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             yyyy+=2;
             mMap.addMarker(new MarkerOptions().position(res).icon(BitmapDescriptorFactory.fromResource(R.drawable.foodiconfriendnew)));
         }
+
         if (!latc.isEmpty()){
             LatLng local = new LatLng(latc.get(0),latc.get(1));
             mMap.addMarker(new MarkerOptions().position(local).icon(BitmapDescriptorFactory.fromResource(R.drawable.fdiconparticular)));

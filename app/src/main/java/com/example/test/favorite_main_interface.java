@@ -62,6 +62,9 @@ public class favorite_main_interface extends AppCompatActivity {
     private ArrayList<Double>latc;
     private ArrayList<String>restaurantList1;
     ArrayList<String>friendlist1;
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +93,9 @@ public class favorite_main_interface extends AppCompatActivity {
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
         lat4 = new ArrayList<>();
-
+        lat6 = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
         RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
 //        RestaurantListAdapter1 = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
         mMainList = (RecyclerView)findViewById(R.id.recyclerView_restaurant);
@@ -326,6 +331,9 @@ public class favorite_main_interface extends AppCompatActivity {
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("lat4",lat4);
                     intent.putExtra("latc",latc);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }

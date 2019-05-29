@@ -65,6 +65,9 @@ public class RestaurantInformation extends AppCompatActivity {
     private ArrayList<String>friendlist2;
     private ArrayList<String>restaurantList1;
     ArrayList<String>friendlist1;
+    ArrayList<Double>lat6;
+    ArrayList<String>namelst12;
+    ArrayList<String>namelst123;
 
 
 
@@ -86,7 +89,9 @@ public class RestaurantInformation extends AppCompatActivity {
         friendlist2 = new ArrayList<>();
         restaurantList1 = new ArrayList<>();
         clat = new ArrayList<>();
-
+        lat6 = new ArrayList<>();
+        namelst12 = new ArrayList<>();
+        namelst123 = new ArrayList<>();
 
 
 
@@ -196,6 +201,9 @@ public class RestaurantInformation extends AppCompatActivity {
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("restaurantList1",restaurantList1);
                     intent.putExtra("clat",clat);
+                    intent.putExtra("lat6",lat6);
+                    intent.putExtra("namelst12",namelst12);
+                    intent.putExtra("namelst123",namelst123);
                     startActivity(intent);
                     return true;
                 }
