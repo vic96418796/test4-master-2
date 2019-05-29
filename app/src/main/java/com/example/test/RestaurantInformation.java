@@ -90,7 +90,6 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantList1 = new ArrayList<>();
         lat3 = new ArrayList<>();
         lat4 = new ArrayList<>();
-
         restaurantName=(TextView)findViewById(R.id.restaurant_name);
         restaurantAdd=(TextView)findViewById(R.id.restaurant_add);
         restaurantPhone=(TextView) findViewById(R.id.restaurant_phone);
@@ -99,7 +98,6 @@ public class RestaurantInformation extends AppCompatActivity {
         restaurantFB=(TextView) findViewById(R.id.restaurant_fb);
         restaurantIG=(TextView) findViewById(R.id.restaurant_ig);
         restaurantGOOGLE=(TextView) findViewById(R.id.restaurant_google);
-
         Intent intent = this.getIntent();//取得傳遞過來的資料
         final String restaurantId = intent.getStringExtra("RestaurantId");
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("Restaurant").document(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

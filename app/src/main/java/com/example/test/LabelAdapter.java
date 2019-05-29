@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,21 +19,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
-public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
+public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> {
     private static final String TAG = "TEST";
     public FirebaseFirestore db;
-    public List<Friend> FriendList;
+    public List<Label> label;
+    public List<Label> edit_text;
     public Context context;
     private FirebaseAuth auth;
     private String userId;
-    private ImageView friend_image;
-    public FriendListAdapter(Context applicationContext, List<Friend> FriendList) {
-        this.FriendList = FriendList;
+    public LabelAdapter(Context applicationContext, List<Label> edit_text) {
+        this.edit_text = edit_text;
         this.context = context;
+        this.label = label;
     }
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_cardview, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_label_cardview, parent,false);
         auth = FirebaseAuth.getInstance();
         userId = auth.getCurrentUser().getUid();
         db = FirebaseFirestore.getInstance();
@@ -40,41 +42,32 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final String friend_id = FriendList.get(position).friendId;
-        String Image =FriendList.get(position).getFriend_image();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference picReference = storageReference.child("Friend/"+Image);
-        Glide.with(holder.friend_image.getContext())
-                .using(new FirebaseImageLoader())
-                .load(picReference)
-                .into(holder.friend_image);
-        holder.friend_id.setText(FriendList.get(position).getFriend_id());
+        final String label_tags = edit_text.get(position).labelId;
+        holder.label.setText(edit_text.get(position).getLabel_tags());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent();
-                intent.setClass(context,FriendInformation.class);
-                intent.putExtra("FriendId", friend_id);
-                Log.d(TAG,"Id: "+friend_id);
-                context.startActivity(intent);
+//                做那個篩選的動作
+//                Context context = v.getContext();
+//                Intent intent = new Intent();
+//                intent.setClass(context,FriendInformation.class);
+//                intent.putExtra("FriendId", friend_id);
+//                Log.d(TAG,"Id: "+friend_id);
+//                context.startActivity(intent);
             }
         });
     }
     @Override
     public int getItemCount() {
-        return FriendList.size();
+        return edit_text.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        public TextView friend_id;
-        public ImageView friend_image;
+        public Button label;
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            friend_image = (ImageView)mView.findViewById(R.id.friend_image);
-            friend_id = (TextView)mView.findViewById(R.id.friend_id);
-            friend_image = (ImageView)mView.findViewById(R.id.friend_image);
+            label = (Button)mView.findViewById(R.id.label);
         }
     }
 }

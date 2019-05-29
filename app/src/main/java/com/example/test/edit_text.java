@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -36,8 +37,9 @@ import java.util.ArrayList;
 
 public class edit_text extends AppCompatActivity {
     DatabaseReference ref;
-
-    RecyclerView recyclerView;
+    RecyclerView recyclerView1;
+    RecyclerView recyclerView2;
+    ArrayList<Label> label;
     ArrayList<Restaurant> list;
     SearchView searchView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -100,7 +102,8 @@ public class edit_text extends AppCompatActivity {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigation_view = (NavigationView) findViewById(R.id.nav_view);
         ref = FirebaseDatabase.getInstance().getReference("resturant");
-        recyclerView = findViewById(R.id.rv);
+        recyclerView1 = findViewById(R.id.rv_zi);
+        recyclerView2 = findViewById(R.id.rv_hen);
         searchView = findViewById(R.id.searchView);
         navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -140,10 +143,6 @@ public class edit_text extends AppCompatActivity {
             }
         });
     }
-
-
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -162,6 +161,7 @@ public class edit_text extends AppCompatActivity {
                         // Log.d(TAG, "Error :" + e.getMessage());
                     } else {
                         list = new ArrayList<>();
+                        label = new ArrayList<>();
                         for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                 String restaurant_id = doc.getDocument().getId();
@@ -169,8 +169,10 @@ public class edit_text extends AppCompatActivity {
                                 list.add(restaurant);
                             }
                         }
+                        LabelAdapter LabelAdapter = new LabelAdapter(edit_text.this,label);
                         RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this,list);
-                        recyclerView.setAdapter(adapterClass);
+                        recyclerView1.setAdapter(adapterClass);
+                        recyclerView2.setAdapter(LabelAdapter);
                     }
                 }
             });
@@ -199,6 +201,6 @@ public class edit_text extends AppCompatActivity {
             }
         }
         RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this,myList);
-        recyclerView.setAdapter(adapterClass);
+        recyclerView1.setAdapter(adapterClass);
     }
 }
