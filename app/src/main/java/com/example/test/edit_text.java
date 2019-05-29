@@ -8,6 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.recyclerview.extensions.ListAdapter;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +17,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,15 +36,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class edit_text extends AppCompatActivity {
     DatabaseReference ref;
-
-    RecyclerView recyclerView;
+    RecyclerView recyclerView1;
+    RecyclerView recyclerView2;
+    private List<Restaurant> RestaurantList;
+    private RestaurantListAdapter RestaurantListAdapter;
+    ArrayList<Label> label;
     ArrayList<Restaurant> list;
     SearchView searchView;
+    private FirebaseAuth auth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawer;
     private NavigationView navigation_view;
@@ -63,8 +72,7 @@ public class edit_text extends AppCompatActivity {
     private ArrayList<String>restaurantList1;
     private ArrayList<Double>lat4;
     ArrayList<String>friendlist1;
-
-
+    private ArrayList<Double> latc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +83,6 @@ public class edit_text extends AppCompatActivity {
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
-        lat = new ArrayList<>();
         lat11 = new ArrayList<>();
         restaurant2 = new ArrayList<>();
         clat = new ArrayList<>();
@@ -90,6 +97,51 @@ public class edit_text extends AppCompatActivity {
         restaurantList1 = new ArrayList<>();
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
+        latc = new ArrayList<>();
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userId = auth.getCurrentUser().getUid();
+        RestaurantList = new ArrayList<>();
+        RestaurantListAdapter = new RestaurantListAdapter(getApplicationContext(),RestaurantList);
+        recyclerView1 = (RecyclerView) findViewById(R.id.rv_hen);
+        recyclerView1.setHasFixedSize(true);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView1.setAdapter(RestaurantListAdapter);
+        final String currentUserID = auth.getCurrentUser().getUid();
+        db.collection("Restaurant").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                if (e != null) {
+//                    Log.d(TAG, "Error :" + e.getMessage());
+                } else {
+                    for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+                            String restaurant_id = doc.getDocument().getId();
+                            Restaurant restaurant = doc.getDocument().toObject(Restaurant.class).withId(restaurant_id);
+                            RestaurantList.add(restaurant);
+                            RestaurantListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+        });
+        db.collection("Restaurant").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        restaurant = documentSnapshot.toObject(Restaurant.class);
+                        String restaurant_id = documentSnapshot.getId();
+                        lat.add(restaurant.getRestaurant_lat());
+                        lat.add(restaurant.getRestaurant_long());
+                        namelst.add(restaurant.getRestaurant_name());
+                        num.add(restaurant.getRestaurant_phone());
+                        restaurant2.add(restaurant_id);//                        Log.d(TAG,"finaldc: "+restaurant_id);
+
+                    }
+                }
+            }
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -100,7 +152,8 @@ public class edit_text extends AppCompatActivity {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigation_view = (NavigationView) findViewById(R.id.nav_view);
         ref = FirebaseDatabase.getInstance().getReference("resturant");
-        recyclerView = findViewById(R.id.rv);
+        recyclerView1 = findViewById(R.id.rv_zi);
+        recyclerView2 = findViewById(R.id.rv_hen);
         searchView = findViewById(R.id.searchView);
         navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -123,6 +176,7 @@ public class edit_text extends AppCompatActivity {
                     intent.putExtra("clat",clat);
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("lat4",lat4);
+                    intent.putExtra("latc",latc);
                     startActivity(intent);
                     return true;
                 }
@@ -140,10 +194,6 @@ public class edit_text extends AppCompatActivity {
             }
         });
     }
-
-
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -162,6 +212,7 @@ public class edit_text extends AppCompatActivity {
                         // Log.d(TAG, "Error :" + e.getMessage());
                     } else {
                         list = new ArrayList<>();
+                        label = new ArrayList<>();
                         for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
                                 String restaurant_id = doc.getDocument().getId();
@@ -169,8 +220,10 @@ public class edit_text extends AppCompatActivity {
                                 list.add(restaurant);
                             }
                         }
+                        LabelAdapter LabelAdapter = new LabelAdapter(edit_text.this,label);
                         RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this,list);
-                        recyclerView.setAdapter(adapterClass);
+                        recyclerView1.setAdapter(adapterClass);
+                        recyclerView2.setAdapter(LabelAdapter);
                     }
                 }
             });
@@ -199,6 +252,6 @@ public class edit_text extends AppCompatActivity {
             }
         }
         RestaurantListAdapter adapterClass = new RestaurantListAdapter(edit_text.this,myList);
-        recyclerView.setAdapter(adapterClass);
+        recyclerView1.setAdapter(adapterClass);
     }
 }

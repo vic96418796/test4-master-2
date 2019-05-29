@@ -15,6 +15,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class FriendInformation extends AppCompatActivity {
     private ArrayList<String>friendlist2;
     private ArrayList<String>restaurantList1;
     private ArrayList<Double>lat4;
+    private ArrayList<Double> latc;
     ArrayList<String>friendlist1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,7 @@ public class FriendInformation extends AppCompatActivity {
         restaurantList1 = new ArrayList<>();
         lat1 = new ArrayList<>();
         lat3 = new ArrayList<>();
+        latc = new ArrayList<>();
         Intent intent = this.getIntent();//取得傳遞過來的資料
         String friendId = intent.getStringExtra("FriendId");
         friend_name=(TextView)findViewById(R.id.user_name_profile);
@@ -422,6 +425,7 @@ public class FriendInformation extends AppCompatActivity {
                     intent.putExtra("clat",clat);
                     intent.putExtra("lat3",lat3);
                     intent.putExtra("lat4",lat4);
+                    intent.putExtra("latc",latc);
                     startActivity(intent);
                     return true;
                 }

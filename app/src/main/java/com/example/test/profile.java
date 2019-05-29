@@ -66,13 +66,15 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+        auth = FirebaseAuth.getInstance();
         lat = new ArrayList<>();
         namelst = new ArrayList<>();
         num = new ArrayList<>();
         lat1 = new ArrayList<>();
 //        設定USER_ID
         Intent intent = this.getIntent();
-        userId = intent.getStringExtra("user_id");
+//        final String userId = intent.getStringExtra("user_id");
+        userId = auth.getCurrentUser().getUid();
         Log.d(TAG,"userId: "+userId);
         Task<DocumentSnapshot> documentSnapshotTask = db.collection("User").document(userId)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

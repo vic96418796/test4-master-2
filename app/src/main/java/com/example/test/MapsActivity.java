@@ -31,6 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = "MapsActivity";
     private RestaurantListAdapter RestaurantListAdapter;
 
+
     Restaurant restaurant = new Restaurant();
     private GoogleMap mMap;
     float zoom;

@@ -205,7 +205,7 @@ public class RestaurantInformation extends AppCompatActivity {
                     return true;
                 }
                 if (id == R.id.nav_restaurant) {
-                    Intent intent = new Intent( RestaurantInformation.this,RestaurantList.class);
+                    Intent intent = new Intent( RestaurantInformation.this,edit_text.class);
                     startActivity(intent);
                     return true;
                 }
