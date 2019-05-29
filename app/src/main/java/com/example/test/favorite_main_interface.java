@@ -331,6 +331,7 @@ public class favorite_main_interface extends AppCompatActivity {
                 }
                 if (id == R.id.nav_restaurant) {
                     Intent intent = new Intent( favorite_main_interface.this,edit_text.class);
+                    intent.putExtra("lat",lat);
                     startActivity(intent);
                     return true;
                 }
