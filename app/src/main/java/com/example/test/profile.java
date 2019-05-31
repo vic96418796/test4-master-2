@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -220,6 +222,31 @@ public class profile extends AppCompatActivity implements set_profile.set_profil
                         .show();
             }
         });
+//        final Button use = findViewById(R.id.use);
+//        use.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new AlertDialog.Builder(profile.this)
+//                        .setView(inflate(R.layout.icon, null))
+//                        // Add action buttons
+//                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // sign in the user ...
+//                            }
+//                        });
+//                new AlertDialog.Builder(profile.this)
+//                        .setIcon(R.mipmap.ic_launcher)
+//                        .setTitle("使用說明")
+//                        .setMessage(R.drawable.fotojet)
+//                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                            }
+//                        })
+//                        .show();
+//            }
+//        });
         textViewUsername = (TextView) findViewById(R.id.user_name_profile);
         user_email = (TextView) findViewById(R.id.user_id);
         user_image = (ImageView) findViewById(R.id.user_image);

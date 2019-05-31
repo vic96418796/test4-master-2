@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_shape"
-        android:text="    Facebook 登入   "
+        android:text="    Facebook 註冊   "
         android:textAllCaps="false"
 
         android:textColor="#EE6C48"
