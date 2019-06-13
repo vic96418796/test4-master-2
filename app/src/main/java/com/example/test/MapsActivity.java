@@ -168,7 +168,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         else{
 
-            LatLng Point = new LatLng(25.0337,121.431);
+            LatLng Point = new LatLng(25.039992, 121.431089);
             CameraPosition Point1 = new CameraPosition.Builder().target(Point).zoom(15).build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(Point1));
 
